@@ -161,7 +161,7 @@ const MEM={loops:0,stopped:0};try{Object.assign(MEM,JSON.parse(localStorage.getI
 function saveMem(){try{localStorage.setItem('almostthere_mem',JSON.stringify(MEM));}catch(_){}}
 let GLITCH=0;
 const LANG=SET.lang==='tr'?'tr':'en';
-const TRD={"Make coffee.": "Kahve yap.", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ"};
+const TRD={"Make coffee.": "Kahve yap.", "Sit on the couch": "Koltuğa otur", "Throw": "Fırlat", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ"};
 const TRP={"milk|bread|eggs|juice (the yellow one)|batteries for the|  music box||call insurance back|call her mother back||DO NOT drive at night": ["süt", "ekmek", "yumurta", "meyve suyu (sarı olan)", "müzik kutusu için", "  pil", "", "sigortayı geri ara", "annesini geri ara", "", "GECE araba KULLANMA"], "RE: CLAIM #0317||Dear Sir,||We are unable to process|your claim until the|second passenger has been|identified.||Our records show only one|passenger was travelling.|Please advise.": ["KONU: HASAR #0317", "", "Sayın Bay,", "", "İkinci yolcunun kimliği", "belirlenene kadar", "talebinizi işleme", "alamıyoruz.", "", "Kayıtlarımıza göre araçta", "yalnızca bir yolcu vardı.", "Lütfen bilgi veriniz."], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: conscious at scene.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI", "", "Saat: 03:17", "Araç şeridinden çıktı.", "Fren izi yok.", "", "Sürücü: bilinci açık.", "\"az kaldı\" diye tekrarlıyor.", "", "Kurtarılan yolcu: 1", "Arka çocuk koltuğu: boş.", "Kemer takılı.", "", "Memur: ##########"], "I'm taking her to my|mother's tonight.||Don't follow us.|Don't call.||You haven't slept in|four days.||Please. Just rest.||": ["Onu bu gece annemin", "yanına götürüyorum.", "", "Peşimizden gelme.", "Arama.", "", "Dört gündür", "uyumadın.", "", "Lütfen. Sadece dinlen.", "", ""], "ROOM 317||Visiting hours ended|at 21:00.||Family may stay.||#########|#####": ["ODA 317", "", "Ziyaret saati", "21:00'de bitti.", "", "Aile kalabilir.", "", "#########", "#####"]};
 function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return TRD[t];let m;if((m=/^MESSAGE (\d+)$/.exec(t)))return 'MESAJ '+m[1];if((m=/^it is (.+)\.$/.exec(t)))return 'saat '+m[1]+'.';return t;}
 {const sb=document.getElementById('setBtn'),sc=document.getElementById('settings');
@@ -330,6 +330,8 @@ const viewDraw=fig=>(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addCol
   g.fillStyle='#4a3a2c';g.fillRect(0,0,w,2);g.fillRect(0,h-2,w,2);g.fillRect(0,0,2,h);g.fillRect(w-2,0,2,h);g.fillRect(w/2-1,0,2,h);g.fillRect(0,h*.45,w,2);};
 TX.view=tex(64,64,viewDraw(false),false);TX.viewFig=tex(64,64,viewDraw(true),false);
 TX.ball=tex(32,16,(g,w,h)=>{g.fillStyle='#c42a22';g.fillRect(0,0,w,h);g.fillStyle='#f0ece0';g.fillRect(0,5,w,6);g.fillStyle='#2a4ea8';for(let x=0;x<w;x+=8)g.fillRect(x,6,4,4);g.fillStyle='#e8c030';g.fillRect(0,0,w,1);g.fillRect(0,h-1,w,1);},false);
+TX.rugL=tex(64,48,(g,w,h)=>{g.fillStyle='#6a2a26';g.fillRect(0,0,w,h);g.strokeStyle='#c8a870';g.lineWidth=2;g.strokeRect(3,3,w-6,h-6);g.strokeStyle='#2a2a40';g.strokeRect(7,7,w-14,h-14);
+  g.fillStyle='#c8a870';for(let i=0;i<5;i++){g.beginPath();g.moveTo(w/2,10+i*6);g.lineTo(w/2+8,14+i*6);g.lineTo(w/2,18+i*6);g.lineTo(w/2-8,14+i*6);g.fill();}speckle(g,w,h,.12,57);},false);
 TX.window=tex(32,32,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#d6dadd');gr.addColorStop(1,'#9aa2a8');g.fillStyle=gr;g.fillRect(0,0,w,h);
   g.fillStyle='rgba(255,255,255,.2)';for(let i=0;i<6;i++)g.fillRect(3+i*5,6+(i%3)*7,1,5);g.fillStyle='#4a3a2c';g.fillRect(0,0,w,2);g.fillRect(0,h-2,w,2);g.fillRect(0,0,2,h);g.fillRect(w-2,0,2,h);g.fillRect(15,0,2,h);g.fillRect(0,15,w,2);},false);
 TX.sign1=tex(128,64,(g,w,h)=>{base(g,w,h,'#1d5636');g.strokeStyle='#d8dccf';g.lineWidth=2;g.strokeRect(3,3,122,58);g.fillStyle='#e2e4da';g.font='bold 15px monospace';g.textAlign='center';
@@ -415,21 +417,26 @@ function bloodText(lines,wm,hm,seed){lines=lines.map(_t);
   const lh=Hh/lines.length;let size=lh*.78;m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;
   const widest=Math.max(...lines.map(l=>m.measureText(l).width));size=Math.min(size,size*W*.9/widest);
   lines.forEach((ln,li)=>{m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;const tw=m.measureText(ln).width;let x=(W-tw)/2+(r()-.5)*W*.03;const y=lh*li+lh*.5+size*.36;
-    for(const ch of ln){const cw=m.measureText(ch).width;m.save();m.translate(x+cw/2,y);m.rotate((r()-.5)*.22);m.scale(1+(r()-.5)*.15,1+(r()-.5)*.2);m.lineWidth=size*.11;
-      m.fillText(ch,-cw/2,(r()-.5)*size*.1);m.strokeText(ch,-cw/2+(r()-.5)*2,(r()-.5)*size*.1);m.restore();x+=cw*(.9+r()*.14);}});
+    for(const ch of ln){const cw=m.measureText(ch).width;m.save();m.translate(x+cw/2,y);m.rotate((r()-.5)*.1);m.scale(1+(r()-.5)*.06,1+(r()-.5)*.1);m.lineWidth=size*.11;
+      const jy=(r()-.5)*size*.05;m.fillText(ch,-cw/2,jy);m.strokeText(ch,-cw/2,jy);m.restore();x+=cw*(1.02+r()*.05);}});
   const md=m.getImageData(0,0,W,Hh).data;const out=m.createImageData(W,Hh),o=out.data;
   const put=(x,y,cr,cg,cb)=>{if(x<0||y<0||x>=W||y>=Hh)return;const i=(y*W+x)*4;o[i]=cr;o[i+1]=cg;o[i+2]=cb;o[i+3]=255;};
   const blood=(x,y,k=1)=>{const v=.78+r()*.22;put(x,y,(185*v)*k|0,(14*v)|0,(10*v)|0);};
   const isM=(x,y)=>x>=0&&y>=0&&x<W&&y<Hh&&md[(y*W+x)*4]>110;
   for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){if(!isM(x,y))continue;
     const edge=!isM(x-2,y)||!isM(x+2,y)||!isM(x,y-2)||!isM(x,y+2);
-    if(edge&&r()<.07)continue;
-    blood(x,y,edge?.75:1);
-    if(r()<.012){const dir=r()<.5?-1:1,L=4+r()*28;for(let k=1;k<L;k++){if(r()<1-k/L)blood(x+dir*k,y+(r()<.2?1:0),.8);}}}
+    blood(x,y,edge?.8:1);
+    if(r()<.003){const dir=r()<.5?-1:1,L=4+r()*28;for(let k=1;k<L;k++){if(r()<1-k/L)blood(x+dir*k,y+(r()<.2?1:0),.8);}}}
   for(let x=0;x<W;x++){let inRun=false;for(let y=0;y<Hh;y++){const mm=isM(x,y);if(mm)inRun=true;else if(inRun){inRun=false;
-    if(r()<.07){const L=6+r()*Hh*.55,wd=1+(r()*2|0);for(let k=0;k<L&&y+k<Hh;k++)for(let q=0;q<wd;q++)blood(x+q,y+k,.85);const by=Math.min(Hh-2,y+L|0);for(let a=-2;a<=2;a++)for(let b2=-1;b2<=2;b2++)if(a*a+b2*b2<5)blood(x+a,by+b2,.8);}}}}
-  for(let i=0;i<W*.25;i++){const x=r()*W|0,y=r()*Hh|0,rr=r()<.85?1:2+(r()*2|0);for(let a=-rr;a<=rr;a++)for(let b2=-rr;b2<=rr;b2++)if(a*a+b2*b2<=rr*rr)blood(x+a,y+b2,.9);}
+    if(r()<.035){const L=4+r()*Hh/lines.length*.32,wd=1+(r()*2|0);for(let k=0;k<L&&y+k<Hh;k++)for(let q=0;q<wd;q++)blood(x+q,y+k,.85);const by=Math.min(Hh-2,y+L|0);for(let a=-2;a<=2;a++)for(let b2=-1;b2<=2;b2++)if(a*a+b2*b2<5)blood(x+a,by+b2,.8);}}}}
+  for(let i=0;i<W*.05;i++){const x=r()*W|0,y=r()*Hh|0,rr=r()<.85?1:2+(r()*2|0);for(let a=-rr;a<=rr;a++)for(let b2=-rr;b2<=rr;b2++)if(a*a+b2*b2<=rr*rr)blood(x+a,y+b2,.9);}
   for(let i=0;i<W*Hh*.004;i++){const x=r()*W|0,y=r()*Hh|0;if(isM(x,y))put(x,y,190,40,32);}
+  // a dark crust around each letter so it reads against the wall
+  {const rim=Math.max(2,Math.round(W/260)),M=new Uint8Array(W*Hh),T=new Uint8Array(W*Hh);for(let i=0;i<W*Hh;i++)M[i]=md[i*4]>110?1:0;
+    for(let y=0;y<Hh;y++){let run=-1e9;for(let x=0;x<W;x++){if(M[y*W+x])run=x;if(x-run<=rim)T[y*W+x]=1;}run=1e9;for(let x=W-1;x>=0;x--){if(M[y*W+x])run=x;if(run-x<=rim)T[y*W+x]=1;}}
+    for(let x=0;x<W;x++){let run=-1e9;for(let y=0;y<Hh;y++){if(T[y*W+x]&&!(y>0&&T[(y-1)*W+x]&&run===y-1))run=T[y*W+x]?y:run;}}
+    const V=new Uint8Array(W*Hh);for(let x=0;x<W;x++){let last=-1e9;for(let y=0;y<Hh;y++){if(T[y*W+x])last=y;if(y-last<=rim)V[y*W+x]=1;}last=1e9;for(let y=Hh-1;y>=0;y--){if(T[y*W+x])last=y;if(last-y<=rim)V[y*W+x]=1;}}
+    for(let i=0;i<W*Hh;i++){if(V[i]&&!M[i]&&o[i*4+3]===0){o[i*4]=38;o[i*4+1]=2;o[i*4+2]=2;o[i*4+3]=255;}}}
   m.putImageData(out,0,0);
   const t=new THREE.CanvasTexture(mc);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t;}
 TX.bloodHands=(()=>{const c=document.createElement('canvas');c.width=c.height=96;const g=c.getContext('2d');const r=rng(320);
@@ -1198,9 +1205,35 @@ const HS=(function(){
     g.position.set(.32,-10,6.25+i*.2);g.userData={h:d[2],table:d[3],target:null,shake:0,i};scene.add(g);return g;});
   const steam=[];for(const m of mugs){for(let k=0;k<3;k++){const s=box(.014,.014,.014,null,0xd8d8d8,{seg:9,em:.5});s.visible=false;s.userData={m,ph:k/3};scene.add(s);steam.push(s);}}
   // living room
-  solid(box(2.2,.45,.9,TX.fabric,0x6a5444,{pos:[8.3,.225,3.55]}));
-  add(box(2.2,.5,.2,TX.fabric,0x6a5444,{pos:[8.3,.7,3.15]}));
-  add(box(.2,.25,.9,TX.fabric,0x5a4434,{seg:9,pos:[7.2,.55,3.55]}));add(box(.2,.25,.9,TX.fabric,0x5a4434,{seg:9,pos:[9.4,.55,3.55]}));
+  const LIV=[];const liv=(m,sol)=>{if(sol){const n=cols.length;solid(m);if(cols.length>n)m.userData.col=cols[cols.length-1];}else add(m);LIV.push(m);return m;};
+  const sofaSeat=liv(box(2.2,.45,.9,TX.fabric,0x6a5444,{pos:[8.3,.225,3.55]}),true);
+  liv(box(2.2,.5,.2,TX.fabric,0x6a5444,{pos:[8.3,.7,3.15]}));
+  liv(box(.2,.25,.9,TX.fabric,0x5a4434,{seg:9,pos:[7.2,.55,3.55]}));liv(box(.2,.25,.9,TX.fabric,0x5a4434,{seg:9,pos:[9.4,.55,3.55]}));
+  const cushL=liv(box(1.0,.1,.7,TX.fabric,0x7a6250,{seg:9,pos:[7.75,.5,3.62]})),cushR=liv(box(1.0,.1,.7,TX.fabric,0x7a6250,{seg:9,pos:[8.85,.5,3.62]}));
+  liv(box(.45,.35,.14,TX.fabric,0x8a3a30,{seg:9,pos:[7.45,.68,3.32],rot:[-.3,.2,0]}));
+  // rug
+  liv(plane(2.8,2.1,TX.rugL,0xffffff,{fit:true,seg:9,floor:true,pos:[8.3,.006,6.0]}));
+  // coffee table, and what's on it
+  liv(box(1.0,.05,.55,WD,0xa48464,{seg:9,pos:[8.3,.42,5.2]}),true);for(const lx of[7.86,8.74])for(const lz of[4.98,5.42])liv(box(.05,.4,.05,WD,0x8a6a50,{seg:9,pos:[lx,.2,lz]}));
+  liv(box(.24,.012,.3,null,0xc8b8a0,{seg:9,pos:[8.05,.452,5.15],rot:[0,.3,0]}));liv(box(.22,.01,.28,null,0x5a7a9a,{seg:9,pos:[8.09,.462,5.18],rot:[0,.5,0]}));
+  liv(box(.05,.02,.16,null,0x1e1e20,{seg:9,pos:[8.6,.455,5.3],rot:[0,-.4,0]}));
+  liv(cyl(.04,.035,.09,6,null,0xe0b840,{pos:[8.55,.49,5.05]}));
+  // armchair
+  {const g=new THREE.Group();g.add(box(.8,.4,.8,TX.fabric,0x4a5a50,{seg:9,pos:[0,.2,0]}));g.add(box(.8,.55,.18,TX.fabric,0x4a5a50,{seg:9,pos:[0,.67,-.31]}));
+   g.add(box(.16,.22,.8,TX.fabric,0x3e4c44,{seg:9,pos:[-.33,.51,0]}));g.add(box(.16,.22,.8,TX.fabric,0x3e4c44,{seg:9,pos:[.33,.51,0]}));
+   g.position.set(6.35,0,7.3);g.rotation.y=PI/2-.35;liv(g,true);}
+  // side table + lamp
+  liv(box(.42,.5,.42,WD,0x7a5a44,{seg:9,pos:[6.75,.25,3.45]}),true);liv(cyl(.06,.08,.18,6,null,0x8a7a6a,{pos:[6.75,.59,3.45]}));liv(cyl(.1,.16,.2,6,null,0xd8ccb0,{pos:[6.75,.78,3.45]}));
+  // bookshelf
+  {const g=new THREE.Group();g.add(box(1.1,2.0,.32,WD,0x6a4c38,{seg:9,pos:[0,1.0,0]}));const r=rng(55);
+   for(let sh=0;sh<4;sh++){const y=.18+sh*.48;g.add(box(1.02,.03,.3,WD,0x5a3e2c,{seg:9,pos:[0,y,.02]}));let x=-.46;
+     while(x<.4){const bw=.04+r()*.05,bh=.24+r()*.14;g.add(box(bw,bh,.2,null,[0x7a2a24,0x2a4a6a,0x4a6a3a,0xc8b890,0x3a3a3e,0x8a6a2a][r()*6|0],{seg:9,pos:[x+bw/2,y+.015+bh/2,.05]}));x+=bw+.006+(r()<.12?.08:0);}}
+   g.position.set(10.25,0,9.78);liv(g,true);}
+  // a plant that someone used to water
+  {const g=new THREE.Group();g.add(cyl(.17,.13,.36,8,null,0x8a5a3a,{pos:[0,.18,0]}));const r=rng(56);
+   for(let i=0;i<9;i++){const l=new THREE.Mesh(new THREE.SphereGeometry(.13,6,5),mat(null,0x3a5a32));l.position.set((r()-.5)*.3,.45+r()*.45,(r()-.5)*.3);l.scale.set(1,.7+r()*.6,1);g.add(l);}
+   const dl=new THREE.Mesh(new THREE.SphereGeometry(.09,6,5),mat(null,0x6a5a2a));dl.position.set(.2,.36,.1);dl.scale.set(1,.4,1);g.add(dl);
+   g.position.set(6.15,0,9.5);liv(g,true);}
   solid(box(1.1,.6,.45,WD,0x6a5040,{pos:[8.3,.3,9.6]}));
   const tvBody=solid(box(.75,.55,.45,TX.plastic,0x2e2e32,{seg:9,pos:[8.3,.88,9.62]}));
   const tvScreen=add(new THREE.Mesh(new THREE.PlaneGeometry(.6,.44),mat(TX.tv,0xb8c0c8,{em:1,unique:true})));tvScreen.position.set(8.3,.88,9.392);tvScreen.rotation.y=PI;
@@ -1439,7 +1472,10 @@ const HS=(function(){
   inter(faucet,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);inter(stream,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);
   inter(bathDoorIn,()=>S.step==='leavebath'?'Open':null,leaveBath,1.9);
   const bbath=[];
-  {const a=plane(.56,.28,bloodText(['WHO WAS','DRIVING?'],1.12,.56,311),0xffffff,{fit:true,seg:9,em:.4,rotY:PI/2,pos:[X1+.1,1.58,1.6]});a.visible=false;scene.add(a);bbath.push(a);
+  {const full=bloodText(['WHO WAS','DRIVING?'],1.24,.8,311),fc=full.image,dc=document.createElement('canvas');dc.width=fc.width;dc.height=fc.height;const dg=dc.getContext('2d');
+   const rt=new THREE.CanvasTexture(dc);rt.magFilter=rt.minFilter=THREE.NearestFilter;rt.generateMipmaps=false;
+   const a=plane(.62,.4,rt,0xffffff,{fit:true,seg:9,em:.4,rotY:PI/2,pos:[X1+.1,1.62,1.6]});a.visible=false;scene.add(a);bbath.push(a);
+   a.userData.reveal=p=>{dg.clearRect(0,0,dc.width,dc.height);const n=2,rh=dc.height/n;for(let i=0;i<n;i++){const f=clamp(p*n-i,0,1);if(f<=0)break;const h=i===n-1?dc.height-i*rh:rh*1.35;dg.drawImage(fc,0,i*rh,dc.width*f,h,0,i*rh,dc.width*f,h);}rt.needsUpdate=true;};a.userData.reveal(1);
    const b=plane(.8,.55,bloodText(['LET THEM','GO'],1.2,.82,312),0xffffff,{fit:true,seg:9,em:.4,rotY:-PI/2,pos:[X1+2.276,1.45,1.6]});b.visible=false;scene.add(b);bbath.push(b);}
   // the mirror, one second behind
   const mirRT1=new THREE.WebGLRenderTarget(200,250,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});const hist=[];
@@ -1545,11 +1581,16 @@ const HS=(function(){
     await wait(5.4);
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.8);
     S.busy=false;S.step='coffee';setObjective('Make coffee.');},2.2);
+  async function sofaSit(){S.busy=true;S.onSofa=true;await tween({x:8.05,z:3.78,eye:1.05,yaw:PI,pitch:-.05},1.6);S.busy=false;controls.move=false;S.sofaT=0;S.special={label:'Stand up',action:sofaStand};}
+  async function sofaStand(){S.busy=true;await tween({x:8.05,z:4.55,eye:1.6,yaw:S.yaw,pitch:0},1.2);S.busy=false;controls.move=true;S.onSofa=false;}
+  inter(sofaSeat,()=>(S.day!==3&&!S.busy&&!S.special&&!S.onSofa)?'Sit on the couch':null,sofaSit,2.4);
+  inter(cushL,()=>(S.day!==3&&!S.busy&&!S.special&&!S.onSofa)?'Sit on the couch':null,sofaSit,2.4);
+  inter(cushR,()=>(S.day!==3&&!S.busy&&!S.special&&!S.onSofa)?'Sit on the couch':null,sofaSit,2.4);
   inter(machine,()=>S.step==='messages'?'Play messages':null,()=>S.day===2?playMessages2():playMessages(),2.1);
   inter(led,()=>S.step==='messages'?'Play messages':null,()=>S.day===2?playMessages2():playMessages(),2.1);
   const tvLbl=()=>(!['sitting','playing','end'].includes(S.step))?'Watch':null;
-  const tvAct=()=>{const now=gameTime;S.tvN=(now-(S.tvLast||-9)<2.2)?(S.tvN||0)+1:1;S.tvLast=now;
-    if(S.tvN>=3&&!S.tvScared&&!S.busy){S.tvScared=true;S.tvN=0;return tvScare();}
+  const tvAct=()=>{const now=gameTime;S.tvN=(now-(S.tvLast||-9)<2.5)?(S.tvN||0)+1:1;S.tvLast=now;
+    if(S.tvN>=5&&!S.tvScared&&!S.busy){S.tvScared=true;S.tvN=0;return tvScare();}
     if(S.watching<=0){S.watching=7;tvFlash();}else SFX.click();};
   inter(tvBody,tvLbl,tvAct);inter(tvScreen,tvLbl,tvAct);
   inter(drawing,'Look',()=>examine(TX.drawing),1.6);
@@ -1775,7 +1816,7 @@ const HS=(function(){
     S.kidOn=false;S.kidLead=false;S.humOn=false;S.waterOn=false;S.monVol=0;S.bpm=60;S.flat=false;S.noSteam=false;S.mirrorOn=false;S.inBath=false;S.inVoid=false;S.inCor=false;S.selfFrozen=false;S.selfGone=false;S.winds=0;fx.white=0;
     if(S.boxM){S.boxM.on=false;S.boxM=null;}SELF.shR.rotation.set(0,0,0);SELF.elR.rotation.set(0,0,0);SELF.head.rotation.set(0,0,0);
     if(houseAu){houseAu.water.pos.set(5.8,1,8.75);}carH.visible=on3;carCol.on=on3;laneG.visible=on3;laneFar.visible=false;rainH.visible=on3;tally.visible=S.day===2||S.day===3;
-    stains.forEach(m=>{m.userData.done=false;m.scale.setScalar(1);});bw.forEach(m=>{m.visible=false;});bbath.forEach(m=>{m.visible=false;});stopWorld();herG.visible=false;corMan.visible=false;panEggs.visible=false;plates.forEach(p=>{p.visible=false;p.children[1].visible=true;});famSW.visible=false;famSK.visible=false;S.bfast=false;S.winFig=0;livWinMat.uniforms.map.value=TX.view;CUR.forEach(c=>{c.k=c.t=0;c.place();});S.tvN=0;S.tvScared=false;S.doorN=0;S.doorScared=false;
+    stains.forEach(m=>{m.userData.done=false;m.scale.setScalar(1);});bw.forEach(m=>{m.visible=false;});bbath.forEach(m=>{m.visible=false;});stopWorld();herG.visible=false;corMan.visible=false;panEggs.visible=false;plates.forEach(p=>{p.visible=false;p.children[1].visible=true;});LIV.forEach(m=>setOn(m,S.day!==3));S.onSofa=false;S.sofaDip=0;cushR.scale.y=1;cushR.position.y=.5;S.ballHeld=false;S.ballMoving=false;S.ballBack=false;S.ballRest=0;S.ballThrows=0;S.lookM=0;famSW.visible=false;famSK.visible=false;S.bfast=false;S.winFig=0;livWinMat.uniforms.map.value=TX.view;CUR.forEach(c=>{c.k=c.t=0;c.place();});S.tvN=0;S.tvScared=false;S.doorN=0;S.doorScared=false;
     S.drowsy=false;S.drowsyUI=false;S.blinking=false;S.wiperOn=false;S.dn=0;S.flash3=0;S.scrubbed=0;S.b=0;S.blinkT=0;
     if(on3){setOn(bedBlock,true);chairB.rotation.set(0,PI+.3,PI/2);chairB.position.set(2.5,.22,8.6);photo1.material.uniforms.map.value=TX.photoX3;S.photoTex=TX.photoX3;}
     if(houseAu){houseAu.rainIn.gain.value=on3?.12:0;houseAu.engine3.gain.value=0;}
@@ -1891,14 +1932,25 @@ const HS=(function(){
     await wait(.8);
     S.busy=false;S.step='ball';
   }
+  function holdBall(){S.ballHeld=true;S.ballMoving=false;ball.visible=true;tapTo(AU.master,AU.C.currentTime,500,.3,.08);S.special={label:'Throw',action:throwBall};}
+  function throwBall(){S.ballHeld=false;camera.getWorldDirection(tmpD);S.ballV.set(tmpD.x*6.5,tmpD.y*6.5+1.4,tmpD.z*6.5);S.ballMoving=true;S.ballThrows=(S.ballThrows||0)+1;S.ballRest=0;tapTo(AU.master,AU.C.currentTime,400,.2,.06);}
+  function ballBounce(v){const t=AU.C.currentTime,k=Math.min(.6,v*.12);tapTo(AU.master,t,320,k,.09);pingTo(AU.master,t,170,k*.4,.12);}
+  async function rollBack(){
+    const from=ball.position.clone(),dir=new THREE.Vector3(from.x-S.pos.x,0,from.z-S.pos.z).normalize(),to=new THREE.Vector3(S.pos.x+dir.x*.5,.13,S.pos.z+dir.z*.5);
+    {const t=AU.C.currentTime;for(let i=0;i<4;i++)tapTo(AU.master,t+i*.14,650+R0()*100,.25,.06);}
+    await wait(.9);const roll=worldSnd(null,from.clone(),9,.8,{noise:true,lp:260,wet:.15});const t0=gameTime,dur=Math.max(1.5,from.distanceTo(to)/2.2);let last=from.clone();
+    while(gameTime-t0<dur){if(S.ballHeld||S.ballMoving)break;const u=(gameTime-t0)/dur,k=1-Math.pow(1-u,2);ball.position.lerpVectors(from,to,k);const st=ball.position.distanceTo(last);last.copy(ball.position);ball.rotateOnWorldAxis(new THREE.Vector3(dir.z,0,-dir.x),-st/.13);if(roll)roll.src.pos.copy(ball.position);await wait(.016);}
+    if(roll)roll.stop(.2);tapTo(AU.master,AU.C.currentTime,240,.3,.12);S.ballRest=gameTime;
+  }
   async function pickBall(){
-    S.step='holding';S.busy=true;ball.visible=false;tapTo(AU.master,AU.C.currentTime,500,.3,.08);
+    S.step='holding';S.busy=true;holdBall();
     await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:S.yaw,pitch:0},.8);
     await wait(1.6);
     S.humOn=true;S.humNext=0;S.humI=0;if(!S.lullH||S.lullH.dead)S.lullH=worldSnd('lull',new THREE.Vector3(1.4,1.1,1.8),9,1.0,{loop:true,lp:1100,wet:.35});
     S.busy=false;S.step='find2';setObjective('Find them.');
   }
-  inter(ball,()=>S.step==='ball'?'Pick up the ball':null,pickBall,2.2);
+  inter(ball,()=>S.step==='ball'?'Pick up the ball':((S.day===4&&!S.ballHeld&&!S.ballMoving&&!S.busy&&ball.visible&&!S.special)?'Pick up the ball':null),()=>S.step==='ball'?pickBall():holdBall(),2.2);
+  S.ballV=new THREE.Vector3();
   async function cutHer(){
     S.step='cutting';setObjective('');S.busy=true;
     const dx=wedPhoto.position.x-S.pos.x,dz=wedPhoto.position.z-S.pos.z;
@@ -1938,10 +1990,27 @@ const HS=(function(){
     S.busy=false;controls.look=true;controls.move=true;
     S.step='mirrorwatch';S.mirT=0;S.awayM=0;
   }
+  async function mirrorWrite(){
+    S.step='mirrorwrite';controls.look=false;controls.move=false;S.busy=true;
+    const w=bbath[0];w.userData.reveal(0);w.visible=true;
+    const squeak=v=>{const C=AU.C,t=C.currentTime,o=C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(800+Math.random()*500,t);o.frequency.linearRampToValueAtTime(1300+Math.random()*700,t+.16);
+      const g=G(0);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.03);g.gain.linearRampToValueAtTime(0,t+.19);chain(o,F('bandpass',1500,3),g);out(g,.2);o.start(t);o.stop(t+.21);};
+    // its hand comes up to the glass
+    let t0=gameTime;while(gameTime-t0<1.3){const k=smooth((gameTime-t0)/1.3);SELF.shR.rotation.x=-1.45*k;SELF.elR.rotation.x=-.4*k;await wait(.016);}
+    // it starts to write
+    t0=gameTime;let nx=0;while(gameTime-t0<2.2){const e=gameTime-t0;w.userData.reveal(.3*e/2.2);SELF.shR.rotation.z=Math.sin(e*9)*.12;SELF.elR.rotation.x=-.4+Math.sin(e*13)*.15;if(e>nx){nx+=.22;squeak(.06);}await wait(.016);}
+    // dark. you can still hear it writing
+    S.lampOff=true;SFX.thud();fx.fade=fx.fadeT=1;
+    t0=gameTime;nx=0;while(gameTime-t0<2.6){const e=gameTime-t0;w.userData.reveal(.3+.7*e/2.6);if(e>nx){nx+=.16;squeak(.08);}await wait(.016);}
+    w.userData.reveal(1);S.selfGone=true;bbath[1].visible=true;
+    await wait(.6);S.lampOff=false;SFX.click();fx.fade=fx.fadeT=0;punch(.2);
+    await wait(1.8);
+    S.busy=false;controls.look=true;controls.move=true;S.step='leavebath';setObjective('Go to her room.');
+  }
   async function mirrorGone(){
     S.step='mirrorgone';
     S.lampOff=true;SFX.thud();await wait(1.3);
-    S.selfGone=true;bbath.forEach(m=>{m.visible=true;});S.lampOff=false;SFX.click();
+    S.selfGone=true;bbath[0].userData.reveal(1);bbath.forEach(m=>{m.visible=true;});S.lampOff=false;SFX.click();
     await wait(1.5);
     S.step='leavebath';setObjective('Go to her room.');
   }
@@ -2064,16 +2133,27 @@ const HS=(function(){
       if(S.kidOn){S.kidT-=dt;if(S.kidT<=0&&!S.kidLead){const t=AU.C.currentTime;if(R0()<.55){for(let i=0;i<6;i++)tapTo(houseAu.kidBus,t+i*.13+R0()*.03,650,.4,.07);}else{let tt=t,iv=.42,v=.5;for(let i=0;i<6;i++){tapTo(houseAu.kidBus,tt,300,v,.09);pingTo(houseAu.kidBus,tt,170,v*.4,.12);tt+=iv;iv*=.72;v*=.75;}}S.kidT=rand(1.3,2.6);}
         if(S.step==='find1'&&inRoom('living')){S.kidOn=false;S.kidLead=false;S.step='rolling';rollBall();}}
       if(S.humOn){const C=AU.C;if(!(S.lullH&&S.lullH.ok))for(let q=0;q<1;q++){if(!S.humNext||S.humNext<C.currentTime)S.humNext=C.currentTime+.2;while(S.humNext<C.currentTime+.3){const m=MELODY[S.humI%MELODY.length];const d=m[1]*1.05;humNote(houseAu.humBus,S.humNext,440*Math.pow(2,(m[0]-69-12)/12),d*.95,.06);S.humNext+=d;S.humI++;}}
-        if(S.step==='find2'&&inRoom('bed')){S.humOn=false;if(S.lullH){S.lullH.stop(0);S.lullH=null;}S.step='cut';wedPhoto.visible=true;wedBack.visible=true;scissors.visible=true;setObjective('Cut her out.');}}
+        if(S.step==='find2'&&inRoom('bed')){S.humOn=false;if(S.lullH){S.lullH.stop(0);S.lullH=null;}if(S.ballHeld){S.ballHeld=false;S.special=null;S.ballV.set(0,0,0);S.ballMoving=true;}S.step='cut';wedPhoto.visible=true;wedBack.visible=true;scissors.visible=true;setObjective('Cut her out.');}}
       houseAu.waterBus.gain.setTargetAtTime(S.waterOn?1:0,AU.C.currentTime,.1);
     }
+    // the ball
+    if(S.ballHeld){camera.getWorldDirection(tmpD);const rx=-tmpD.z,rz=tmpD.x,rl=Math.hypot(rx,rz)||1;ball.position.set(camera.position.x+tmpD.x*.5+rx/rl*.2,camera.position.y-.3+tmpD.y*.3,camera.position.z+tmpD.z*.5+rz/rl*.2);}
+    else if(S.ballMoving){const v=S.ballV,p=ball.position;v.y-=9.8*dt;const nx=p.x+v.x*dt,nz=p.z+v.z*dt;
+      if(collide(nx,p.z,.13)){if(Math.abs(v.x)>.8)ballBounce(Math.abs(v.x));v.x*=-.55;}else p.x=nx;
+      if(collide(p.x,nz,.13)){if(Math.abs(v.z)>.8)ballBounce(Math.abs(v.z));v.z*=-.55;}else p.z=nz;
+      p.y+=v.y*dt;if(p.y<.13){p.y=.13;if(v.y<-.7)ballBounce(-v.y);v.y=-v.y*.5;v.x*=.85;v.z*=.85;}if(p.y>2.5){p.y=2.5;v.y=-Math.abs(v.y)*.5;}
+      const sp=Math.hypot(v.x,v.z);if(sp>.02&&p.y<.15)ball.rotateOnWorldAxis(new THREE.Vector3(v.z/sp,0,-v.x/sp),-sp*dt/.13);
+      if(p.y<=.135){const f=Math.pow(.4,dt);v.x*=f;v.z*=f;}
+      if(sp<.05&&Math.abs(v.y)<.35&&p.y<=.14){S.ballMoving=false;S.ballRest=gameTime;}}
+    else if(S.day===4&&ball.visible&&S.ballRest&&!S.ballBack&&S.ballThrows>=2&&gameTime-S.ballRest>3.5&&!looking(ball.position.x,.13,ball.position.z,.5)&&!S.busy){S.ballBack=true;rollBack();}
     // bathroom
     if(S.inBath){if(S.step==='mirrorwait'){S.mirT+=dt;if(S.mirT>1.6)mirrorBeat();}
       if(S.step==='mirrorwatch'){S.mirT+=dt;
         let rel=Math.atan2(S.pos.x-selfG.position.x,S.pos.z-selfG.position.z)-S.frozeYaw;rel=Math.atan2(Math.sin(rel),Math.cos(rel));
         SELF.head.rotation.y+=(clamp(rel,-1.1,1.1)-SELF.head.rotation.y)*Math.min(1,dt*1.6);
         if(!looking(X1+.09,1.52,1.6,.55))S.awayM+=dt;else S.awayM=0;
-        if(S.awayM>.6||S.mirT>14)mirrorGone();}}
+        if(looking(X1+.09,1.52,1.6,.8))S.lookM=(S.lookM||0)+dt;else S.lookM=0;
+        if(S.lookM>2.2)mirrorWrite();else if(S.awayM>.6||S.mirT>14)mirrorGone();}}
     // the void: keep him near the seat
     if(S.lullH&&!S.lullH.dead&&(S.step==='herroom'||S.step==='herlisten'||S.step==='heropen')){const d=Math.hypot(S.pos.x-5.6,S.pos.z-1.45);S.lullH.lp.frequency.setTargetAtTime(S.step==='herlisten'?2600:(d<2.2?1500:800),AU.C.currentTime,.4);}
     if(S.step==='herwatch'){S.herT+=dt;if(Math.hypot(S.pos.x-S.herP.x,S.pos.z-S.herP.z)>.3||S.herT>40)herFlee();else{HER.head.rotation.z=.12+Math.sin(gameTime*.9)*.06;HER.chest.rotation.y=Math.sin(gameTime*.45)*.05;}}
@@ -2239,12 +2319,16 @@ const HS=(function(){
     if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);behind();}}
     if(S.behindSrc)S.behindSrc.update(camera.position,S.yaw);
     tickWorld();
+    if(S.onSofa){S.sofaT+=dt;
+      if(!S.sofaDip&&S.sofaT>16){S.sofaDip=1;cushR.scale.y=.45;cushR.position.y=.475;const t=AU.C.currentTime;burst(t,.5,'lowpass',420,.35,1,.2);burst(t+.15,.4,'bandpass',900,.08,.8,.2);
+        const o=AU.C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(90,t+.1);o.frequency.linearRampToValueAtTime(60,t+.6);const g=G(0);g.gain.setValueAtTime(0,t+.1);g.gain.linearRampToValueAtTime(.05,t+.2);g.gain.linearRampToValueAtTime(0,t+.7);chain(o,F('bandpass',300,4),g);out(g,.2);o.start(t+.1);o.stop(t+.75);}
+      if(S.sofaDip===1&&looking(8.85,.55,3.62,.9)){S.sofaDip=2;setTimeout(()=>{cushR.scale.y=1;cushR.position.y=.5;burst(AU.C.currentTime,.3,'lowpass',500,.2,1,.2);},700);}}
     livWinMat.uniforms.uColor.value.copy(winMat.uniforms.uColor.value);
     for(const c of CUR){if(c.t!==c.k){c.t+=Math.sign(c.k-c.t)*Math.min(Math.abs(c.k-c.t),dt*2.2);c.place();}}
     if(S.winFig===1){livWinMat.uniforms.map.value=TX.viewFig;
       if(CUR[2].k>.5){S.winFig=3;livWinMat.uniforms.map.value=TX.view;const t=AU.C.currentTime+.6;for(let i=0;i<3;i++)tapTo(AU.master,t+i*.32,1900,.3,.05,'bandpass');}
-      else if(S.pos.x>5.65&&looking(10.93,1.5,6.5,.95))S.winSeen+=dt;
-      else if(S.winSeen>.6||Math.hypot(S.pos.x-10.93,S.pos.z-6.5)<2.6){S.winFig=2;livWinMat.uniforms.map.value=TX.view;}}
+      else if(looking(10.93,1.5,6.5,.965)){S.winSeen+=dt;if(S.winSeen>.45){S.winFig=2;livWinMat.uniforms.map.value=TX.view;S.forceStat=.1;setTimeout(()=>{S.forceStat=null;},110);}}
+      else if(Math.hypot(S.pos.x-10.93,S.pos.z-6.5)<2.6){S.winFig=2;livWinMat.uniforms.map.value=TX.view;}}
     if(S.cryH&&!S.cryH.dead&&S.day===3&&Math.hypot(S.pos.x-5.6,S.pos.z-1.45)<1.7){S.cryH.stop(0);S.cryH=null;setTimeout(()=>{if(AU.C&&S.day===3)SFX.knock(.4,.35,240);},1100);}
     if(S.loopMon&&S.phase!=='evening')alarmFace.material.uniforms.map.value=TX.alarm317;
   }
