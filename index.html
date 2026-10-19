@@ -754,9 +754,10 @@ const HS=(function(){
     const draw=()=>{const g=c.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,31);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
       g.fillStyle='#1d1a30';g.font='25px "Reenie Beanie", "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';const L=text.split('\n');L.forEach((l,i)=>g.fillText(l,48,50+(i-(L.length-1)/2)*23));t.needsUpdate=true;};
     draw();noteDraws.push(draw);
-    const m=plane(.11,.11,t,0xffffff,{fit:true,seg:9,pos});
+    const m=plane(.15,.15,t,0xffffff,{fit:true,seg:9,pos});
     if(flat){m.rotation.x=-PI/2;m.rotation.z=.3;}else{m.rotation.y=ry;m.rotation.z=(R0()-.5)*.25;}
-    add(m);d2(m);inter(m,'Read',()=>examine(t),1.7);return m;
+    const hz=new THREE.Mesh(new THREE.PlaneGeometry(.3,.3),new THREE.MeshBasicMaterial({visible:false}));hz.position.z=.006;m.add(hz);
+    add(m);d2(m);inter(m,'Read',()=>examine(t),1.9);return m;
   }
   note('the yellow\none\nis hers',[.759,1.52,5.13],PI/2);
   note("DON'T OPEN\nshe's\nsleeping",[5.563,1.42,1.45],-PI/2);
@@ -837,7 +838,7 @@ const HS=(function(){
   inter(photo2,'Look',()=>examine(TX.photo2),2.2);
   inter(clockFace,'Look',()=>examine(TX.clock),2.4);
   inter(clockBody,'Look',()=>examine(TX.clock),2.4);
-  inter(frontDoor,'Open',()=>{SFX.rattle();});
+  inter(frontDoor,'Open',()=>{if(S.day===2&&S.step==='outside')outsideLoop();else SFX.rattle();});
   inter(bedHit,()=>S.step==='bed'?'Sleep':null,goToSleep,2.2);
 
 
@@ -917,17 +918,33 @@ const HS=(function(){
     S.step='dup2';S.busy=true;S.breathOn=false;
     await wait(2.6);
     S.busy=false;S.dupT=0;S.awayT=0;S.seenT=0;S.swapped=false;S.darkDone=false;
+    await wait(1.4);
+    if(!S.swapped&&!S.ending){const k=G(1),kp=F('lowpass',700);chain(k,kp);const ks=new PSrc(kp,new THREE.Vector3(X0+3.9,1.2,3.2),8,1.2,.4);S.knockSrc=ks;
+      const t=AU.C.currentTime;for(let i=0;i<3;i++){const ti=t+i*.32;const o=AU.C.createOscillator();o.frequency.setValueAtTime(120,ti);o.frequency.exponentialRampToValueAtTime(55,ti+.14);const g=G(0);g.gain.setValueAtTime(.7,ti);g.gain.exponentialRampToValueAtTime(.001,ti+.2);o.connect(g);g.connect(k);o.start(ti);o.stop(ti+.22);
+        const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',350),ng=G(0);ng.gain.setValueAtTime(.6,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.12);chain(nb,nf,ng,k);nb.start(ti,Math.random());nb.stop(ti+.15);}
+      setTimeout(()=>{S.knockSrc=null;},2500);}
   }
   function swapFig(){figLie.visible=false;figSit.visible=true;figSit.rotation.y=Math.atan2(S.pos.x-figSit.position.x,S.pos.z-figSit.position.z);S.swapped=true;}
   async function darkSwap(){S.lampOff=true;dupShade.material.uniforms.uEmissive.value=0;SFX.click();await wait(1.6);swapFig();S.lampOff=false;dupShade.material.uniforms.uEmissive.value=.9;SFX.click();}
+  function heartbeat(v=1){const C=AU.C,t=C.currentTime;for(const d of[[0,.6],[.17,.38]]){const o=C.createOscillator();o.frequency.setValueAtTime(60,t+d[0]);o.frequency.exponentialRampToValueAtTime(36,t+d[0]+.16);
+    const g=G(0);g.gain.setValueAtTime(d[1]*v,t+d[0]);g.gain.exponentialRampToValueAtTime(.001,t+d[0]+.24);o.connect(g);out(g,0);o.start(t+d[0]);o.stop(t+d[0]+.26);}}
   async function endDay2(){
     S.ending=true;S.busy=true;setObjective('');setPrompt('');
+    const h=new THREE.Vector3();headS.getWorldPosition(h);
+    const dx=h.x-S.pos.x,dz=h.z-S.pos.z,dy=h.y-S.eye;
+    tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:Math.atan2(dy,Math.hypot(dx,dz))},1.4);
+    ramp(houseAu.drone.gain,.4,2);SFX.tinnitus(5,.012);
+    const t0=gameTime;let beat=0;
+    while(gameTime-t0<4.6){const k=(gameTime-t0)/4.6;camera.fov=70-k*32;camera.updateProjectionMatrix();S.forceStat=k*k*.34;headS.rotation.z=smooth(clamp(k*1.4,0,1))*.55;
+      if(gameTime>beat){beat=gameTime+lerp(.95,.3,k);heartbeat(.6+k*.6);}
+      await wait(.03);}
     fx.fade=fx.fadeT=1;AU.master.gain.cancelScheduledValues(0);AU.master.gain.setValueAtTime(0,AU.C.currentTime);
-    muteHouse();
-    await wait(3.2);
+    muteHouse();S.forceStat=null;camera.fov=70;camera.updateProjectionMatrix();
+    await wait(3.4);
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);
-    SFX.tinnitus(6,.03);
-    await wait(4.5);
+    SFX.tinnitus(7,.03);
+    await wait(2.2);
+    await card('WEDNESDAY',3.2);
     showEnd('WEDNESDAY','The prototype ends here.<br>Day 2 of 5.');
   }
   function muteHouse(){if(!houseAu)return;S.watching=0;houseAu.all.gain.value=0;[houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath].forEach(p=>{p.vol=0;});S.muted=true;}
@@ -936,7 +953,7 @@ const HS=(function(){
     const on2=S.day===2;
     D2.forEach(m=>{m.visible=on2;});newDoor.visible=false;setOn(bedBlock,false);
     mugs.forEach((m,i)=>{m.position.set(.32,-10,6.25+i*.2);m.rotation.set(0,0,0);m.userData.target=null;m.userData.tipped=false;});
-    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
+    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
     S.photoTex=TX.photo;photo1.material.uniforms.map.value=TX.photo;
     chairB.position.set(2.4,0,on2?8.5:8.18);chairB.rotation.y=on2?PI+.55:PI;
     figLie.visible=true;figSit.visible=false;
@@ -1055,7 +1072,6 @@ const HS=(function(){
     }
     if(S.day===2&&S.step==='outside'&&!S.busy&&S.pos.x>4&&S.pos.x<5.6){
       if(S.pos.z>6.3&&S.muttered!==S.tries){S.muttered=S.tries;mutter('almost there.',3);}
-      if(S.pos.z>8.55)outsideLoop();
     }
     S.blink+=(S.blinkT-S.blink)*Math.min(1,dt*S.blinkRate);
     const bobY=RM?0:Math.sin(S.bob)*.022;
@@ -1086,19 +1102,20 @@ const HS=(function(){
       S.dupT+=dt;camera.updateMatrixWorld();camera.getWorldDirection(tmpD);
       if(S.swapped)tmpV.set(figSit.position.x,1.0,figSit.position.z);else tmpV.set(X0+1.3,.7,1.0);
       tmpV.sub(camera.position).normalize();const inView=tmpV.dot(tmpD)>.74;
-      if(!S.swapped){if(!inView)S.awayT+=dt;else S.awayT=0;if(S.awayT>1.3)swapFig();else if(S.dupT>9&&!S.darkDone){S.darkDone=true;darkSwap();}}
-      else if(inView&&!S.lampOff){S.seenT+=dt;if(S.seenT>.75)endDay2();}
+      if(!S.swapped){if(!inView)S.awayT+=dt;else S.awayT=0;if(S.awayT>1.0)swapFig();else if(S.dupT>13&&!S.darkDone){S.darkDone=true;darkSwap();}}
+      else if(inView&&!S.lampOff){S.seenT+=dt;if(S.seenT>.45)endDay2();}
     }
     if(houseAu){const k=S.breathOn?Math.pow(.5+.5*Math.sin(gameTime*1.3),3):0;houseAu.breathBus.gain.setTargetAtTime(k,AU.C.currentTime,.05);}
     // tv watching
     if(S.watching>0&&!S.muted){S.watching-=dt;fx.stat=Math.min(.16,fx.stat+dt*.05);if(houseAu){houseAu.tv.vol=.2;if(!S.tvBoxOn){S.tvBoxOn=musicBox(houseAu.tvBox,.12,.9);S.tvBoxOn.semis=-2;S.tvBoxOn.wob=.02;ramp(houseAu.tvBox.gain,.5,1);}}}
     else{fx.stat=Math.max(0,fx.stat-dt*.08);if(houseAu){houseAu.tv.vol=S.muted?0:.025;if(S.tvBoxOn){S.tvBoxOn.on=false;S.tvBoxOn=null;ramp(houseAu.tvBox.gain,0,.3);}}}
+    if(S.forceStat!=null)fx.stat=S.forceStat;
     // audio
     if(houseAu){const cp=camera.position;
       houseAu.alarmBus.gain.value=alarmOn?((Math.floor(gameTime*8)%8<4&&Math.floor(gameTime*8)%2===0)?.9:0):0;
       if(AU.C.currentTime>tickNext){tickNext=AU.C.currentTime+1;const t=AU.C.currentTime+.02;const s=AU.C.createBufferSource();s.buffer=AU.noise;const f=F('highpass',2200),g=G(0);
         if(S.day===2){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.035);g.gain.setValueAtTime(0,t+.036);}else{g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.04);}chain(s,f,g,houseAu.tickBus);s.start(t,Math.random());s.stop(t+.06);}
-      [houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,S.msgSrc].forEach(p=>p&&p.update(cp,S.yaw));}
+      [houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,S.msgSrc,S.knockSrc].forEach(p=>p&&p.update(cp,S.yaw));}
   };
   return S;
 })();
