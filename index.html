@@ -1,6 +1,6 @@
 <title>Almost There</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Reenie+Beanie&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Reenie+Beanie&family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
 <style>
 /* Layout: one full-bleed canvas, HUD layered on top. Single dark look by choice (it is a night-time game). */
 :root{
@@ -83,6 +83,7 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
   <p class="small" id="ctrlText">WASD to walk · mouse to look · E to interact<br>Headphones recommended.</p>
   <p class="small" id="tallyLine" hidden style="font-size:26px;letter-spacing:.25em;color:#8a3a30"></p>
   <button class="btn" id="beginBtn" type="button">BEGIN</button>
+  <button class="btn" id="langBtn" type="button" style="font-size:20px;padding:6px 18px;margin-top:4px;opacity:.75">TÜRKÇE</button>
   <div class="chapters">
     <span class="chlabel">scenes</span>
     <button class="chap" type="button" data-day="1">monday</button>
@@ -144,6 +145,14 @@ const SET={vol:1,sens:1,bright:1};try{Object.assign(SET,JSON.parse(localStorage.
 const MEM={loops:0,stopped:0};try{Object.assign(MEM,JSON.parse(localStorage.getItem('almostthere_mem')||'{}'));}catch(_){}
 function saveMem(){try{localStorage.setItem('almostthere_mem',JSON.stringify(MEM));}catch(_){}}
 let GLITCH=0;
+const LANG=SET.lang==='tr'?'tr':'en';
+const TRD={"Make coffee.": "Kahve yap.", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ"};
+const TRP={"milk|bread|eggs|juice (the yellow one)|batteries for the|  music box||call insurance back|call her mother back||DO NOT drive at night": ["süt", "ekmek", "yumurta", "meyve suyu (sarı olan)", "müzik kutusu için", "  pil", "", "sigortayı geri ara", "annesini geri ara", "", "GECE araba KULLANMA"], "RE: CLAIM #0317||Dear Sir,||We are unable to process|your claim until the|second passenger has been|identified.||Our records show only one|passenger was travelling.|Please advise.": ["KONU: HASAR #0317", "", "Sayın Bay,", "", "İkinci yolcunun kimliği", "belirlenene kadar", "talebinizi işleme", "alamıyoruz.", "", "Kayıtlarımıza göre araçta", "yalnızca bir yolcu vardı.", "Lütfen bilgi veriniz."], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: conscious at scene.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI", "", "Saat: 03:17", "Araç şeridinden çıktı.", "Fren izi yok.", "", "Sürücü: bilinci açık.", "\"az kaldı\" diye tekrarlıyor.", "", "Kurtarılan yolcu: 1", "Arka çocuk koltuğu: boş.", "Kemer takılı.", "", "Memur: ##########"], "I'm taking her to my|mother's tonight.||Don't follow us.|Don't call.||You haven't slept in|four days.||Please. Just rest.||": ["Onu bu gece annemin", "yanına götürüyorum.", "", "Peşimizden gelme.", "Arama.", "", "Dört gündür", "uyumadın.", "", "Lütfen. Sadece dinlen.", "", ""], "ROOM 317||Visiting hours ended|at 21:00.||Family may stay.||#########|#####": ["ODA 317", "", "Ziyaret saati", "21:00'de bitti.", "", "Aile kalabilir.", "", "#########", "#####"]};
+function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return TRD[t];let m;if((m=/^MESSAGE (\d+)$/.exec(t)))return 'MESAJ '+m[1];if((m=/^it is (.+)\.$/.exec(t)))return 'saat '+m[1]+'.';return t;}
+{const lb=document.getElementById('langBtn');if(lb){lb.textContent=LANG==='tr'?'ENGLISH':'TÜRKÇE';lb.addEventListener('click',e=>{e.stopPropagation();SET.lang=LANG==='tr'?'en':'tr';try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}location.reload();});}}
+const HF=n=>LANG==='tr'?Math.round(n*.84)+'px "Caveat"':n+'px "Reenie Beanie"';
+if(LANG==='tr'){const H={"BEGIN": "BAŞLA", "scenes": "sahneler", "monday": "pazartesi", "tuesday": "salı", "wednesday": "çarşamba", "thursday": "perşembe", "friday": "cuma", "breakfast": "kahvaltı", "the messages": "mesajlar", "go outside": "dışarı çık", "the new door": "yeni kapı", "the other room": "öteki oda", "he sits up": "doğruluyor", "ending": "son", "the phone": "telefon", "clean it up": "temizle şunu", "go to sleep": "uyu", "the road": "yol", "wait for them": "onları bekle", "find them": "onları bul", "cut her out": "onu kesip çıkar", "the mirror": "ayna", "her room": "onun odası", "the corridor": "koridor", "the choice": "seçim", "the rest area": "mola yeri", "prototype · prologue + days 1–5": "prototip · giriş + 1–5. günler", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "WASD to walk · mouse to look · E to interact": "WASD yürü · fare bak · E etkileşim", "Headphones recommended.": "Kulaklık önerilir.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "VOLUME": "SES", "MOUSE": "FARE", "BRIGHTNESS": "PARLAKLIK", "MAIN MENU": "ANA MENÜ", "ESC to resume": "Devam etmek için ESC", "AGAIN": "TEKRAR", "The prototype ends here.": "Prototip burada bitiyor.", "Day 2 of 5.": "5 günün 2.si.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım."};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let nd;while((nd=w.nextNode())){const k=nd.nodeValue.trim();if(k&&H[k]!=null)nd.nodeValue=nd.nodeValue.replace(k,H[k]);}document.documentElement.lang='tr';}
+
 function tallyText(n){let t='';for(let i=1;i<=n;i++){t+='|';if(i%5===0)t+='  ';}return t;}
 function saveSet(){try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}}
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -154,7 +163,7 @@ const smooth=t=>t*t*(3-2*t);
 function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
 const R0=rng(7);const rand=(a,b)=>a+(b-a)*R0();
 
-if(isTouch){$('#ctrlText').innerHTML='Left side to walk · right side to look · USE to interact<br>Headphones recommended.';}
+if(isTouch){$('#ctrlText').innerHTML=_t('Left side to walk · right side to look · USE to interact<br>Headphones recommended.');}
 
 /* ================= RENDERER ================= */
 let renderer;
@@ -297,9 +306,9 @@ TX.blanket=tex(32,32,(g,w,h)=>{base(g,w,h,'#47505e');speckle(g,w,h,.18,18);g.fil
 TX.window=tex(32,32,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#d6dadd');gr.addColorStop(1,'#9aa2a8');g.fillStyle=gr;g.fillRect(0,0,w,h);
   g.fillStyle='rgba(255,255,255,.2)';for(let i=0;i<6;i++)g.fillRect(3+i*5,6+(i%3)*7,1,5);g.fillStyle='#4a3a2c';g.fillRect(0,0,w,2);g.fillRect(0,h-2,w,2);g.fillRect(0,0,2,h);g.fillRect(w-2,0,2,h);g.fillRect(15,0,2,h);g.fillRect(0,15,w,2);},false);
 TX.sign1=tex(128,64,(g,w,h)=>{base(g,w,h,'#1d5636');g.strokeStyle='#d8dccf';g.lineWidth=2;g.strokeRect(3,3,122,58);g.fillStyle='#e2e4da';g.font='bold 15px monospace';g.textAlign='center';
-  g.fillText('REST AREA',64,28);g.font='bold 14px monospace';g.fillText('1 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
+  g.fillText(_t('REST AREA'),64,28);g.font='bold 14px monospace';g.fillText('1 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
 TX.sign=tex(128,64,(g,w,h)=>{base(g,w,h,'#1d5636');g.strokeStyle='#d8dccf';g.lineWidth=2;g.strokeRect(3,3,122,58);g.fillStyle='#e2e4da';g.font='bold 15px monospace';g.textAlign='center';
-  g.fillText('REST AREA',64,28);g.font='bold 14px monospace';g.fillText('2 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
+  g.fillText(_t('REST AREA'),64,28);g.font='bold 14px monospace';g.fillText('2 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
 TX.cluster=tex(32,8,(g,w,h)=>{base(g,w,h,'#050403');g.strokeStyle='#d07a28';g.lineWidth=1;g.beginPath();g.arc(8,4,3,0,7);g.stroke();g.beginPath();g.arc(24,4,3,0,7);g.stroke();g.fillStyle='#e09040';g.fillRect(8,3,3,1);g.fillRect(22,2,1,2);},false);
 TX.radio=tex(32,8,(g,w,h)=>{base(g,w,h,'#020503');g.fillStyle='#7ec27a';g.font='8px monospace';g.fillText('88.7',4,7);},false);
 TX.drawing=tex(64,64,(g,w,h)=>{base(g,w,h,'#e3dcc8');speckle(g,w,h,.08,19);g.globalAlpha=.62;g.lineWidth=2;
@@ -373,7 +382,7 @@ TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${70+r()*6
   for(let i=0;i<4;i++){const x=r()*(w-30),y=r()*(h-40);g.fillStyle=red();g.fillRect(x+6,y+12,12,14);for(let f=0;f<4;f++)g.fillRect(x+6+f*3,y+(f===0||f===3?4:0),2,13);g.fillRect(x+1,y+16,6,3);
     g.fillRect(x+10,y+26,2,10+r()*20);}
   g.fillStyle=red();for(let x=8;x<w-8;x+=6){if(r()<.8)g.fillRect(x,92+(r()*3|0),2,14+(r()*8|0));}},false);
-function bloodText(lines,wm,hm,seed){
+function bloodText(lines,wm,hm,seed){lines=lines.map(_t);
   const W=Math.round(clamp(wm*200,160,700)),Hh=Math.round(W*hm/wm);const r=rng(seed);
   const mc=document.createElement('canvas');mc.width=W;mc.height=Hh;const m=mc.getContext('2d');m.fillStyle='#000';m.fillRect(0,0,W,Hh);m.fillStyle='#fff';m.strokeStyle='#fff';m.lineJoin='round';m.lineCap='round';
   const lh=Hh/lines.length;let size=lh*.78;m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;
@@ -480,11 +489,11 @@ function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
 async function until(fn){while(!fn())await wait(.1);}
 function fadeTo(v,s){fx.fadeT=v;fx.fadeRate=1/Math.max(s,.01);return wait(s);}
 let objTimer;
-function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{el.textContent=t||'';if(t)el.classList.add('show');},500);}
+function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{el.textContent=_t(t)||'';if(t)el.classList.add('show');},500);}
 let subTimer;
-function subtitle(text,dur=4,kind='voice'){const el=$('#subtitle');el.className='hud '+kind;el.textContent=text;void el.offsetWidth;el.classList.add('show');clearTimeout(subTimer);subTimer=setTimeout(()=>el.classList.remove('show'),dur*1000);}
+function subtitle(text,dur=4,kind='voice'){const el=$('#subtitle');el.className='hud '+kind;el.textContent=_t(text);void el.offsetWidth;el.classList.add('show');clearTimeout(subTimer);subTimer=setTimeout(()=>el.classList.remove('show'),dur*1000);}
 const MUTTER={'good girl.':'m_goodgirl','eat something.':'m_eat','you have to eat something.':'m_haveto','please.':'m_please',"that's not how she sounds.":'m_notsounds','almost there.':'m_almost'};
-async function intrude(text,dur,count){
+async function intrude(text,dur,count){text=_t(text);
   const box=$('#intrude');box.innerHTML='';const sp=[];
   for(let i=0;i<count;i++){const e=document.createElement('span');e.textContent=text;box.appendChild(e);sp.push(e);}
   const t0=gameTime,j=RM?.3:1;
@@ -528,14 +537,14 @@ function bloodSplat(){const c=$('#blood');const W=200,H=Math.max(100,Math.round(
   const t0=performance.now();(function step(){const dt=(performance.now()-t0)/1000;let any=false;for(const d of drips){const L=Math.min(d.max,d.sp*dt);if(L>d.len){g.fillStyle=red(.95);g.fillRect(d.x,d.y+d.len,d.w,L-d.len+1);d.len=L;}if(L<d.max)any=true;}if(any&&dt<6)requestAnimationFrame(step);})();}
 function bloodFade(){const c=$('#blood');c.style.opacity=0;}
 function mutter(t,d=3.5){subtitle(t,d,'thought');const k=MUTTER[t];if(k&&AU.C)voice(k,t,d,{nosub:true,wet:.03,pan:0,vol:1.3,lp:9500});}
-function showEnd(title,html){$('#endTitle').textContent=title;$('#endText').innerHTML=html;const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');unlockQuiet();}
-async function card(text,dur){const el=$('#card');el.textContent=text;el.classList.add('show');await wait(dur);el.classList.remove('show');await wait(1.6);}
-function hint(text){const el=$('#hint');if(text){el.textContent=text;el.classList.add('show');}else el.classList.remove('show');}
+function showEnd(title,html){$('#endTitle').textContent=_t(title);$('#endText').innerHTML=_t(html);const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');unlockQuiet();}
+async function card(text,dur){const el=$('#card');el.textContent=_t(text);el.classList.add('show');await wait(dur);el.classList.remove('show');await wait(1.6);}
+function hint(text){const el=$('#hint');if(text){el.textContent=_t(text);el.classList.add('show');}else el.classList.remove('show');}
 let promptText='';
 function setPrompt(lbl){
   const el=$('#prompt'),use=$('#use');
   if(lbl===promptText)return;promptText=lbl;
-  if(lbl){el.innerHTML=isTouch?lbl:'<kbd>E</kbd>'+lbl;el.classList.add('show');}else el.classList.remove('show');
+  if(lbl){el.innerHTML=isTouch?_t(lbl):'<kbd>E</kbd>'+_t(lbl);el.classList.add('show');}else el.classList.remove('show');
   if(isTouch){use.classList.toggle('live',!!lbl);}
 }
 
@@ -590,10 +599,10 @@ function examine(t){examining=true;$('#exImg').src=t.image.toDataURL();$('#exami
 function closeExamine(){examining=false;$('#examine').hidden=true;}
 $('#examine').addEventListener('click',closeExamine);
 let choiceRes=null;
-function choice(text){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=text;$('#choice').hidden=false;choiceRes=res;setTimeout(()=>$('#choiceBtn').focus(),50);});}
+function choice(text){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=_t(text);$('#choice').hidden=false;choiceRes=res;setTimeout(()=>$('#choiceBtn').focus(),50);});}
 $('#choiceBtn').addEventListener('click',()=>{$('#choice').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(0);});
 $('#choiceBtn2').addEventListener('click',()=>{$('#choice').hidden=true;$('#choiceBtn2').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(1);});
-function choice2(a,b){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=a;$('#choiceBtn2').textContent=b;$('#choiceBtn2').hidden=false;$('#choice').hidden=false;choiceRes=res;});}
+function choice2(a,b){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=_t(a);$('#choiceBtn2').textContent=_t(b);$('#choiceBtn2').hidden=false;$('#choice').hidden=false;choiceRes=res;});}
 
 /* ================= AUDIO ================= */
 const AU={C:null,boxes:[],voices:{}};
@@ -848,7 +857,7 @@ const RD=(function(){
     S.drowsyUI=S.drowsy&&!S.force;
     if(S.rest){setPrompt(S.canTry?'Get out':'');}
     if(S.bForce!=null&&S.d5){S.b=lerp(S.b,S.bForce,.08);}
-    if(isTouch){const u=$('#use');u.hidden=!(S.drowsyUI);u.textContent='WAKE';u.classList.toggle('live',S.b>.3);}
+    if(isTouch){const u=$('#use');u.hidden=!(S.drowsyUI);u.textContent=_t('WAKE');u.classList.toggle('live',S.b>.3);}
     fx.blink=S.b;
     // wipers
     if(S.rainOn){S.wipe+=dt*1.25*S.wipeDir;if(S.wipe>=1){S.wipe=1;S.wipeDir=-1;if(AU.C&&!S.attract)SFX.wiper();}if(S.wipe<=0){S.wipe=0;S.wipeDir=1;if(AU.C&&!S.attract)SFX.wiper();}}
@@ -1166,10 +1175,10 @@ const HS=(function(){
   const D2=[];function d2(m){m.visible=false;D2.push(m);return m;}
   const D3=[];function d3(m){m.visible=false;D3.push(m);return m;}
   const noteDraws=[];
-  function note(text,pos,ry,flat,day=2){
+  function note(text,pos,ry,flat,day=2){text=_t(text);
     const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
     const draw=()=>{const g=c.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,31);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
-      g.fillStyle='#1d1a30';g.font='25px "Reenie Beanie", "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';const L=text.split('\n');L.forEach((l,i)=>g.fillText(l,48,50+(i-(L.length-1)/2)*23));t.needsUpdate=true;};
+      g.fillStyle='#1d1a30';g.font=HF(25)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';const L=text.split('\n');L.forEach((l,i)=>g.fillText(l,48,50+(i-(L.length-1)/2)*23));t.needsUpdate=true;};
     draw();noteDraws.push(draw);
     const m=plane(.15,.15,t,0xffffff,{fit:true,seg:9,pos});
     if(flat){m.rotation.x=-PI/2;m.rotation.z=.3;}else{m.rotation.y=ry;m.rotation.z=(R0()-.5)*.25;}
@@ -1748,7 +1757,7 @@ const HS=(function(){
     S.busy=false;controls.move=false;
     S.drowsy=true;S.b=0;S.grace=3;S.dn=0;
     hint(isTouch?'Tap WAKE to stay awake':'SPACE  stay awake');setTimeout(()=>hint(''),6000);
-    if(isTouch){$('#use').textContent='WAKE';}
+    if(isTouch){$('#use').textContent=_t('WAKE');}
   }
   S.wake=function(){if(!S.drowsy||S.blinking)return;if(S.b>.08){S.b=0;S.grace=Math.max(.5,2.2-S.dn*.6);}};
   async function blink3(){
@@ -2029,7 +2038,7 @@ const HS=(function(){
   function tvFlash(){if(S.day===1)flash(fM,8.3,8.7,PI,4,2.6);}
   // papers: what other people wrote down
   const G1=new THREE.Group();G1.visible=false;scene.add(G1);
-  function paper(lines,pos,rot,group,title){
+  function paper(lines,pos,rot,group,title){if(LANG==='tr'){const k=lines.join('|');if(TRP[k])lines=TRP[k];title=_t(title);}
     const W=256,Hh=330,c=document.createElement('canvas');c.width=W;c.height=Hh;const g=c.getContext('2d');
     g.fillStyle='#d8d3c2';g.fillRect(0,0,W,Hh);speckle(g,W,Hh,.06,lines.length*7);g.fillStyle='rgba(120,100,60,.12)';g.fillRect(0,Hh-40,W,40);
     g.fillStyle='#24211c';g.font='bold 15px monospace';if(title)g.fillText(title,18,30);g.font='13px monospace';
@@ -2046,8 +2055,8 @@ const HS=(function(){
   // a note that knows what time it is where you are
   const tc=document.createElement('canvas');tc.width=tc.height=96;const tt=new THREE.CanvasTexture(tc);tt.magFilter=THREE.NearestFilter;
   const timeNote=plane(.15,.15,tt,0xffffff,{fit:true,seg:9,pos:[1.95,1.25,.066]});timeNote.rotation.z=.08;add(timeNote);d2(timeNote);inter(timeNote,'Read',()=>examine(tt),1.9);
-  function writeTimeNote(){const g=tc.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,99);g.fillStyle='#1d1a30';g.font='23px "Reenie Beanie", "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';
-    const d=new Date(),hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');['it is '+hm+'.','you should','be asleep.'].forEach((l,i)=>g.fillText(l,48,28+i*22));tt.needsUpdate=true;}
+  function writeTimeNote(){const g=tc.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,99);g.fillStyle='#1d1a30';g.font=HF(23)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';
+    const d=new Date(),hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');['it is '+hm+'.','you should','be asleep.'].forEach((l,i)=>g.fillText(_t(l),48,28+i*22));tt.needsUpdate=true;}
   // after you have said it before
   const loopNote=note('you said\nthat\nyesterday',[.759,1.45,5.12],PI/2,false,2);D2.splice(D2.indexOf(loopNote),1);
   // sounds behind you
@@ -2181,13 +2190,13 @@ const HS=(function(){
     S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();S.statPunch=0;S.shakeH=0;S.shakeDecay=0;
     if(!houseAu)startAudio();else restoreHouse();
     resetDay();
-    if(day>=1){try{await document.fonts.load('25px "Reenie Beanie"');}catch(_){}noteDraws.forEach(f=>f());if(day===2)writeTimeNote();}
+    if(day>=1){try{await document.fonts.load(HF(25));}catch(_){}noteDraws.forEach(f=>f());if(day===2)writeTimeNote();}
     if(S.loopMon){tally.visible=true;photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;}
     if((day===1||day===4)&&!scene)alarmOn=true;
     if(scene){
       S.pos.set(2.55,0,1.45);S.eye=1.6;S.yaw=.32;S.pitch=0;S.busy=false;controls.move=true;controls.look=true;
       S.jumpTo(scene);fadeTo(0,1.2);
-      if(isTouch){$('#use').hidden=false;$('#use').textContent='USE';}
+      if(isTouch){$('#use').hidden=false;$('#use').textContent=_t('USE');}
       return;
     }
     if(day===3){
@@ -2198,7 +2207,7 @@ const HS=(function(){
       SFX.click();S.wiperOn=false;ramp(houseAu.engine3.gain,0,.8);
       S.busy=true;await tween({x:9.75,z:6.3,eye:1.6,yaw:PI,pitch:0},1.6);
       S.busy=false;controls.move=true;S.step='coffee';setObjective('Make breakfast.');
-      if(isTouch){$('#use').hidden=false;$('#use').textContent='USE';}
+      if(isTouch){$('#use').hidden=false;$('#use').textContent=_t('USE');}
       return;
     }
     S.pos.set(2.55,0,1.45);S.eye=.62;S.yaw=.3;S.pitch=1.2;S.busy=true;
@@ -2210,7 +2219,7 @@ const HS=(function(){
     S.busy=false;controls.move=true;controls.look=true;
     if(day===1&&S.loopMon)setTimeout(()=>mutter('almost there.',3),900);
     if(day===1||day===4){S.step='alarm';setObjective('Turn off the alarm.');}else{S.step='wake';setObjective('Wake her up.');}
-    if(isTouch){$('#use').hidden=false;$('#use').textContent='USE';}
+    if(isTouch){$('#use').hidden=false;$('#use').textContent=_t('USE');}
   };
   S.interact=function(){if(examining)return;if(S.special){const a=S.special.action;S.special=null;setPrompt('');a();return;}if(S.busy||!S.cur)return;const o=S.cur;S.cur=null;setPrompt('');o.action();};
   function collide(px,pz,r){for(const c of cols){if(c.on===false)continue;const cx=clamp(px,c.x0,c.x1),cz=clamp(pz,c.z0,c.z1);if((px-cx)**2+(pz-cz)**2<r*r)return true;}return false;}
@@ -2323,14 +2332,14 @@ function gameOn(){return $('#start').hidden&&$('#end').hidden;}
 function setPause(p){
   if(p===paused)return;if(p&&!gameOn())return;
   paused=p;$('#pause').hidden=!p;
-  if(p){const late=(HS.day>=4||stage===RD&&RD.d5);$('#pTitle').textContent=late?'ALMOST THERE':'PAUSED';$('#pResume').textContent=late?'KEEP DRIVING':'RESUME';
-    if(late){pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;paused=true;$('#pause').hidden=false;$('#pMenu').textContent='MAIN MENU';$('#pMenu').dataset.armed='';if(AU.master)AU.master.gain.setTargetAtTime(.18,AU.C.currentTime,.3);return;}
-    pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;if(AU.C)AU.C.suspend();$('#pMenu').textContent='MAIN MENU';$('#pMenu').dataset.armed='';setTimeout(()=>$('#pResume').focus(),30);}
+  if(p){const late=(HS.day>=4||stage===RD&&RD.d5);$('#pTitle').textContent=_t(late?'ALMOST THERE':'PAUSED');$('#pResume').textContent=_t(late?'KEEP DRIVING':'RESUME');
+    if(late){pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;paused=true;$('#pause').hidden=false;$('#pMenu').textContent=_t('MAIN MENU');$('#pMenu').dataset.armed='';if(AU.master)AU.master.gain.setTargetAtTime(.18,AU.C.currentTime,.3);return;}
+    pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;if(AU.C)AU.C.suspend();$('#pMenu').textContent=_t('MAIN MENU');$('#pMenu').dataset.armed='';setTimeout(()=>$('#pResume').focus(),30);}
   else{if(AU.C){AU.C.resume();if(HS.day>=4||stage===RD&&RD.d5)AU.master.gain.setTargetAtTime(.85,AU.C.currentTime,.2);}}
 }
 document.addEventListener('pointerlockchange',()=>{if(locked())return;if(selfUnlock){selfUnlock=false;return;}if(gameOn()&&!paused&&!examining&&$('#choice').hidden)setPause(true);});
 $('#pResume').addEventListener('click',()=>setPause(false));
-$('#pMenu').addEventListener('click',()=>{const b=$('#pMenu');if(b.dataset.armed){location.reload();}else{b.dataset.armed='1';b.textContent='CLICK AGAIN TO QUIT';}});
+$('#pMenu').addEventListener('click',()=>{const b=$('#pMenu');if(b.dataset.armed){location.reload();}else{b.dataset.armed='1';b.textContent=_t('CLICK AGAIN TO QUIT');}});
 $('#pauseBtn').addEventListener('click',()=>setPause(!paused));
 function bindRange(id,key,scale){const el=$(id);el.value=Math.round(SET[key]*scale);el.addEventListener('input',()=>{SET[key]=el.value/scale;applySet();saveSet();});}
 function applySet(){if(AU.vol)AU.vol.gain.value=SET.vol;postMat.uniforms.uBright.value=SET.bright;}
