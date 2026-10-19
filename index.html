@@ -165,6 +165,7 @@ $('#game').appendChild(renderer.domElement);
 const canvas=renderer.domElement;
 const LOW_H=360;
 const rt=new THREE.WebGLRenderTarget(320,LOW_H,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthBuffer:true});
+rt.depthTexture=new THREE.DepthTexture(320,LOW_H);rt.depthTexture.type=THREE.UnsignedIntType;
 const camera=new THREE.PerspectiveCamera(72,4/3,0.08,80);
 camera.rotation.order='YXZ';
 
@@ -386,6 +387,26 @@ updateTV();
 /* ---- the thing that doesn't belong: a man-shaped hole, drawn in its own pass ---- */
 const FIGU={uFade:{value:0}};
 const VOIDU={uTime:{value:0},uAmp:{value:.006}};
+const VOIDD={uTime:null,uAmp:null,uDepth:{value:null},uCanvas:{value:new THREE.Vector2(1,1)},uFade:null,uWhite:{value:0}};
+let voidMatD=null;
+function makeVoidD(){VOIDD.uTime=VOIDU.uTime;VOIDD.uAmp=VOIDU.uAmp;VOIDD.uFade=FIGU.uFade;VOIDD.uDepth.value=rt.depthTexture;
+  voidMatD=new THREE.ShaderMaterial({uniforms:VOIDD,side:THREE.FrontSide,
+  vertexShader:`uniform float uTime,uAmp;varying vec3 vN;varying vec3 vV;
+    void main(){vec3 p=position;vec4 w=modelMatrix*vec4(p,1.);
+      float d=sin(w.x*47.+uTime*7.3)*sin(w.y*39.-uTime*5.1)*sin(w.z*43.+uTime*6.7)+.5*sin(w.y*91.+uTime*17.)*sin(w.x*83.-uTime*13.);
+      p+=normal*uAmp*d;vec4 mv=modelViewMatrix*vec4(p,1.);vV=mv.xyz;vN=normalize(normalMatrix*normal);gl_Position=projectionMatrix*mv;}`,
+  fragmentShader:`uniform sampler2D uDepth;uniform vec2 uCanvas;uniform float uTime,uFade,uWhite;varying vec3 vN;varying vec3 vV;
+    float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
+    void main(){
+      float sd=texture2D(uDepth,gl_FragCoord.xy/uCanvas).x;
+      if(gl_FragCoord.z>sd+.00003)discard;
+      float e=abs(dot(normalize(vN),normalize(-vV)));
+      float n=h(floor(gl_FragCoord.xy*.5)+floor(uTime*20.)*vec2(3.1,1.7));
+      float n2=h(floor(gl_FragCoord.xy*.125)+floor(uTime*6.)*vec2(1.3,2.9));
+      if(e<.36&&mix(n,n2,.5)>smoothstep(.0,.36,e))discard;
+      vec3 c=mix(vec3(0.),vec3(.9,.89,.85),uWhite);
+      gl_FragColor=vec4(c*(1.-uFade),1.);}`});}
+function toVoidD(g){if(!voidMatD)makeVoidD();g.traverse(o=>{if(o.isMesh)o.material=voidMatD;});}
 const voidMat=new THREE.ShaderMaterial({uniforms:VOIDU,side:THREE.DoubleSide,
   vertexShader:`uniform float uTime,uAmp;
     void main(){vec3 p=position;vec4 w=modelMatrix*vec4(p,1.);
@@ -942,13 +963,14 @@ const RD=(function(){
   let dtR=0;
   S.showGhosts=function(){buildPassengers();belt.visible=false;};
   S.hideGhosts=function(){if(PW){PW.root.visible=false;PK.root.visible=false;}belt.visible=true;};
+  S.figScene=new THREE.Scene();
   let roadMan=null;
   S.finale=async function(){
     stage=S;camera.fov=74;camera.updateProjectionMatrix();controls.look=true;controls.move=false;
     S.attract=false;S.tunnel=false;S.rainOn=true;S.speed=24;S.carX=1.9;S.carVX=0;S.b=0;S.drowsy=false;S.force=false;S.opening=false;S.doorZ=null;S.auto=true;S.noTraffic=true;S.yaw=0;S.pitch=-.03;S.t=40;
     belt.visible=true;door.visible=false;sign.visible=false;onc.visible=false;oncActive=false;
     for(const tl of tiles){tl.userData.env.visible=true;tl.userData.tun.visible=false;}
-    if(!roadMan){const P=HS.makeMan();P.root.position.y=1.02;P.shL.rotation.set(.05,0,-.04);P.shR.rotation.set(.05,0,.04);P.neck.rotation.x=.1;P.head.rotation.set(.1,0,.42);roadMan=new THREE.Group();roadMan.add(P.root);scene.add(roadMan);}
+    if(!roadMan){const P=HS.makeMan();P.root.position.y=1.02;P.shL.rotation.set(.05,0,-.04);P.shR.rotation.set(.05,0,.04);P.neck.rotation.x=.1;P.head.rotation.set(.1,0,.42);roadMan=new THREE.Group();roadMan.add(P.root);S.figScene.add(roadMan);toVoidD(roadMan);}
     roadMan.visible=false;
     if(au)stopAudio();startAudio();ramp(AU.muffle.frequency,18000,.05);
     fx.fade=fx.fadeT=1;fadeTo(0,1.4);
@@ -1159,9 +1181,9 @@ const HS=(function(){
     const P={},root=new THREE.Group();P.root=root;
     const M=(geo,x,y,z,par,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(geo,voidMat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);par.add(m);return m;};
     const J=(par,x,y,z)=>{const g=new THREE.Group();g.position.set(x,y,z);par.add(g);return g;};
-    const sph=r=>new THREE.SphereGeometry(r,14,10);
-    const down=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r1,r2,len,12,6,true);g.translate(0,-len/2,0);return g;};
-    const up=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r2,r1,len,12,6,true);g.translate(0,len/2,0);return g;};
+    const sph=r=>new THREE.SphereGeometry(r,18,14);
+    const down=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r1,r2,len,16,6,false);g.translate(0,-len/2,0);return g;};
+    const up=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r2,r1,len,16,6,false);g.translate(0,len/2,0);return g;};
     M(sph(.17),0,.02,0,root,1,.62,.7);
     P.spine=J(root,0,.08,0);M(up(.27,.15,.16),0,0,0,P.spine,1,1,.62);
     P.chest=J(P.spine,0,.25,0);M(up(.3,.16,.2),0,0,0,P.chest,1,1,.58);M(sph(.2),0,.29,0,P.chest,1,.32,.58);
@@ -1871,6 +1893,7 @@ const HS=(function(){
       else if(r<.8){pingTo(b,t,880,.09,1.6);pingTo(b,t+.62,659,.09,1.6);pingTo(b,t+1.24,587,.08,1.8);}
       else{const o=AU.C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(80,t);o.frequency.linearRampToValueAtTime(130,t+.9);const f=F('bandpass',800,6),g=G(0);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.15,t+.1);g.gain.linearRampToValueAtTime(0,t+1);chain(o,f,g,b);o.start(t);o.stop(t+1.05);}
       setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2600);}}
+  [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG].forEach(g=>{figScene.add(g);toVoidD(g);});
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
     if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);behind();}}
@@ -2121,7 +2144,7 @@ const HS=(function(){
 })();
 
 /* ================= MAIN LOOP ================= */
-function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);const lw=Math.round(LOW_H*w/h);rt.setSize(lw,LOW_H);postMat.uniforms.uRes.value.set(lw,LOW_H);SH.uSnap.value.set(lw,LOW_H);camera.aspect=w/h;camera.updateProjectionMatrix();}
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);renderer.getDrawingBufferSize(VOIDD.uCanvas.value);const lw=Math.round(LOW_H*w/h);rt.setSize(lw,LOW_H);postMat.uniforms.uRes.value.set(lw,LOW_H);SH.uSnap.value.set(lw,LOW_H);camera.aspect=w/h;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
 RD.enter();fx.fade=.15;fx.fadeT=.15;
 if((MEM.loops||0)>0){const tl=$('#tallyLine');tl.textContent=tallyText(MEM.loops);tl.hidden=false;if(!MEM.stopped)RD.showGhosts();}
@@ -2159,7 +2182,7 @@ function frame(now){
   if(!(stage===HS&&HS.stutter&&frameN%5!==0)){renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);}
   renderer.setRenderTarget(null);renderer.render(postScene,postCam);
   VOIDU.uTime.value=gameTime;
-  if(stage===HS&&HS.figOn){FIGU.uFade.value=fx.fade;renderer.autoClear=false;renderer.clearDepth();renderer.render(HS.figScene,camera);renderer.autoClear=true;}
+  if(stage.figScene){FIGU.uFade.value=fx.fade;VOIDD.uWhite.value=fx.white;renderer.autoClear=false;renderer.clearDepth();renderer.render(stage.figScene,camera);renderer.autoClear=true;}
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
