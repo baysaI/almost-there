@@ -373,15 +373,35 @@ TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${70+r()*6
   for(let i=0;i<4;i++){const x=r()*(w-30),y=r()*(h-40);g.fillStyle=red();g.fillRect(x+6,y+12,12,14);for(let f=0;f<4;f++)g.fillRect(x+6+f*3,y+(f===0||f===3?4:0),2,13);g.fillRect(x+1,y+16,6,3);
     g.fillRect(x+10,y+26,2,10+r()*20);}
   g.fillStyle=red();for(let x=8;x<w-8;x+=6){if(r()<.8)g.fillRect(x,92+(r()*3|0),2,14+(r()*8|0));}},false);
-function bloodText(lines,W,Hh,size,seed){const c=document.createElement('canvas');c.width=W;c.height=Hh;const g=c.getContext('2d');const r=rng(seed);
-  const red=()=>`rgb(${85+r()*55|0},${4+r()*8|0},${4+r()*6|0})`;g.textBaseline='alphabetic';
-  const lh=Hh/lines.length;lines.forEach((ln,li)=>{let x=W*.04+r()*W*.03;const y=lh*(li+.72);g.font=`bold ${size}px "Arial Black", Impact, sans-serif`;
-    for(const ch of ln){const cw=g.measureText(ch).width;g.save();g.translate(x,y+(r()-.5)*size*.12);g.rotate((r()-.5)*.18);g.fillStyle=red();
-      for(let k=0;k<3;k++)g.fillText(ch,(r()-.5)*2,(r()-.5)*2);g.restore();
-      if(ch!==' '&&r()<.6){g.fillStyle=red();const dx=x+r()*cw;g.fillRect(dx,y,2+(r()*3|0),size*.2+r()*size*1.1);}
-      x+=cw*(.92+r()*.12);}
-    for(let k=0;k<14;k++){g.fillStyle=red();g.beginPath();g.arc(r()*W,y-r()*size,1+r()*3,0,7);g.fill();}});
-  const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.LinearMipmapLinearFilter;return t;}
+function bloodText(lines,wm,hm,seed){
+  const W=Math.round(clamp(wm*200,160,700)),Hh=Math.round(W*hm/wm);const r=rng(seed);
+  const mc=document.createElement('canvas');mc.width=W;mc.height=Hh;const m=mc.getContext('2d');m.fillStyle='#000';m.fillRect(0,0,W,Hh);m.fillStyle='#fff';m.strokeStyle='#fff';m.lineJoin='round';m.lineCap='round';
+  const lh=Hh/lines.length;let size=lh*.78;m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;
+  const widest=Math.max(...lines.map(l=>m.measureText(l).width));size=Math.min(size,size*W*.9/widest);
+  lines.forEach((ln,li)=>{m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;const tw=m.measureText(ln).width;let x=(W-tw)/2+(r()-.5)*W*.03;const y=lh*li+lh*.5+size*.36;
+    for(const ch of ln){const cw=m.measureText(ch).width;m.save();m.translate(x+cw/2,y);m.rotate((r()-.5)*.22);m.scale(1+(r()-.5)*.15,1+(r()-.5)*.2);m.lineWidth=size*.07;
+      m.fillText(ch,-cw/2,(r()-.5)*size*.1);m.strokeText(ch,-cw/2+(r()-.5)*2,(r()-.5)*size*.1);m.restore();x+=cw*(.9+r()*.14);}});
+  const md=m.getImageData(0,0,W,Hh).data;const out=m.createImageData(W,Hh),o=out.data;
+  const put=(x,y,cr,cg,cb)=>{if(x<0||y<0||x>=W||y>=Hh)return;const i=(y*W+x)*4;o[i]=cr;o[i+1]=cg;o[i+2]=cb;o[i+3]=255;};
+  const blood=(x,y,k=1)=>{const v=r();put(x,y,(60+v*90)*k|0,(v*10)|0,(v*7)|0);};
+  const isM=(x,y)=>x>=0&&y>=0&&x<W&&y<Hh&&md[(y*W+x)*4]>110;
+  for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){if(!isM(x,y))continue;
+    const edge=!isM(x-2,y)||!isM(x+2,y)||!isM(x,y-2)||!isM(x,y+2);
+    if(edge&&r()<.22)continue;
+    blood(x,y,edge?.75:1);
+    if(r()<.012){const dir=r()<.5?-1:1,L=4+r()*28;for(let k=1;k<L;k++){if(r()<1-k/L)blood(x+dir*k,y+(r()<.2?1:0),.8);}}}
+  for(let x=0;x<W;x++){let inRun=false;for(let y=0;y<Hh;y++){const mm=isM(x,y);if(mm)inRun=true;else if(inRun){inRun=false;
+    if(r()<.07){const L=6+r()*Hh*.55,wd=1+(r()*2|0);for(let k=0;k<L&&y+k<Hh;k++)for(let q=0;q<wd;q++)blood(x+q,y+k,.85);const by=Math.min(Hh-2,y+L|0);for(let a=-2;a<=2;a++)for(let b2=-1;b2<=2;b2++)if(a*a+b2*b2<5)blood(x+a,by+b2,.8);}}}}
+  for(let i=0;i<W*.25;i++){const x=r()*W|0,y=r()*Hh|0,rr=r()<.85?1:2+(r()*2|0);for(let a=-rr;a<=rr;a++)for(let b2=-rr;b2<=rr;b2++)if(a*a+b2*b2<=rr*rr)blood(x+a,y+b2,.9);}
+  for(let i=0;i<W*Hh*.004;i++){const x=r()*W|0,y=r()*Hh|0;if(isM(x,y))put(x,y,190,40,32);}
+  m.putImageData(out,0,0);
+  const t=new THREE.CanvasTexture(mc);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t;}
+TX.bloodHands=(()=>{const c=document.createElement('canvas');c.width=c.height=96;const g=c.getContext('2d');const r=rng(320);
+  const col=()=>`rgb(${70+r()*80|0},${r()*9|0},${r()*6|0})`;
+  for(let h=0;h<3;h++){const x=10+r()*60,y=8+r()*40,s=.8+r()*.5;g.fillStyle=col();g.fillRect(x,y+10*s,14*s,13*s);
+    for(let f=0;f<4;f++)g.fillRect(x+f*3.6*s,y+(f===0||f===3?3:0),2.6*s,12*s);g.fillRect(x-4*s,y+13*s,5*s,3*s);
+    for(let k=0;k<5;k++){if(r()<.7)g.fillRect(x+r()*14*s,y+22*s,1+(r()*2|0),8+r()*40);}}
+  const t=new THREE.CanvasTexture(c);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t;})();
 TX.clock=tex(32,32,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#d8d2c0';g.beginPath();g.arc(16,16,15,0,7);g.fill();g.fillStyle='#2a2620';
   for(let i=0;i<12;i++){const a=i/12*PI*2;g.fillRect(16+Math.sin(a)*12.5-.5,16-Math.cos(a)*12.5-.5,1.5,1.5);}
   g.strokeStyle='#1a1610';g.lineWidth=2;const ha=(3+17/60)/12*PI*2,ma=17/60*PI*2;g.beginPath();g.moveTo(16,16);g.lineTo(16+Math.sin(ha)*7,16-Math.cos(ha)*7);g.stroke();
@@ -1303,10 +1323,27 @@ const HS=(function(){
   inter(carH,()=>S.step==='sleep'?'Sleep':null,sleep3,2.6);
   // what appears on the walls while you scrub
   const bw=[];
-  const bwall=(lines,w,h,pos,ry,size,seed)=>{const m=plane(w,h,bloodText(lines,1024,Math.round(1024*h/w),size,seed),0xffffff,{fit:true,seg:9,em:.18,rotY:ry,pos});m.visible=false;G3.add(m);bw.push(m);return m;};
-  bwall(['YOU WERE DRIVING'],1.55,.36,[5.527,1.55,9.05],-PI/2,150,301);
-  bwall(['SHE ASKED YOU TO STOP'],2.7,.42,[8.5,2.16,3.073],0,120,302);
-  bwall(['WAKE UP WAKE UP','WAKE UP WAKE UP','WAKE UP WAKE'],1.9,1.25,[5.673,1.45,8.85],PI/2,190,303);
+  const bwall=(lines,w,h,pos,ry,stage,ceil)=>{const m=plane(w,h,bloodText(lines,w,h,stage*97+bw.length*13),0xffffff,{fit:true,seg:9,em:.16,rotY:ceil?null:ry,pos});
+    if(ceil){m.rotation.x=PI/2;m.rotation.z=ry;}m.visible=false;m.userData.stage=stage;G3.add(m);bw.push(m);return m;};
+  bwall(['YOU WERE','DRIVING'],1.5,.85,[5.526,1.6,9.05],-PI/2,1);
+  bwall(['SHE ASKED YOU TO STOP'],2.9,.45,[8.5,2.15,3.074],0,1);
+  bwall(['WAKE UP','WAKE UP','WAKE UP'],1.85,1.55,[5.674,1.4,8.8],PI/2,1);
+  bwall(["WHY DIDN'T",'YOU STOP'],1.2,.85,[3.926,1.5,5.25],-PI/2,2);
+  bwall(['ALMOST THERE'],2.8,.6,[2.0,1.55,9.926],PI,2);
+  bwall(['3:17'],1.2,.8,[4.8,1.5,.074],0,2);
+  bwall(['LOOK AT WHAT','YOU DID'],1.9,.9,[6.85,1.55,9.926],PI,2);
+  bwall(['SHE WAS AWAKE'],2.5,.5,[2.35,1.75,4.574],0,2);
+  bwall(['YOU CLOSED','YOUR EYES'],1.9,.9,[10.926,1.5,4.4],-PI/2,2);
+  bwall(["IT WON'T",'COME OFF'],1.9,.9,[10.926,1.5,8.6],-PI/2,3);
+  bwall(["YOU CAN'T"],1.5,.45,[10.0,1.85,9.926],PI,3);
+  bwall(['STOP STOP STOP','STOP STOP STOP'],1.25,.85,[4.074,1.55,2.65],PI/2,3);
+  bwall(['ALMOST THERE  ALMOST THERE'],3.8,.9,[4.8,2.495,5.0],PI/2,3,true);
+  bwall(['3:17 3:17 3:17'],2.5,.5,[5.526,1.65,3.6],-PI/2,3);
+  bwall(['WAKE UP'],.95,.45,[.074,1.55,8.85],PI/2,3);
+  bwall(['SHE ASKED'],1.4,.4,[3.926,2.05,9.0],-PI/2,3);
+  bwall(['ALMOST','THERE'],1.6,.8,[6.6,1.5,3.074],0,3);
+  for(const hp of[[4.074,1.1,5.65,PI/2],[5.526,1.0,2.15,-PI/2],[4.074,.85,9.7,PI/2],[6.25,1.05,3.074,0],[10.926,.55,6.1,-PI/2],[9.6,1.0,9.926,PI],[.074,1.25,9.6,PI/2],[3.926,1.0,5.8,-PI/2],[1.2,1.3,4.574,0],[5.674,.95,3.6,PI/2],[4.074,1.3,2.0,PI/2],[2.9,1.1,9.926,PI]]){
+    const m=plane(.42,.42,TX.bloodHands,0xffffff,{fit:true,seg:9,em:.14,rotY:hp[3],pos:[hp[0],hp[1],hp[2]]});m.rotation.z=(R0()-.5)*.6;m.visible=false;m.userData.stage=hp[1]>1.2?2:3;G3.add(m);bw.push(m);}
   // the two of them, in the hallway
   const famG=new THREE.Group();famG.visible=false;scene.add(famG);
   {const W=makeMan();S.famW=W;W.root.scale.set(.9,.96,.88);W.root.position.set(5.95,.95,5.68);W.root.rotation.y=PI/2;
@@ -1350,8 +1387,8 @@ const HS=(function(){
   inter(faucet,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);inter(stream,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);
   inter(bathDoorIn,()=>S.step==='leavebath'?'Open':null,leaveBath,1.9);
   const bbath=[];
-  {const a=plane(.56,.28,bloodText(['WHO WAS','DRIVING?'],512,256,100,311),0xffffff,{fit:true,seg:9,em:.15,rotY:PI/2,pos:[X1+.1,1.58,1.6]});a.visible=false;scene.add(a);bbath.push(a);
-   const b=plane(.8,.55,bloodText(['LET THEM','GO'],512,352,120,312),0xffffff,{fit:true,seg:9,em:.15,rotY:-PI/2,pos:[X1+2.276,1.45,1.6]});b.visible=false;scene.add(b);bbath.push(b);}
+  {const a=plane(.56,.28,bloodText(['WHO WAS','DRIVING?'],1.12,.56,311),0xffffff,{fit:true,seg:9,em:.15,rotY:PI/2,pos:[X1+.1,1.58,1.6]});a.visible=false;scene.add(a);bbath.push(a);
+   const b=plane(.8,.55,bloodText(['LET THEM','GO'],1.2,.82,312),0xffffff,{fit:true,seg:9,em:.15,rotY:-PI/2,pos:[X1+2.276,1.45,1.6]});b.visible=false;scene.add(b);bbath.push(b);}
   // the mirror, one second behind
   const mirRT1=new THREE.WebGLRenderTarget(200,250,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});const hist=[];
   const mirCam=new THREE.PerspectiveCamera(64,200/250,.05,20);mirCam.layers.enable(1);
@@ -1662,7 +1699,7 @@ const HS=(function(){
     const o1=O('sine',350),o2=O('sine',440),dg=G(.06);o1.connect(dg);o2.connect(dg);dg.connect(ph);await wait(3.2);dg.gain.setTargetAtTime(0,AU.C.currentTime,.02);setTimeout(()=>{o1.stop();o2.stop();},300);
     await wait(.6);
     whisper(1.8,.14,2);SFX.thud();await intrude('Clean it up.',1.8,1);
-    S.busy=false;S.step='clean';S.scrubbed=0;setObjective('Clean it up.');
+    S.busy=false;S.step='clean';S.scrubbed=0;GLITCH=.04;setObjective('Clean it up.');
   }
   async function scrub(st){
     S.busy=true;st.userData.done=true;
@@ -1675,13 +1712,13 @@ const HS=(function(){
     for(let i=0;i<9;i++){burst(AU.C.currentTime,.22,'bandpass',1300+Math.random()*700,.22,2,.1);S.bob+=.7;await wait(.27);}
     S.shakeH=0;
     st.scale.multiplyScalar(1.5);
-    {const w=bw[n-1];if(w){w.visible=true;const sp=G(1),src=new PSrc(sp,w.position.clone(),9,1.4,.3);S.behindSrc=src;const t=AU.C.currentTime;for(let i=0;i<3;i++)tapTo(sp,t+.2+i*.17,260,.7,.25);setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2500);}}
+    {const news=bw.filter(m=>m.userData.stage===n);news.forEach(m=>{m.visible=true;});const w=news[0];if(w){const sp=G(1),src=new PSrc(sp,w.position.clone(),9,1.4,.3);S.behindSrc=src;const t=AU.C.currentTime;for(let i=0;i<3;i++)tapTo(sp,t+.2+i*.17,260,.7,.25);setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2500);}}
     S.blinkT=.7;S.blinkRate=14;await wait(.16);S.blinkT=0;S.blinkRate=4;
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.7);
     S.busy=false;
     if(n===1)setObjective('Clean it up.');
     else if(n===2)setObjective('CLEAN IT UP.');
-    else{S.step='cant';setObjective('');ramp(houseAu.drone.gain,.3,.1);await intrude("you can't.",3.2,1);ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
+    else{S.step='cant';setObjective('');GLITCH=.2;ramp(houseAu.drone.gain,.3,.1);await intrude("you can't.",3.2,1);ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
   }
   async function sleep3(){
     S.step='sleeping';S.busy=true;setObjective('');
