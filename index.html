@@ -1,4 +1,6 @@
 <title>Almost There</title>
+<meta name="author" content="Mehmet Baysal">
+<meta name="description" content="Almost There, a PS1-style psychological horror game by Mehmet Baysal.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Reenie+Beanie&family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
 <style>
@@ -50,6 +52,12 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 .chapters{display:flex;flex-wrap:wrap;justify-content:center;max-width:620px;gap:4px 18px;align-items:center;font-family:var(--ui);font-size:18px;color:var(--dim);letter-spacing:.1em}
 .chap{font:inherit;background:none;border:none;color:var(--dim);cursor:pointer;letter-spacing:.18em;padding:4px 2px;text-decoration:underline;text-underline-offset:5px}
 .chap:hover{color:var(--warm)}
+#chaptersScr{background:rgba(5,5,6,.96);z-index:21;overflow:auto;justify-content:flex-start;padding:6vh 16px}
+.chgrid{display:flex;flex-direction:column;gap:12px;width:min(720px,100%)}
+.chday{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;font-family:var(--ui);font-size:19px;color:var(--dim);border-top:1px solid var(--line);padding-top:10px}
+.chname{color:var(--ink);letter-spacing:.25em;min-width:150px}
+.chgrid.locked .chap{opacity:.3;pointer-events:none;text-decoration:none}
+#chLock{color:#8a3a30;letter-spacing:.12em}
 .chlabel{width:100%;text-align:center;letter-spacing:.3em;font-size:15px;opacity:.7}
 #pause{background:rgba(5,5,6,.84);z-index:20}
 #settings{background:rgba(5,5,6,.96);z-index:21}
@@ -88,35 +96,20 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
   <p class="small" id="ctrlText">WASD to walk · mouse to look · E to interact<br>Headphones recommended.</p>
   <p class="small" id="tallyLine" hidden style="font-size:26px;letter-spacing:.25em;color:#8a3a30"></p>
   <button class="btn" id="beginBtn" type="button">BEGIN</button>
+  <button class="btn" id="chapBtn" type="button" style="font-size:22px;padding:7px 22px;margin-top:-6px;opacity:.8">CHAPTERS</button>
   <button class="btn" id="setBtn" type="button" style="font-size:22px;padding:7px 22px;margin-top:-6px;opacity:.8">SETTINGS</button>
-  <div class="chapters">
-    <span class="chlabel">scenes</span>
-    <button class="chap" type="button" data-day="1">monday</button>
-    <button class="chap" type="button" data-day="2">tuesday</button>
-    <button class="chap" type="button" data-day="2" data-scene="breakfast">breakfast</button>
-    <button class="chap" type="button" data-day="2" data-scene="messages">the messages</button>
-    <button class="chap" type="button" data-day="2" data-scene="outside">go outside</button>
-    <button class="chap" type="button" data-day="2" data-scene="door">the new door</button>
-    <button class="chap" type="button" data-day="2" data-scene="room">the other room</button>
-    <button class="chap" type="button" data-day="2" data-scene="roomsit">he sits up</button>
-    <button class="chap" type="button" data-day="2" data-scene="ending">ending</button>
-    <button class="chap" type="button" data-day="3">wednesday</button>
-    <button class="chap" type="button" data-day="3" data-scene="phone">the phone</button>
-    <button class="chap" type="button" data-day="3" data-scene="clean">clean it up</button>
-    <button class="chap" type="button" data-day="3" data-scene="sleep">go to sleep</button>
-    <button class="chap" type="button" data-day="3" data-scene="road">the road</button>
-    <button class="chap" type="button" data-day="4">thursday</button>
-    <button class="chap" type="button" data-day="4" data-scene="wait">wait for them</button>
-    <button class="chap" type="button" data-day="4" data-scene="find">find them</button>
-    <button class="chap" type="button" data-day="4" data-scene="cut">cut her out</button>
-    <button class="chap" type="button" data-day="4" data-scene="bath">the mirror</button>
-    <button class="chap" type="button" data-day="4" data-scene="herroom">her room</button>
-    <button class="chap" type="button" data-day="4" data-scene="corridor">the corridor</button>
-    <button class="chap" type="button" data-day="5">friday</button>
-    <button class="chap" type="button" data-day="5" data-scene="choice">the choice</button>
-    <button class="chap" type="button" data-day="5" data-scene="rest">the rest area</button>
+</div>
+<div id="chaptersScr" class="screen" hidden>
+  <h1 style="font-size:clamp(34px,7vw,64px)">CHAPTERS</h1>
+  <p class="small" id="chLock">Finish the game to unlock the chapters.</p>
+  <div class="chgrid">
+    <div class="chday"><span class="chname">MONDAY</span><button class="chap" type="button" data-day="1">the morning</button></div>
+    <div class="chday"><span class="chname">TUESDAY</span><button class="chap" type="button" data-day="2">the morning</button><button class="chap" type="button" data-day="2" data-scene="breakfast">breakfast</button><button class="chap" type="button" data-day="2" data-scene="messages">the messages</button><button class="chap" type="button" data-day="2" data-scene="outside">go outside</button><button class="chap" type="button" data-day="2" data-scene="door">the new door</button><button class="chap" type="button" data-day="2" data-scene="room">the other room</button><button class="chap" type="button" data-day="2" data-scene="roomsit">he sits up</button><button class="chap" type="button" data-day="2" data-scene="ending">ending</button></div>
+    <div class="chday"><span class="chname">WEDNESDAY</span><button class="chap" type="button" data-day="3">the morning</button><button class="chap" type="button" data-day="3" data-scene="phone">the phone</button><button class="chap" type="button" data-day="3" data-scene="clean">clean it up</button><button class="chap" type="button" data-day="3" data-scene="sleep">go to sleep</button><button class="chap" type="button" data-day="3" data-scene="road">the road</button></div>
+    <div class="chday"><span class="chname">THURSDAY</span><button class="chap" type="button" data-day="4">the morning</button><button class="chap" type="button" data-day="4" data-scene="wait">wait for them</button><button class="chap" type="button" data-day="4" data-scene="find">find them</button><button class="chap" type="button" data-day="4" data-scene="cut">cut her out</button><button class="chap" type="button" data-day="4" data-scene="bath">the mirror</button><button class="chap" type="button" data-day="4" data-scene="herroom">her room</button><button class="chap" type="button" data-day="4" data-scene="corridor">the corridor</button></div>
+    <div class="chday"><span class="chname">FRIDAY</span><button class="chap" type="button" data-day="5">the drive</button><button class="chap" type="button" data-day="5" data-scene="choice">the choice</button><button class="chap" type="button" data-day="5" data-scene="rest">the rest area</button></div>
   </div>
-  <p class="small" style="font-size:16px">prototype · prologue + days 1–5</p>
+  <button class="btn" id="chBack" type="button">BACK</button>
 </div>
 <div id="settings" class="screen" hidden>
   <h1 style="font-size:clamp(34px,7vw,64px)">SETTINGS</h1>
@@ -169,7 +162,7 @@ function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return T
     document.getElementById('sBack').addEventListener('click',e=>{e.stopPropagation();sc.hidden=true;});
     sc.querySelectorAll('.lang').forEach(b=>{b.classList.toggle('on',b.dataset.lang===LANG);b.addEventListener('click',e=>{e.stopPropagation();if(b.dataset.lang===LANG)return;SET.lang=b.dataset.lang;try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}location.reload();});});}}
 const HF=n=>LANG==='tr'?Math.round(n*.84)+'px "Caveat"':n+'px "Reenie Beanie"';
-if(LANG==='tr'){const H={"BEGIN": "BAŞLA", "scenes": "sahneler", "monday": "pazartesi", "tuesday": "salı", "wednesday": "çarşamba", "thursday": "perşembe", "friday": "cuma", "breakfast": "kahvaltı", "the messages": "mesajlar", "go outside": "dışarı çık", "the new door": "yeni kapı", "the other room": "öteki oda", "he sits up": "doğruluyor", "ending": "son", "the phone": "telefon", "clean it up": "temizle şunu", "go to sleep": "uyu", "the road": "yol", "wait for them": "onları bekle", "find them": "onları bul", "cut her out": "onu kesip çıkar", "the mirror": "ayna", "her room": "onun odası", "the corridor": "koridor", "the choice": "seçim", "the rest area": "mola yeri", "prototype · prologue + days 1–5": "prototip · giriş + 1–5. günler", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "SETTINGS": "AYARLAR", "LANGUAGE": "DİL", "BACK": "GERİ", "WASD to walk · mouse to look · E to interact": "WASD yürü · fare bak · E etkileşim", "Headphones recommended.": "Kulaklık önerilir.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "VOLUME": "SES", "MOUSE": "FARE", "BRIGHTNESS": "PARLAKLIK", "MAIN MENU": "ANA MENÜ", "ESC to resume": "Devam etmek için ESC", "AGAIN": "TEKRAR", "The prototype ends here.": "Prototip burada bitiyor.", "Day 2 of 5.": "5 günün 2.si.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım."};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let nd;while((nd=w.nextNode())){const k=nd.nodeValue.trim();if(k&&H[k]!=null)nd.nodeValue=nd.nodeValue.replace(k,H[k]);}document.documentElement.lang='tr';}
+if(LANG==='tr'){const H={"BEGIN": "BAŞLA", "CHAPTERS": "BÖLÜMLER", "Finish the game to unlock the chapters.": "Bölümleri açmak için oyunu bitir.", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "the morning": "sabah", "the drive": "yol", "scenes": "sahneler", "monday": "pazartesi", "tuesday": "salı", "wednesday": "çarşamba", "thursday": "perşembe", "friday": "cuma", "breakfast": "kahvaltı", "the messages": "mesajlar", "go outside": "dışarı çık", "the new door": "yeni kapı", "the other room": "öteki oda", "he sits up": "doğruluyor", "ending": "son", "the phone": "telefon", "clean it up": "temizle şunu", "go to sleep": "uyu", "the road": "yol", "wait for them": "onları bekle", "find them": "onları bul", "cut her out": "onu kesip çıkar", "the mirror": "ayna", "her room": "onun odası", "the corridor": "koridor", "the choice": "seçim", "the rest area": "mola yeri", "prototype · prologue + days 1–5": "prototip · giriş + 1–5. günler", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "SETTINGS": "AYARLAR", "LANGUAGE": "DİL", "BACK": "GERİ", "WASD to walk · mouse to look · E to interact": "WASD yürü · fare bak · E etkileşim", "Headphones recommended.": "Kulaklık önerilir.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "VOLUME": "SES", "MOUSE": "FARE", "BRIGHTNESS": "PARLAKLIK", "MAIN MENU": "ANA MENÜ", "ESC to resume": "Devam etmek için ESC", "AGAIN": "TEKRAR", "The prototype ends here.": "Prototip burada bitiyor.", "Day 2 of 5.": "5 günün 2.si.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım."};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let nd;while((nd=w.nextNode())){const k=nd.nodeValue.trim();if(k&&H[k]!=null)nd.nodeValue=nd.nodeValue.replace(k,H[k]);}document.documentElement.lang='tr';}
 
 function tallyText(n){let t='';for(let i=1;i<=n;i++){t+='|';if(i%5===0)t+='  ';}return t;}
 function saveSet(){try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}}
@@ -2705,7 +2698,14 @@ $('#beginBtn').addEventListener('click',async()=>{
   RD.script();
 });
 $('#againBtn').addEventListener('click',()=>location.reload());
+{const cs=$('#chaptersScr'),grid=cs.querySelector('.chgrid');
+  const open=()=>MEM.stopped||MEM.loops>0||MEM.dev;
+  const refresh=()=>{const o=open();grid.classList.toggle('locked',!o);$('#chLock').hidden=o;};
+  $('#chapBtn').addEventListener('click',e=>{e.stopPropagation();refresh();cs.hidden=false;});
+  $('#chBack').addEventListener('click',e=>{e.stopPropagation();cs.hidden=true;});
+  let code='';addEventListener('keydown',e=>{if(cs.hidden||open())return;code=(code+e.key).slice(-4);if(code==='3317'){MEM.dev=1;saveMem();refresh();SFX&&AU.C&&SFX.click&&SFX.click();}});}
 document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',async()=>{
+  $('#chaptersScr').hidden=true;
   RD.hideGhosts();
   initAudio();if(AU.C.state==='suspended')AU.C.resume();
   $('#start').classList.add('fadeout');
