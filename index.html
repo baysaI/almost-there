@@ -30,7 +30,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);overflow:hi
 #hint{left:50%;bottom:calc(6% + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font-size:22px;color:var(--dim);opacity:0;transition:opacity .6s;white-space:nowrap}
 #hint.show{opacity:1}
 #choice{position:fixed;inset:0;display:grid;place-items:center;z-index:5}
-#choice button{font-family:var(--voice);font-style:italic;font-size:29px;background:rgba(0,0,0,.35);color:var(--ink);border:1px solid var(--line);padding:.45em 1.5em;cursor:pointer;margin-top:18vh}
+#choice .cbox{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:18vh;padding:0 16px}
+#choice button{font-family:var(--voice);font-style:italic;font-size:29px;background:rgba(0,0,0,.35);color:var(--ink);border:1px solid var(--line);padding:.45em 1.5em;cursor:pointer}
 #choice button:hover{border-color:var(--warm);color:#fff}
 button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 #examine{position:fixed;inset:0;background:rgba(3,3,4,.88);display:grid;place-items:center;z-index:6;cursor:pointer}
@@ -63,13 +64,14 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 <div id="hint" class="hud"></div>
 <div id="card" class="hud"></div>
 <div id="intrude" class="hud"></div>
-<div id="choice" hidden><button id="choiceBtn" type="button">Almost there.</button></div>
+<div id="choice" hidden><div class="cbox"><button id="choiceBtn" type="button">Almost there.</button><button id="choiceBtn2" type="button" hidden>Let's stop.</button></div></div>
 <div id="examine" hidden><img id="exImg" alt=""></div>
 <button id="use" type="button" hidden>USE</button>
 <div id="joy" hidden><i></i></div>
 
 <div id="start" class="screen">
   <h1>ALMOST THERE</h1>
+  <p class="small" style="letter-spacing:.3em;margin-top:-8px">A GAME BY MEHMET BAYSAL</p>
   <p class="small" id="ctrlText">WASD to walk · mouse to look · E to interact<br>Headphones recommended.</p>
   <button class="btn" id="beginBtn" type="button">BEGIN</button>
   <div class="chapters">
@@ -95,12 +97,16 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
     <button class="chap" type="button" data-day="4" data-scene="bath">the mirror</button>
     <button class="chap" type="button" data-day="4" data-scene="herroom">her room</button>
     <button class="chap" type="button" data-day="4" data-scene="corridor">the corridor</button>
+    <button class="chap" type="button" data-day="5">friday</button>
+    <button class="chap" type="button" data-day="5" data-scene="choice">the choice</button>
+    <button class="chap" type="button" data-day="5" data-scene="rest">the rest area</button>
   </div>
-  <p class="small" style="font-size:16px">prototype · prologue + days 1–4</p>
+  <p class="small" style="font-size:16px">prototype · prologue + days 1–5</p>
 </div>
 <div id="end" class="screen" hidden>
   <h1 id="endTitle" style="font-size:clamp(30px,6vw,54px)">WEDNESDAY</h1>
   <p class="small" id="endText">The prototype ends here.<br>Day 2 of 5.</p>
+  <p class="small" style="font-size:16px;letter-spacing:.3em">A GAME BY MEHMET BAYSAL</p>
   <button class="btn" id="againBtn" type="button">AGAIN</button>
 </div>
 
@@ -257,6 +263,8 @@ TX.sheet=tex(32,32,(g,w,h)=>{base(g,w,h,'#c4beae');speckle(g,w,h,.12,17);g.fillS
 TX.blanket=tex(32,32,(g,w,h)=>{base(g,w,h,'#47505e');speckle(g,w,h,.18,18);g.fillStyle='rgba(200,190,160,.25)';g.fillRect(0,6,32,2);g.fillRect(0,24,32,2);});
 TX.window=tex(32,32,(g,w,h)=>{const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,'#d6dadd');gr.addColorStop(1,'#9aa2a8');g.fillStyle=gr;g.fillRect(0,0,w,h);
   g.fillStyle='rgba(255,255,255,.2)';for(let i=0;i<6;i++)g.fillRect(3+i*5,6+(i%3)*7,1,5);g.fillStyle='#4a3a2c';g.fillRect(0,0,w,2);g.fillRect(0,h-2,w,2);g.fillRect(0,0,2,h);g.fillRect(w-2,0,2,h);g.fillRect(15,0,2,h);g.fillRect(0,15,w,2);},false);
+TX.sign1=tex(128,64,(g,w,h)=>{base(g,w,h,'#1d5636');g.strokeStyle='#d8dccf';g.lineWidth=2;g.strokeRect(3,3,122,58);g.fillStyle='#e2e4da';g.font='bold 15px monospace';g.textAlign='center';
+  g.fillText('REST AREA',64,28);g.font='bold 14px monospace';g.fillText('1 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
 TX.sign=tex(128,64,(g,w,h)=>{base(g,w,h,'#1d5636');g.strokeStyle='#d8dccf';g.lineWidth=2;g.strokeRect(3,3,122,58);g.fillStyle='#e2e4da';g.font='bold 15px monospace';g.textAlign='center';
   g.fillText('REST AREA',64,28);g.font='bold 14px monospace';g.fillText('2 km',52,50);g.beginPath();g.moveTo(84,40);g.lineTo(96,40);g.lineTo(96,36);g.lineTo(104,43);g.lineTo(96,50);g.lineTo(96,46);g.lineTo(84,46);g.fill();},false);
 TX.cluster=tex(32,8,(g,w,h)=>{base(g,w,h,'#050403');g.strokeStyle='#d07a28';g.lineWidth=1;g.beginPath();g.arc(8,4,3,0,7);g.stroke();g.beginPath();g.arc(24,4,3,0,7);g.stroke();g.fillStyle='#e09040';g.fillRect(8,3,3,1);g.fillRect(22,2,1,2);},false);
@@ -466,7 +474,9 @@ function closeExamine(){examining=false;$('#examine').hidden=true;}
 $('#examine').addEventListener('click',closeExamine);
 let choiceRes=null;
 function choice(text){return new Promise(res=>{if(document.exitPointerLock&&locked())document.exitPointerLock();$('#choiceBtn').textContent=text;$('#choice').hidden=false;choiceRes=res;setTimeout(()=>$('#choiceBtn').focus(),50);});}
-$('#choiceBtn').addEventListener('click',()=>{$('#choice').hidden=true;const r=choiceRes;choiceRes=null;if(r)r();});
+$('#choiceBtn').addEventListener('click',()=>{$('#choice').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(0);});
+$('#choiceBtn2').addEventListener('click',()=>{$('#choice').hidden=true;$('#choiceBtn2').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(1);});
+function choice2(a,b){return new Promise(res=>{if(document.exitPointerLock&&locked())document.exitPointerLock();$('#choiceBtn').textContent=a;$('#choiceBtn2').textContent=b;$('#choiceBtn2').hidden=false;$('#choice').hidden=false;choiceRes=res;});}
 
 /* ================= AUDIO ================= */
 const AU={C:null,boxes:[],voices:{}};
@@ -580,7 +590,9 @@ const RD=(function(){
     tun.add(box(.08,.12,1.8,null,0xffa040,{seg:9,em:1.1,pos:[-4.6,4.6,0]}));
     tun.add(box(.08,.12,1.8,null,0xffa040,{seg:9,em:1.1,pos:[4.6,4.6,0]}));
     g.add(tun);
-    g.userData={env,trees,tun};placeTrees(g);
+    const pole=new THREE.Group();pole.add(box(.12,5.4,.12,null,0x6a6a66,{seg:9,pos:[5.6,2.7,0]}));pole.add(box(1.4,.08,.1,null,0x6a6a66,{seg:9,pos:[4.95,5.35,0]}));pole.add(box(.5,.08,.22,null,0xffb060,{seg:9,em:1.4,pos:[4.4,5.3,0]}));
+    pole.visible=false;g.add(pole);
+    g.userData={env,trees,tun,pole,hasPole:i%4===0};placeTrees(g);
     g.position.z=20-i*10;scene.add(g);tiles.push(g);
   }
   // sign
@@ -662,16 +674,20 @@ const RD=(function(){
     scene.background=new THREE.Color(0x030305);
   };
   function updateLights(){
+    if(S.rest){const d=S.dawn||0;const L=[[1.9,4.6,-1.2,.85*(1-d*.6),.9*(1-d*.6),.95*(1-d*.5),12],[1.9,4.6,-7.5,.75*(1-d*.6),.8*(1-d*.6),.85*(1-d*.5),12],[8.3,1.2,-10.5,.45*(1-d),.12*(1-d),.1*(1-d),6],[1.6,1.0,-.45,.3,.2,.1,1.6]];
+      setLights(L,[.05+d*.35,.05+d*.27,.065+d*.22],[.07+d*.55,.075+d*.42,.085+d*.38],3.5+d*6,20+d*20);return;}
     const x=S.carX;
     const L=[[x,.6,-7,.95,.9,.75,13],[x,.6,-17,.6,.58,.5,12],[x-.3,1.0,-.45,.55,.36,.17,1.8],null];
     if(S.tunnel){const ph=(S.t*S.speed/10)%1;const z=-14+ph*24;const k=Math.max(0,1-Math.abs(z)/12);L[3]=[x,3.6,z,1.0*k+.15,.55*k+.08,.18*k,9];}
     else if(roadMan&&roadMan.visible){L[3]=[roadMan.position.x,3.2,roadMan.position.z-6,.55,.55,.6,15];}
     else if(oncActive){const k=clamp(1-(-onc.position.z)/70,0,1);L[3]=[onc.position.x,1,onc.position.z+3,.95*k*1.3,.88*k*1.3,.7*k*1.3,11];}
+    else if(S.d5){let best=null;for(const tl of tiles){if(tl.userData.hasPole&&tl.position.z>-30&&tl.position.z<9&&(!best||Math.abs(tl.position.z+4)<Math.abs(best+4)))best=tl.position.z;}
+      if(best!=null){const k=clamp(1-Math.abs(best+2)/24,0,1);L[3]=[4.4,5.1,best,1.1*k,.66*k,.3*k,16];}}
     if(S.doorZ!=null){L[1]=[1.9,.3,S.doorZ+.6,.75,.55,.32,4.5];}
     setLights(L,S.tunnel?[.07,.055,.045]:[.055,.055,.075],S.tunnel?[.03,.022,.015]:[.012,.014,.025],S.tunnel?8:6,S.tunnel?40:36);
   }
   S.update=function(dt){
-    S.t+=dt;
+    S.t+=dt;dtR=dt;
     if(S.doorZ!=null){S.speed=Math.min(S.speed,Math.max(0,(-4.6-S.doorZ))*.45);}
     const dz=S.speed*dt;
     for(const tl of tiles){tl.position.z+=dz;if(tl.position.z>25){tl.position.z-=140;placeTrees(tl);}}
@@ -692,11 +708,13 @@ const RD=(function(){
       if(S.sleepT>0){S.sleepT-=dt;S.b=1;if(S.sleepT<=0){S.b=0;S.grace=.8;S.shake=RM?0:.45;ramp(AU.muffle.frequency,18000,.05);SFX.thud();}}
       else{S.grace-=dt;const rate=Math.min(.45,.11+(S.t-19)*.007);if(S.grace<=0)S.b+=rate*dt*(.5+R0()*1.0);
         if(S.b>.42&&!S.hintShown){S.hintShown=true;hint(isTouch?'Tap WAKE to stay awake':'SPACE  stay awake');}
-        if(S.b>=.97){S.sleepT=1.3;S.carVX-=1.1;ramp(AU.muffle.frequency,380,.15);}}
+        if(S.b>=.97){S.sleepT=1.3;S.carVX-=1.1;ramp(AU.muffle.frequency,380,.15);if(S.d5&&S.onSleep)S.onSleep();}}
     }
     if(S.force)S.b=Math.min(1,S.b+.24*dt);
     if(S.opening)S.b=Math.max(0,S.b-.35*dt);
     S.drowsyUI=S.drowsy&&!S.force;
+    if(S.rest){setPrompt(S.canTry?'Get out':'');}
+    if(S.bForce!=null&&S.d5){S.b=lerp(S.b,S.bForce,.08);}
     if(isTouch){const u=$('#use');u.hidden=!(S.drowsyUI);u.textContent='WAKE';u.classList.toggle('live',S.b>.3);}
     fx.blink=S.b;
     // wipers
@@ -721,9 +739,128 @@ const RD=(function(){
       ramp(au.eng.gain,.32*Math.min(1,S.speed/12+.15),.4);
     }
   };
+
+  // ================= FRIDAY =================
+  const restG=new THREE.Group();restG.visible=false;scene.add(restG);
+  restG.add(plane(40,60,TX.asphalt,0xffffff,{ts:3,seg:4,floor:true,pos:[2,.001,-10]}));
+  for(let k=-3;k<=4;k++)restG.add(plane(.1,4.5,null,0xd6d2bf,{seg:9,em:.1,floor:true,pos:[1.9+k*2.8-1.4,.006,-1]}));
+  restG.add(box(13,.35,11,TX.concrete,0xb8b8b4,{ts:2,seg:2,pos:[1.9,5.1,-3.5]}));
+  for(const p of[[-4.3,1.8],[8.1,1.8],[-4.3,-8.8],[8.1,-8.8]])restG.add(box(.35,5,.35,TX.concrete,0xa0a09c,{seg:9,pos:[p[0],2.5,p[1]]}));
+  for(const z of[-1.2,-4.4,-7.5])restG.add(box(.25,.06,2.6,null,0xeef2f0,{seg:9,em:1.6,pos:[1.9,4.9,z]}));
+  restG.add(box(6,3,4,TX.concrete,0x8a8a84,{ts:2,seg:2,pos:[10.5,1.5,-13]}));restG.add(box(2.2,1.2,.05,null,0xe8e0b0,{seg:9,em:.9,pos:[10,1.6,-10.98]}));
+  restG.add(box(.9,1.9,.7,null,0xb02020,{seg:9,em:.55,pos:[8.2,.95,-10.6]}));restG.add(box(.6,1.0,.03,null,0xf0f0e0,{seg:9,em:1.2,pos:[8.2,1.2,-10.24]}));
+  const rsign=new THREE.Group();rsign.add(box(.12,3.4,.12,null,0x7a7a74,{seg:9,pos:[-6,1.7,-12]}));rsign.add(box(2.4,1.0,.1,null,0x1d5636,{seg:9,em:.15,pos:[-6,3.2,-12]}));restG.add(rsign);
+  function seatPose(P){P.hipL.rotation.set(-PI/2,0,.06);P.hipR.rotation.set(-PI/2,0,-.06);P.knL.rotation.x=PI/2;P.knR.rotation.x=PI/2;P.spine.rotation.x=.08;P.shL.rotation.set(-.5,0,-.04);P.shR.rotation.set(-.5,0,.04);P.elL.rotation.x=-.7;P.elR.rotation.x=-.7;}
+  function standPose(P){P.hipL.rotation.set(0,0,0);P.hipR.rotation.set(0,0,0);P.knL.rotation.x=0;P.knR.rotation.x=0;P.spine.rotation.x=0;P.shL.rotation.set(0,0,-.04);P.shR.rotation.set(0,0,.04);P.elL.rotation.x=0;P.elR.rotation.x=0;}
+  let PW=null,PK=null,crack5=null;
+  function buildPassengers(){
+    if(!PW){PW=HS.makeMan();PW.root.scale.set(.9,.96,.88);const hm=new THREE.Mesh(new THREE.SphereGeometry(.12,14,10),voidMat);hm.position.set(0,.02,-.045);hm.scale.set(1.08,1.75,.85);PW.head.add(hm);
+      PK=HS.makeMan();PK.root.scale.setScalar(.62);PK.head.scale.setScalar(1.25);
+      crack5=plane(1.5,.66,TX.crack,0xd0d8dc,{fit:true,seg:9,em:.45,pos:[0,1.29,-.76]});crack5.rotation.x=.73;car.add(crack5);}
+    car.add(PW.root);car.add(PK.root);
+    seatPose(PW);PW.root.position.set(.37,.56,.18);PW.root.rotation.set(0,PI,0);PW.head.rotation.set(-.05,0,0);PW.root.visible=true;
+    seatPose(PK);PK.root.position.set(.38,.58,1.02);PK.root.rotation.set(0,PI,0);PK.spine.rotation.x=.05;PK.root.visible=true;
+    crack5.visible=false;
+  }
+  S.onSleep=function(){
+    S.d5n=(S.d5n||0)+1;const n=S.d5n;
+    if(n===1){PW.head.rotation.y=1.15;}
+    else if(n===2){crack5.visible=true;PK.spine.rotation.x=.55;PK.root.position.z=.82;if(au&&au.box){au.box.wob=.05;au.box.semis-=2;}}
+    else if(n===3){PW.head.rotation.z=.42;if(au&&AU.voices.m_almost){const s2=AU.C.createBufferSource();s2.buffer=revBuf(AU.voices.m_almost);s2.playbackRate.value=.8;s2.connect(au.radioBus);s2.start();}}
+  };
+  function setupRoad5(){
+    stage=S;camera.fov=74;camera.updateProjectionMatrix();scene.background=new THREE.Color(0x030305);controls.look=true;controls.move=false;
+    S.attract=false;S.tunnel=false;S.rainOn=true;S.speed=21;S.carX=1.9;S.carVX=0;S.b=0;S.drowsy=false;S.force=false;S.opening=false;S.doorZ=null;S.auto=false;S.noTraffic=false;
+    S.yaw=0;S.pitch=-.03;S.t=0;S.d5=true;S.d5n=0;S.rest=false;S.dawn=0;S.canTry=false;S.sleepT=0;oncNext=14;
+    belt.visible=false;door.visible=false;sign.visible=false;onc.visible=false;oncActive=false;restG.visible=false;if(roadMan)roadMan.visible=false;
+    for(const tl of tiles){tl.visible=true;tl.userData.env.visible=true;tl.userData.tun.visible=false;tl.userData.pole.visible=tl.userData.hasPole;}
+    sign.children[2].material.uniforms.map.value=TX.sign;
+    buildPassengers();
+    if(au)stopAudio();startAudio();ramp(AU.muffle.frequency,18000,.05);
+  }
+  S.day5=async function(jump){
+    setupRoad5();fx.white=0;fx.fade=fx.fadeT=1;fadeTo(0,2.2);
+    if(jump==='choice'){await wait(2);au.box=musicBox(au.radioBus,.15,.95);ramp(au.radio.gain,.5,1);onSleepJump(3);return choicePart();}
+    if(jump==='rest'){await wait(.5);return restStop(true);}
+    await wait(4.5);au.box=musicBox(au.radioBus,.15,.95);ramp(au.radio.gain,.5,2);
+    await wait(7);voice('rest','You should rest.',4.5,{pan:.35});
+    await wait(6);S.drowsy=true;
+    await wait(5);sign.visible=true;sign.position.z=-150;
+    await wait(16);sign.children[2].material.uniforms.map.value=TX.sign1;sign.visible=true;sign.position.z=-150;
+    await wait(16);
+    return choicePart();
+  };
+  function onSleepJump(n){for(let i=0;i<n;i++)S.onSleep();}
+  async function choicePart(){
+    S.drowsy=false;S.drowsyUI=false;hint('');S.sleepT=0;S.b=Math.min(S.b,.2);ramp(AU.muffle.frequency,18000,.05);
+    if(isTouch)$('#use').hidden=true;
+    await wait(1.5);
+    voice('please','Please.',2.6,{pan:.35,lp:5200});
+    await wait(3);
+    subtitle('Should we stop?',6,'voice');
+    await wait(1.2);
+    const c=await choice2('Almost there.',"Let's stop.");
+    if(c===0)return loopBack();
+    return restStop(false);
+  }
+  async function loopBack(){
+    S.force=true;S.auto=true;
+    if(au&&au.box){au.box.wob=.04;const bx=au.box;const t0=gameTime;(async()=>{while(gameTime-t0<4.5){bx.rate=Math.max(.4,bx.rate-.02);bx.semis-=.05;await wait(.1);}})();}
+    ramp(AU.muffle.frequency,500,1.5);
+    await wait(4.4);
+    const t0=gameTime;while(gameTime-t0<1.4){fx.white=smooth((gameTime-t0)/1.4);await wait(.02);}
+    stopAudio();ramp(AU.muffle.frequency,18000,.05);S.d5=false;
+    await wait(1.4);
+    fx.white=0;fx.fade=fx.fadeT=1;
+    await card('MONDAY',3.2);
+    HS.start(1);
+  }
+  async function restStop(jumped){
+    S.auto=true;S.drowsy=false;S.drowsyUI=false;hint('');
+    if(!jumped){const t0=gameTime;while(gameTime-t0<6){S.speed=lerp(21,5,smooth((gameTime-t0)/6));await wait(.05);}await fadeTo(1,1.4);}
+    S.rest=true;S.speed=0;S.rainOn=false;for(const tl of tiles)tl.visible=false;restG.visible=true;onc.visible=false;oncActive=false;sign.visible=false;
+    S.carX=1.9;S.carVX=0;
+    if(au){ramp(au.eng.gain,0,1.2);ramp(au.rain.gain,0,.8);ramp(au.radio.gain,0,1);if(au.box){au.box.on=false;au.box=null;}}
+    const buzz=G(0);{const o=O('sawtooth',100),o2=O('sine',120),l=F('lowpass',600);o.connect(l);o2.connect(l);l.connect(buzz);out(buzz,.1);}ramp(buzz.gain,.025,2);
+    await wait(1.2);fadeTo(0,2.5);await wait(4);
+    // she gets out
+    SFX.click();await wait(.3);SFX.creak();
+    scene.attach(PW.root);standPose(PW);PW.root.scale.set(.9,.96,.88);
+    const wp=PW.root.position;wp.y=.95;const w0=wp.clone();
+    let t0=gameTime;while(gameTime-t0<1.6){const k=smooth((gameTime-t0)/1.6);wp.x=lerp(w0.x,w0.x+1.3,k);wp.z=lerp(w0.z,w0.z-.3,k);PW.root.rotation.y=lerp(PI,PI*.75,k);await wait(.02);}
+    S.canTry=true;
+    await wait(1.4);
+    SFX.creak();scene.attach(PK.root);standPose(PK);PK.root.scale.setScalar(.62);
+    const kp=PK.root.position;kp.y=.62;const k0=kp.clone();
+    t0=gameTime;while(gameTime-t0<1.4){const k=smooth((gameTime-t0)/1.4);kp.x=lerp(k0.x,k0.x+1.5,k);kp.z=lerp(k0.z,k0.z-.6,k);await wait(.02);}
+    PW.root.rotation.y=PI;PK.root.rotation.y=PI;
+    // they walk into the fog, ahead of the car
+    t0=gameTime;let waved=false;
+    while(true){const t=gameTime-t0;
+      wp.z-=.9*dtR;wp.x=lerp(wp.x,2.9,.01);PW.root.position.y=.95+Math.abs(Math.sin(t*4.5))*.02;
+      if(!waved){kp.z-=.9*dtR;kp.x=lerp(kp.x,2.4,.01);if(kp.z<-6.5){waved=true;S.waveT=gameTime;}}
+      else{const wt=gameTime-S.waveT;if(wt<3.6){PK.root.rotation.y=lerp(PK.root.rotation.y,0,.08);PK.shR.rotation.z=2.4;PK.elR.rotation.z=.5*Math.sin(wt*6);if(wt>.4&&!S.wavedSaid){S.wavedSaid=true;}}
+        else{PK.shR.rotation.z=.04;PK.elR.rotation.z=0;PK.root.rotation.y=lerp(PK.root.rotation.y,PI,.08);kp.z-=.9*dtR;}}
+      if(wp.z<-17&&kp.z<-15)break;
+      await wait(.016);}
+    S.canTry=false;setPrompt('');
+    await wait(1);
+    S.bForce=1;await wait(1.6);PW.root.visible=false;PK.root.visible=false;S.bForce=0;
+    await wait(6);
+    // morning
+    t0=gameTime;while(gameTime-t0<9){S.dawn=smooth((gameTime-t0)/9);scene.background.setRGB(.012+S.dawn*.55,.012+S.dawn*.42,.02+S.dawn*.38);await wait(.03);}
+    ramp(buzz.gain,0,3);
+    if(au){au.box=musicBox(au.radioBus,.13,1);au.box.wob=0;ramp(au.radio.gain,.45,3);}
+    await wait(12);
+    await fadeTo(1,4);
+    if(au){ramp(au.radio.gain,0,2);}
+    await wait(2.5);stopAudio();S.rest=false;S.d5=false;
+    showEnd('ALMOST THERE','The end.');
+  }
+  let dtR=0;
   let roadMan=null;
   S.finale=async function(){
-    stage=S;camera.fov=74;camera.updateProjectionMatrix();
+    stage=S;camera.fov=74;camera.updateProjectionMatrix();controls.look=true;controls.move=false;
     S.attract=false;S.tunnel=false;S.rainOn=true;S.speed=24;S.carX=1.9;S.carVX=0;S.b=0;S.drowsy=false;S.force=false;S.opening=false;S.doorZ=null;S.auto=true;S.noTraffic=true;S.yaw=0;S.pitch=-.03;S.t=40;
     belt.visible=true;door.visible=false;sign.visible=false;onc.visible=false;oncActive=false;
     for(const tl of tiles){tl.userData.env.visible=true;tl.userData.tun.visible=false;}
@@ -744,6 +881,7 @@ const RD=(function(){
     roadMan.visible=false;
     HS.start(4);
   };
+  S.interact=function(){if(S.rest&&S.canTry){S.canTry=false;setPrompt('');SFX.rattle();setTimeout(()=>mutter('please.',3),700);}};
   S.reset=function(){S.attract=false;S.t=0;oncNext=11;};
   S.script=async function(){
     S.reset();startAudio();
@@ -1058,7 +1196,6 @@ const HS=(function(){
   const G4=new THREE.Group();G4.visible=false;scene.add(G4);
   G4.add(box(.12,1.0,.36,TX.fabric,0x7a4a3a,{seg:9,pos:[4.15,1.18,8.75]}));G4.add(box(.1,.55,.28,TX.fabric,0xd8b030,{seg:9,pos:[4.14,1.42,9.1]}));
   for(const sh of[[4.45,9.6,.28,.12],[4.85,9.62,.24,.09],[5.15,9.6,.16,.07]]){G4.add(box(sh[2]*.45,sh[3],sh[2],null,0x2a2420,{seg:9,pos:[sh[0]-.06,sh[3]/2,sh[1]]}));G4.add(box(sh[2]*.45,sh[3],sh[2],null,0x2a2420,{seg:9,pos:[sh[0]+.06,sh[3]/2,sh[1]]}));}
-  G4.add(cyl(.05,.04,.18,6,null,0x8aa0a8,{pos:[2.4,.85,7.4]}));for(let i=0;i<5;i++)G4.add(box(.04,.04,.04,null,0xb02828,{seg:9,pos:[2.4+(R0()-.5)*.1,.97+R0()*.06,7.4+(R0()-.5)*.1]}));
   const spoon=box(.012,.12,.012,null,0xc8c8cc,{seg:9,pos:[2.42,.83,7.72],rot:[0,0,.25]});spoon.visible=false;G4.add(spoon);
   const ball=new THREE.Mesh(new THREE.IcosahedronGeometry(.09,1),mat(TX.plastic,0xc03028));ball.visible=false;G4.add(ball);
   const wedPhoto=plane(.26,.32,TX.wed,0xffffff,{fit:true,seg:9,pos:[1.55,.585,1.45]});wedPhoto.rotation.x=-PI/2;wedPhoto.rotation.z=.3;wedPhoto.visible=false;scene.add(wedPhoto);
@@ -1066,38 +1203,38 @@ const HS=(function(){
   const scissors=new THREE.Group();scissors.add(box(.16,.008,.015,null,0xb8b8c0,{seg:9,pos:[0,0,0],rot:[0,.2,0]}));scissors.add(box(.16,.008,.015,null,0xb8b8c0,{seg:9,pos:[0,0,0],rot:[0,-.2,0]}));
   scissors.add(box(.04,.01,.04,null,0x202020,{seg:9,pos:[-.08,0,.02]}));scissors.add(box(.04,.01,.04,null,0x202020,{seg:9,pos:[-.08,0,-.02]}));scissors.position.set(1.85,.58,1.3);scissors.visible=false;scene.add(scissors);
   inter(wedPhoto,()=>S.step==='cut'?'Cut her out':'Look',()=>{if(S.step==='cut')cutHer();else examine(S.wedTex||TX.wed);},2.2);
-  const bathDoor=new THREE.Group();bathDoor.add(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[5.57,1.025,8.75]}));bathDoor.add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[5.53,1.0,9.05]}));bathDoor.visible=false;scene.add(bathDoor);
+  const bathDoor=new THREE.Group();bathDoor.add(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[5.505,1.025,8.75]}));bathDoor.add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[5.46,1.0,9.05]}));
+  bathDoor.add(box(.05,2.13,.07,null,0xcfc7b2,{seg:9,pos:[5.51,1.065,8.265]}));bathDoor.add(box(.05,2.13,.07,null,0xcfc7b2,{seg:9,pos:[5.51,1.065,9.235]}));bathDoor.add(box(.05,.07,1.04,null,0xcfc7b2,{seg:9,pos:[5.51,2.1,8.75]}));bathDoor.visible=false;scene.add(bathDoor);
   inter(bathDoor,()=>S.step==='find3'?'Open':null,enterBath,1.9);
   // the bathroom (far away, like the other room)
   const X1=60;
-  wallX(0,X1,X1+2.4);wallZ(X1,0,2.6);wallX(2.6,X1,X1+2.4);wallZ(X1+2.4,0,2.6);
+  wallX(0,X1,X1+2.4);const bw0=blockers.length;wallZ(X1,0,2.6);const bathWest=blockers.slice(bw0);wallX(2.6,X1,X1+2.4);wallZ(X1+2.4,0,2.6);
   add(plane(2.4,2.6,TX.tile,0xd8d8d0,{ts:.5,floor:true,pos:[X1+1.2,0,1.3]}));add(plane(2.4,2.6,TX.ceiling,0xffffff,{ts:1,ceil:true,pos:[X1+1.2,H,1.3]}));
-  for(const wz of[[X1+.066,PI/2],[X1+2.334,-PI/2]])add(plane(2.6,1.2,TX.tile,0xe0e0d8,{ts:.5,rotY:wz[1],pos:[wz[0],.6,1.3]}));
+  for(const wz of[[X1+.066,PI/2],[X1+2.334,-PI/2]]){const tp=add(plane(2.6,1.2,TX.tile,0xe0e0d8,{ts:.5,rotY:wz[1],pos:[wz[0],.6,1.3]}));if(wz[1]>0)bathWest.push(tp);}
   add(plane(2.4,1.2,TX.tile,0xe0e0d8,{ts:.5,pos:[X1+1.2,.6,.066]}));add(plane(2.4,1.2,TX.tile,0xe0e0d8,{ts:.5,rotY:PI,pos:[X1+1.2,.6,2.534]}));
   solid(box(1.6,.55,.75,TX.tile,0xf0f0ea,{ts:.5,pos:[X1+.9,.275,.44]}));
   const water=add(plane(1.44,.6,null,0x1a2228,{seg:9,floor:true,em:.1,pos:[X1+.9,.5,.44]}));
   const faucet=add(box(.06,.06,.14,null,0xc0c0c4,{seg:9,pos:[X1+.18,.72,.44]}));
   const stream=add(box(.02,.22,.02,null,0x9ab0c0,{seg:9,em:.4,pos:[X1+.22,.6,.44]}));
   solid(box(.45,.18,.42,TX.tile,0xf0f0ea,{seg:9,pos:[X1+.26,.82,1.6]}));add(cyl(.03,.03,.72,5,null,0xe8e8e2,{pos:[X1+.26,.37,1.6]}));
-  add(box(.03,.82,.66,null,0x8a8a86,{seg:9,pos:[X1+.075,1.52,1.6]}));
+  bathWest.push(add(box(.03,.82,.66,null,0x8a8a86,{seg:9,pos:[X1+.075,1.52,1.6]})));
   const bathDoorIn=add(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[X1+2.31,1.025,1.6]}));
   inter(faucet,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);inter(stream,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);
   inter(bathDoorIn,()=>S.step==='leavebath'?'Open':null,leaveBath,1.9);
   // the mirror, one second behind
-  const MIRN=64,mirRT=[];for(let i=0;i<MIRN;i++)mirRT.push(new THREE.WebGLRenderTarget(120,150,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter}));
-  const mirCam=new THREE.PerspectiveCamera(64,120/150,.05,20);mirCam.layers.enable(1);
+  const mirRT1=new THREE.WebGLRenderTarget(200,250,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});const hist=[];
+  const mirCam=new THREE.PerspectiveCamera(64,200/250,.05,20);mirCam.layers.enable(1);
   const mg=new THREE.PlaneGeometry(.62,.76);{const uv=mg.attributes.uv;for(let i=0;i<uv.count;i++)uv.setX(i,1-uv.getX(i));}
-  const mirMat=new THREE.MeshBasicMaterial({map:mirRT[0].texture,color:0xa8b0b4});const mirror=new THREE.Mesh(mg,mirMat);mirror.position.set(X1+.093,1.52,1.6);mirror.rotation.y=PI/2;scene.add(mirror);
+  const mirMat=new THREE.MeshBasicMaterial({map:mirRT1.texture,color:0xb4bcc0});const mirror=new THREE.Mesh(mg,mirMat);mirror.position.set(X1+.093,1.52,1.6);mirror.rotation.y=PI/2;scene.add(mirror);
   const SELF=makeMan();const selfG=new THREE.Group();selfG.add(SELF.root);SELF.root.position.y=1.02;selfG.traverse(o=>o.layers.set(1));scene.add(selfG);
-  let mirFrame=0;
   S.renderMirror=function(r){
-    if(!S.selfFrozen){selfG.position.set(S.pos.x,0,S.pos.z);selfG.rotation.y=S.yaw+PI;SELF.head.rotation.x=-S.pitch*.6;}
+    hist.push({t:gameTime,x:S.pos.x,z:S.pos.z,y:S.yaw,p:S.pitch});while(hist.length>2&&hist[1].t<gameTime-.9)hist.shift();
+    if(!S.selfFrozen){const h=hist[0];selfG.position.set(h.x,0,h.z);selfG.rotation.y=h.y+PI;SELF.head.rotation.x=-h.p*.6;}
     const mx=X1+.093;mirCam.position.set(2*mx-camera.position.x,camera.position.y,camera.position.z);
     camera.getWorldDirection(tmpD);tmpD.x=-tmpD.x;
-    mirCam.near=clamp((mirCam.position.x<mx?(mx+.03-mirCam.position.x):.05)/Math.max(.25,Math.abs(tmpD.x)),.05,3);mirCam.updateProjectionMatrix();
+    mirCam.near=.05;mirCam.updateProjectionMatrix();
     mirCam.lookAt(mirCam.position.x+tmpD.x,mirCam.position.y+tmpD.y,mirCam.position.z+tmpD.z);
-    mirror.visible=false;selfG.visible=!S.selfGone;r.setRenderTarget(mirRT[mirFrame%MIRN]);r.render(scene,mirCam);mirror.visible=true;
-    const show=S.selfFrozen?mirFrame%MIRN:(mirFrame-S.mirDelay+MIRN*1000)%MIRN;mirMat.map=mirRT[show].texture;mirFrame++;
+    mirror.visible=false;bathWest.forEach(m=>m.visible=false);selfG.visible=!S.selfGone;r.setRenderTarget(mirRT1);r.render(scene,mirCam);mirror.visible=true;bathWest.forEach(m=>m.visible=true);
   };
   // her room: the back seat, alone in the dark
   const X2=80;
@@ -1432,7 +1569,7 @@ const HS=(function(){
   async function enterBath(){
     S.step='enteringbath';S.busy=true;setObjective('');SFX.creak();
     await fadeTo(1,.5);
-    place(X1+2.0,1.6,1.6,X1,1.6);setPhase('bath');S.mirrorOn=true;S.selfFrozen=false;S.selfGone=false;S.mirDelay=58;S.inBath=true;
+    hist.length=0;place(X1+2.0,1.6,1.6,X1,1.6);setPhase('bath');S.mirrorOn=true;S.selfFrozen=false;S.selfGone=false;S.mirDelay=58;S.inBath=true;
     houseAu.water.pos.set(X1+.25,.6,.44);
     await wait(.6);fadeTo(0,1);await wait(.5);
     S.busy=false;S.step='bath';setObjective('Turn off the water.');
@@ -1512,7 +1649,7 @@ const HS=(function(){
     await wait(2.2);
     await card('FRIDAY',3.2);
     S.inCor=false;
-    showEnd('FRIDAY','The prototype ends here.<br>Day 4 of 5.');
+    RD.day5();
   }
   let dt4=0;
   function day4Update(dt){
@@ -1830,6 +1967,7 @@ document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',async()
   $('#start').hidden=true;
   const sc=b.dataset.scene||null;
   if(sc==='road'){RD.finale();return;}
+  if(+b.dataset.day===5){RD.day5(sc);return;}
   await HS.start(+b.dataset.day,sc);
 }));
 })();
