@@ -49,6 +49,11 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 .chap{font:inherit;background:none;border:none;color:var(--dim);cursor:pointer;letter-spacing:.18em;padding:4px 2px;text-decoration:underline;text-underline-offset:5px}
 .chap:hover{color:var(--warm)}
 .chlabel{width:100%;text-align:center;letter-spacing:.3em;font-size:15px;opacity:.7}
+#pause{background:rgba(5,5,6,.84);z-index:20}
+.pmenu{display:flex;flex-direction:column;gap:16px;align-items:stretch;width:min(340px,100%)}
+.prow{font-family:var(--ui);font-size:20px;color:var(--dim);display:flex;justify-content:space-between;align-items:center;gap:16px;letter-spacing:.18em}
+.prow input{accent-color:var(--warm);width:58%}
+#pauseBtn{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--ink);font-family:var(--ui);font-size:18px;z-index:6}
 #use{position:fixed;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));width:84px;height:84px;border-radius:50%;
   border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--ink);font-family:var(--ui);font-size:20px;letter-spacing:.1em;z-index:4}
 #use.live{border-color:var(--warm);color:var(--warm)}
@@ -103,6 +108,18 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
   </div>
   <p class="small" style="font-size:16px">prototype · prologue + days 1–5</p>
 </div>
+<div id="pause" class="screen" hidden>
+  <h1 style="font-size:clamp(34px,7vw,64px)">PAUSED</h1>
+  <div class="pmenu">
+    <button class="btn" id="pResume" type="button">RESUME</button>
+    <label class="prow" for="pVol">VOLUME <input type="range" id="pVol" min="0" max="100" value="100"></label>
+    <label class="prow" for="pSens">MOUSE <input type="range" id="pSens" min="20" max="250" value="100"></label>
+    <label class="prow" for="pBright">BRIGHTNESS <input type="range" id="pBright" min="60" max="180" value="100"></label>
+    <button class="btn" id="pMenu" type="button">MAIN MENU</button>
+  </div>
+  <p class="small" style="font-size:16px">ESC to resume</p>
+</div>
+<button id="pauseBtn" type="button" aria-label="Pause" hidden>II</button>
 <div id="end" class="screen" hidden>
   <h1 id="endTitle" style="font-size:clamp(30px,6vw,54px)">WEDNESDAY</h1>
   <p class="small" id="endText">The prototype ends here.<br>Day 2 of 5.</p>
@@ -119,6 +136,8 @@ function showErr(m){let e=document.getElementById('errbox');if(!e){e=document.cr
 addEventListener('error',ev=>showErr(ev.message+' @'+(ev.lineno||'?')));
 addEventListener('unhandledrejection',ev=>showErr(String(ev.reason&&ev.reason.message||ev.reason)));
 const isTouch=matchMedia('(pointer: coarse)').matches;
+const SET={vol:1,sens:1,bright:1};try{Object.assign(SET,JSON.parse(localStorage.getItem('almostthere_settings')||'{}'));}catch(_){}
+function saveSet(){try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}}
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const PI=Math.PI;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -142,17 +161,17 @@ const camera=new THREE.PerspectiveCamera(72,4/3,0.05,80);
 camera.rotation.order='YXZ';
 
 const postMat=new THREE.ShaderMaterial({
-  uniforms:{tD:{value:rt.texture},uRes:{value:new THREE.Vector2(320,240)},uBlink:{value:0},uFade:{value:1},uWhite:{value:0},uStatic:{value:0},uTime:{value:0}},
+  uniforms:{uBright:{value:1},tD:{value:rt.texture},uRes:{value:new THREE.Vector2(320,240)},uBlink:{value:0},uFade:{value:1},uWhite:{value:0},uStatic:{value:0},uTime:{value:0}},
   vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
   fragmentShader:`
-  uniform sampler2D tD;uniform vec2 uRes;uniform float uBlink,uFade,uWhite,uStatic,uTime;varying vec2 vUv;
+  uniform sampler2D tD;uniform vec2 uRes;uniform float uBlink,uFade,uWhite,uStatic,uTime,uBright;varying vec2 vUv;
   float b2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}
   float b4(vec2 a){return b2(.5*a)*.25+b2(a);}
   void main(){
     vec2 px=floor(vUv*uRes);
     vec3 c=texture2D(tD,(px+.5)/uRes).rgb;
     float n=fract(sin(dot(px+floor(uTime*20.)*vec2(13.1,7.7),vec2(12.9898,78.233)))*43758.5453);
-    c=mix(c,vec3(n*.8),uStatic);
+    c=mix(c,vec3(n*.8),uStatic);c*=uBright;
     vec2 q=vUv-.5; c*=1.08-dot(q,q)*.9;
     float d=(b4(px)-.5)/56.;
     c=floor((c+d)*63.+.5)/63.;
@@ -413,7 +432,7 @@ function whisper(dur,vol=.22,layers=3){if(!AU.C)return;const C=AU.C,t=C.currentT
     s.stop(t+dur+.3);}
 }
 function mutter(t,d=3.5){subtitle(t,d,'thought');const k=MUTTER[t];if(k&&AU.C)voice(k,t,d,{nosub:true,wet:.03,pan:0,vol:1.3,lp:9500});}
-function showEnd(title,html){$('#endTitle').textContent=title;$('#endText').innerHTML=html;const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');if(document.exitPointerLock&&locked())document.exitPointerLock();}
+function showEnd(title,html){$('#endTitle').textContent=title;$('#endText').innerHTML=html;const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');unlockQuiet();}
 async function card(text,dur){const el=$('#card');el.textContent=text;el.classList.add('show');await wait(dur);el.classList.remove('show');await wait(1.6);}
 function hint(text){const el=$('#hint');if(text){el.textContent=text;el.classList.add('show');}else el.classList.remove('show');}
 let promptText='';
@@ -430,9 +449,11 @@ const controls={move:false,look:false};
 const joy={id:null,ox:0,oy:0,x:0,y:0};let lookTouch=null;
 let stage=null;let examining=false;
 function locked(){return document.pointerLockElement===canvas;}
-function look(dx,dy,s){if(!controls.look||examining)return;stage.yaw-=dx*s;stage.pitch=clamp(stage.pitch-dy*s,stage.pMin,stage.pMax);if(stage.yMax)stage.yaw=clamp(stage.yaw,-stage.yMax,stage.yMax);}
+function look(dx,dy,s){if(!controls.look||examining||paused)return;s*=SET.sens;stage.yaw-=dx*s;stage.pitch=clamp(stage.pitch-dy*s,stage.pMin,stage.pMax);if(stage.yMax)stage.yaw=clamp(stage.yaw,-stage.yMax,stage.yMax);}
 addEventListener('keydown',e=>{
   if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();
+  if(e.code==='Escape'){if(!e.repeat){if(examining)closeExamine();else if(!(paused&&performance.now()-pausedAt<350))setPause(!paused);}return;}
+  if(paused)return;
   if(e.repeat)return;keys[e.code]=true;
   if(examining){closeExamine();return;}
   if(e.code==='KeyE'||e.code==='Enter')interact();
@@ -473,10 +494,10 @@ function examine(t){examining=true;$('#exImg').src=t.image.toDataURL();$('#exami
 function closeExamine(){examining=false;$('#examine').hidden=true;}
 $('#examine').addEventListener('click',closeExamine);
 let choiceRes=null;
-function choice(text){return new Promise(res=>{if(document.exitPointerLock&&locked())document.exitPointerLock();$('#choiceBtn').textContent=text;$('#choice').hidden=false;choiceRes=res;setTimeout(()=>$('#choiceBtn').focus(),50);});}
+function choice(text){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=text;$('#choice').hidden=false;choiceRes=res;setTimeout(()=>$('#choiceBtn').focus(),50);});}
 $('#choiceBtn').addEventListener('click',()=>{$('#choice').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(0);});
 $('#choiceBtn2').addEventListener('click',()=>{$('#choice').hidden=true;$('#choiceBtn2').hidden=true;const r=choiceRes;choiceRes=null;if(r)r(1);});
-function choice2(a,b){return new Promise(res=>{if(document.exitPointerLock&&locked())document.exitPointerLock();$('#choiceBtn').textContent=a;$('#choiceBtn2').textContent=b;$('#choiceBtn2').hidden=false;$('#choice').hidden=false;choiceRes=res;});}
+function choice2(a,b){return new Promise(res=>{unlockQuiet();$('#choiceBtn').textContent=a;$('#choiceBtn2').textContent=b;$('#choiceBtn2').hidden=false;$('#choice').hidden=false;choiceRes=res;});}
 
 /* ================= AUDIO ================= */
 const AU={C:null,boxes:[],voices:{}};
@@ -489,7 +510,7 @@ function initAudio(){
   AU.master=C.createGain();AU.master.gain.value=.85;
   AU.muffle=C.createBiquadFilter();AU.muffle.type='lowpass';AU.muffle.frequency.value=18000;
   const comp=C.createDynamicsCompressor();
-  AU.master.connect(AU.muffle);AU.muffle.connect(comp);comp.connect(C.destination);
+  AU.master.connect(AU.muffle);AU.muffle.connect(comp);AU.vol=C.createGain();AU.vol.gain.value=SET.vol;comp.connect(AU.vol);AU.vol.connect(C.destination);
   const len=C.sampleRate*3,ib=C.createBuffer(2,len,C.sampleRate);
   for(let ch=0;ch<2;ch++){const d=ib.getChannelData(ch);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.4);}
   AU.verb=C.createConvolver();AU.verb.buffer=ib;AU.verb.connect(AU.master);
@@ -1933,7 +1954,25 @@ function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);const l
 addEventListener('resize',resize);resize();
 RD.enter();fx.fade=.15;fx.fadeT=.15;
 let last=performance.now(),frameN=0;
+let paused=false,pausedAt=0,selfUnlock=false;
+function unlockQuiet(){if(document.exitPointerLock&&locked()){selfUnlock=true;document.exitPointerLock();}}
+function gameOn(){return $('#start').hidden&&$('#end').hidden;}
+function setPause(p){
+  if(p===paused)return;if(p&&!gameOn())return;
+  paused=p;$('#pause').hidden=!p;
+  if(p){pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;if(AU.C)AU.C.suspend();$('#pMenu').textContent='MAIN MENU';$('#pMenu').dataset.armed='';setTimeout(()=>$('#pResume').focus(),30);}
+  else{if(AU.C)AU.C.resume();}
+}
+document.addEventListener('pointerlockchange',()=>{if(locked())return;if(selfUnlock){selfUnlock=false;return;}if(gameOn()&&!paused&&!examining&&$('#choice').hidden)setPause(true);});
+$('#pResume').addEventListener('click',()=>setPause(false));
+$('#pMenu').addEventListener('click',()=>{const b=$('#pMenu');if(b.dataset.armed){location.reload();}else{b.dataset.armed='1';b.textContent='CLICK AGAIN TO QUIT';}});
+$('#pauseBtn').addEventListener('click',()=>setPause(!paused));
+function bindRange(id,key,scale){const el=$(id);el.value=Math.round(SET[key]*scale);el.addEventListener('input',()=>{SET[key]=el.value/scale;applySet();saveSet();});}
+function applySet(){if(AU.vol)AU.vol.gain.value=SET.vol;postMat.uniforms.uBright.value=SET.bright;}
+bindRange('#pVol','vol',100);bindRange('#pSens','sens',100);bindRange('#pBright','bright',100);applySet();
+if(isTouch)$('#pauseBtn').hidden=false;
 function frame(now){
+  if(paused){last=now;requestAnimationFrame(frame);return;}
   const dt=Math.min(.05,(now-last)/1000);last=now;gameTime+=dt;
   for(let i=timers.length-1;i>=0;i--)if(timers[i].t<=gameTime){const r=timers[i].r;timers.splice(i,1);r();}
   if(fx.fade<fx.fadeT)fx.fade=Math.min(fx.fadeT,fx.fade+fx.fadeRate*dt);else if(fx.fade>fx.fadeT)fx.fade=Math.max(fx.fadeT,fx.fade-fx.fadeRate*dt);
