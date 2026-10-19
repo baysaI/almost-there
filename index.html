@@ -157,7 +157,7 @@ $('#game').appendChild(renderer.domElement);
 const canvas=renderer.domElement;
 const LOW_H=360;
 const rt=new THREE.WebGLRenderTarget(320,LOW_H,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter,depthBuffer:true});
-const camera=new THREE.PerspectiveCamera(72,4/3,0.05,80);
+const camera=new THREE.PerspectiveCamera(72,4/3,0.08,80);
 camera.rotation.order='YXZ';
 
 const postMat=new THREE.ShaderMaterial({
@@ -211,9 +211,9 @@ void main(){
   }
   vLight=min(L+vec3(uEmissive),vec3(1.6));
   vec4 mv=viewMatrix*wp;vec4 p=projectionMatrix*mv;
-  if(p.w>.05){vec2 s=uSnap*.5;p.xy=floor(p.xy/p.w*s+.5)/s*p.w;}
+  if(p.w>2.5){vec2 s=uSnap*.5;p.xy=floor(p.xy/p.w*s+.5)/s*p.w;}
   gl_Position=p;
-  vUvA=uv*p.w;vW=p.w;
+  vUvA=uv;vW=1.;
   vFog=smoothstep(uFogNear,uFogFar,length(mv.xyz));
 }`;
 const FS=`
@@ -253,7 +253,7 @@ function tex(w,h,draw,repeat=true){
   const c=document.createElement('canvas');c.width=w;c.height=h;
   const g=c.getContext('2d');g.imageSmoothingEnabled=false;draw(g,w,h);
   const t=new THREE.CanvasTexture(c);
-  t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;
+  t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
   t.wrapS=t.wrapT=repeat?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;
   return t;
 }
@@ -993,9 +993,10 @@ const HS=(function(){
   add(cyl(.015,.015,.12,4,null,0x777777,{pos:[2.52,.51,.3]}));
   solid(box(.6,2.0,1.2,WD,0x8a7060,{pos:[.35,1.0,3.6]}));
   // hallway
-  solid(box(.95,2.05,.06,TX.door,0xffffff,{fit:true,seg:9,pos:[4.8,1.025,9.97]}));
+  solid(box(.8,2.05,.05,TX.door,0xffffff,{fit:true,seg:9,pos:[4.8,1.025,10]}));
+  add(box(.06,2.12,.04,null,0xcfc7b2,{seg:9,pos:[4.37,1.06,9.925]}));add(box(.06,2.12,.04,null,0xcfc7b2,{seg:9,pos:[5.23,1.06,9.925]}));add(box(.92,.06,.04,null,0xcfc7b2,{seg:9,pos:[4.8,2.09,9.925]}));
   const frontDoor=blockers[blockers.length-1];
-  add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[5.12,1.0,9.93]}));
+  add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[5.08,1.0,9.955]}));
   const closetDoor=solid(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[5.6,1.025,1.45]}));
   add(box(.04,.04,1.0,WD,0x7a5a40,{seg:9,pos:[4.08,1.72,9.1]}));
   for(const hz of[8.75,9.1,9.45])add(box(.07,.03,.03,null,0x9a9a9a,{seg:9,pos:[4.12,1.7,hz]}));
@@ -1047,7 +1048,7 @@ const HS=(function(){
   const D3=[];function d3(m){m.visible=false;D3.push(m);return m;}
   const noteDraws=[];
   function note(text,pos,ry,flat,day=2){
-    const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;
+    const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
     const draw=()=>{const g=c.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,31);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
       g.fillStyle='#1d1a30';g.font='25px "Reenie Beanie", "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';const L=text.split('\n');L.forEach((l,i)=>g.fillText(l,48,50+(i-(L.length-1)/2)*23));t.needsUpdate=true;};
     draw();noteDraws.push(draw);
@@ -1473,6 +1474,7 @@ const HS=(function(){
   function muteHouse(){if(!houseAu)return;S.watching=0;houseAu.all.gain.value=0;[houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,houseAu.phone,houseAu.kid,houseAu.hum,houseAu.water].forEach(p=>{p.vol=0;p.g.gain.setTargetAtTime(0,AU.C.currentTime,.05);});if(S.whine)S.whine.gain.setTargetAtTime(0,AU.C.currentTime,.05);S.muted=true;}
   function restoreHouse(){if(!houseAu)return;houseAu.all.gain.value=1;houseAu.fridge.vol=.05;houseAu.tick.vol=.22;houseAu.tv.vol=.025;houseAu.outside.vol=0;houseAu.alarm.vol=.3;houseAu.closet.vol=.9;houseAu.breath.vol=.5;houseAu.phone.vol=1;houseAu.kid.vol=.9;houseAu.hum.vol=.9;houseAu.water.vol=.6;S.muted=false;}
   function resetDay(){
+    if(S.hidden3){S.hidden3.forEach(c=>c.visible=true);S.hidden3=null;}
     const on2=S.day===2;
     D2.forEach(m=>{m.visible=on2;});newDoor.visible=false;setOn(bedBlock,false);
     mugs.forEach((m,i)=>{m.position.set(.32,-10,6.25+i*.2);m.rotation.set(0,0,0);m.userData.target=null;m.userData.tipped=false;});
@@ -1480,7 +1482,6 @@ const HS=(function(){
     S.photoTex=TX.photo;photo1.material.uniforms.map.value=TX.photo;
     chairB.position.set(2.4,0,on2?8.5:8.18);chairB.rotation.y=on2?PI+.55:PI;
     figLie.visible=true;figSit.visible=false;figStand.visible=false;
-    if(S.hidden3){S.hidden3.forEach(c=>c.visible=true);S.hidden3=null;}
     const on3=S.day===3;
     D3.forEach(m=>{m.visible=on3;});G3.visible=on3;famG.visible=false;S.shakeH=0;
     const on4=S.day===4;G4.visible=on4;spoon.visible=false;ball.visible=false;wedPhoto.visible=false;wedBack.visible=false;scissors.visible=false;bathDoor.visible=false;
@@ -1950,7 +1951,7 @@ const HS=(function(){
 })();
 
 /* ================= MAIN LOOP ================= */
-function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);const lw=Math.round(LOW_H*w/h);rt.setSize(lw,LOW_H);postMat.uniforms.uRes.value.set(lw,LOW_H);SH.uSnap.value.set(lw*.6,LOW_H*.6);camera.aspect=w/h;camera.updateProjectionMatrix();}
+function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);const lw=Math.round(LOW_H*w/h);rt.setSize(lw,LOW_H);postMat.uniforms.uRes.value.set(lw,LOW_H);SH.uSnap.value.set(lw,LOW_H);camera.aspect=w/h;camera.updateProjectionMatrix();}
 addEventListener('resize',resize);resize();
 RD.enter();fx.fade=.15;fx.fadeT=.15;
 let last=performance.now(),frameN=0;
