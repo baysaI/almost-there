@@ -431,6 +431,7 @@ function whisper(dur,vol=.22,layers=3){if(!AU.C)return;const C=AU.C,t=C.currentT
     let tt=t+L*.09;while(tt<t+dur){const sy=.07+Math.random()*.15;g.gain.setValueAtTime(0,tt);g.gain.linearRampToValueAtTime(vol*(.4+Math.random()*.6),tt+sy*.3);g.gain.linearRampToValueAtTime(0,tt+sy);bp.frequency.setValueAtTime(1400+Math.random()*2800,tt);tt+=sy+Math.random()*.07;}
     s.stop(t+dur+.3);}
 }
+function punch(k=1){SFX.sting(k);HS.statPunch=.55*k;HS.shakeH=.9*k;HS.shakeDecay=2.2;}
 function mutter(t,d=3.5){subtitle(t,d,'thought');const k=MUTTER[t];if(k&&AU.C)voice(k,t,d,{nosub:true,wet:.03,pan:0,vol:1.3,lp:9500});}
 function showEnd(title,html){$('#endTitle').textContent=title;$('#endText').innerHTML=html;const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');unlockQuiet();}
 async function card(text,dur){const el=$('#card');el.textContent=text;el.classList.add('show');await wait(dur);el.classList.remove('show');await wait(1.6);}
@@ -574,6 +575,12 @@ const SFX={
     for(const f of[392,466]){const o=C.createOscillator();o.type='square';o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+dur+.05);}},
   ring(dest){const C=AU.C,t=C.currentTime;for(let k=0;k<2;k++){const t0=t+k*.6;for(const f of[440,480]){const o=C.createOscillator();o.frequency.value=f;const g=G(0);g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.1,t0+.01);g.gain.setValueAtTime(.1,t0+.4);g.gain.linearRampToValueAtTime(0,t0+.42);o.connect(g);g.connect(dest);o.start(t0);o.stop(t0+.45);}}},
   crunch(){const t=AU.C.currentTime;for(let i=0;i<3;i++)burst(t+i*.025+Math.random()*.02,.035,'bandpass',2800+Math.random()*1600,.08,3,.15);},
+  sting(k=1){const C=AU.C,t=C.currentTime,d=AU.muffle;
+    {const o=C.createOscillator();o.frequency.setValueAtTime(70,t);o.frequency.exponentialRampToValueAtTime(28,t+1.4);const g=G(0);g.gain.setValueAtTime(.95*k,t);g.gain.exponentialRampToValueAtTime(.001,t+1.8);o.connect(g);g.connect(d);o.start(t);o.stop(t+1.9);}
+    {const s=C.createBufferSource();s.buffer=AU.noise;const f=F('bandpass',3500,1.4);f.frequency.setValueAtTime(3800,t);f.frequency.exponentialRampToValueAtTime(500,t+.7);const g=G(0);g.gain.setValueAtTime(.55*k,t);g.gain.exponentialRampToValueAtTime(.001,t+.9);chain(s,f,g,d);s.start(t,Math.random());s.stop(t+1);}
+    {const g=G(0),lp=F('lowpass',2600);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22*k,t+.012);g.gain.exponentialRampToValueAtTime(.001,t+1.6);chain(g,lp,d);
+     for(const f of[110,116.5,155.6,233,349]){const o=C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(f,t);o.frequency.linearRampToValueAtTime(f*.94,t+1.6);o.connect(g);o.start(t);o.stop(t+1.7);}}
+    {const o=C.createOscillator();o.type='square';o.frequency.setValueAtTime(1800,t);o.frequency.exponentialRampToValueAtTime(900,t+.5);const g=G(0);g.gain.setValueAtTime(.06*k,t);g.gain.exponentialRampToValueAtTime(.001,t+.6);o.connect(g);g.connect(d);o.start(t);o.stop(t+.65);}},
   click(){burst(AU.C.currentTime,.03,'highpass',2500,.25,1,.1);},
   whoosh(){const C=AU.C,t=C.currentTime;const s=N(),f=F('bandpass',300,1.2),g=G(0);f.frequency.setValueAtTime(300,t);f.frequency.linearRampToValueAtTime(1600,t+.6);f.frequency.linearRampToValueAtTime(250,t+1.4);
     g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.45,t+.55);g.gain.linearRampToValueAtTime(0,t+1.5);chain(s,f,g);out(g,.2);s.stop(t+1.6);},
@@ -1403,15 +1410,24 @@ const HS=(function(){
     fadeTo(0,1.3);await wait(.6);
     S.busy=false;S.step='dup';
   }
+  function knockAt(x,y,z){const k=G(1),kp=F('lowpass',700);chain(k,kp);const ks=new PSrc(kp,new THREE.Vector3(x,y,z),8,1.3,.4);{const nd=ks.p||ks.g;nd.disconnect();nd.connect(AU.muffle);}S.knockSrc=ks;
+    const t=AU.C.currentTime;for(let i=0;i<3;i++){const ti=t+i*.32;const o=AU.C.createOscillator();o.frequency.setValueAtTime(120,ti);o.frequency.exponentialRampToValueAtTime(55,ti+.14);const g=G(0);g.gain.setValueAtTime(.8,ti);g.gain.exponentialRampToValueAtTime(.001,ti+.2);o.connect(g);g.connect(k);o.start(ti);o.stop(ti+.22);
+      const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',350),ng=G(0);ng.gain.setValueAtTime(.7,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.12);chain(nb,nf,ng,k);nb.start(ti,Math.random());nb.stop(ti+.15);}
+    setTimeout(()=>{S.knockSrc=null;},2500);}
   async function wakeHim(){
-    S.step='dup2';S.busy=true;S.breathOn=false;
-    await wait(2.6);
-    S.busy=false;S.dupT=0;S.awayT=0;S.seenT=0;S.swapped=false;S.darkDone=false;
+    S.step='dup2';S.busy=true;S.breathOn=false;S.ending=true;controls.look=false;controls.move=false;
+    await wait(2.4);
+    knockAt(X0+3.9,1.2,3.2);
+    await wait(1.1);
+    {const dx=(X0+3.9)-S.pos.x,dz=3.2-S.pos.z;await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:.02},1.9);}
+    await wait(1.8);
+    knockAt(X0+3.9,1.2,3.2);
+    await wait(1.6);
+    swapFig();figSit.position.set(X0+2.1,0,1.75);figSit.rotation.y=Math.atan2(S.pos.x-figSit.position.x,S.pos.z-figSit.position.z);figScene.updateMatrixWorld();
+    {const h=new THREE.Vector3(0,.12,0);MS.head.localToWorld(h);const dx=h.x-S.pos.x,dz=h.z-S.pos.z,dy=h.y-S.eye;
+     punch(1);tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:Math.atan2(dy,Math.hypot(dx,dz))},.28);}
     await wait(1.4);
-    if(!S.swapped&&!S.ending){const k=G(1),kp=F('lowpass',700);chain(k,kp);const ks=new PSrc(kp,new THREE.Vector3(X0+3.9,1.2,3.2),8,1.2,.4);{const nd=ks.p||ks.g;nd.disconnect();nd.connect(AU.muffle);}S.knockSrc=ks;
-      const t=AU.C.currentTime;for(let i=0;i<3;i++){const ti=t+i*.32;const o=AU.C.createOscillator();o.frequency.setValueAtTime(120,ti);o.frequency.exponentialRampToValueAtTime(55,ti+.14);const g=G(0);g.gain.setValueAtTime(.7,ti);g.gain.exponentialRampToValueAtTime(.001,ti+.2);o.connect(g);g.connect(k);o.start(ti);o.stop(ti+.22);
-        const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',350),ng=G(0);ng.gain.setValueAtTime(.6,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.12);chain(nb,nf,ng,k);nb.start(ti,Math.random());nb.stop(ti+.15);}
-      setTimeout(()=>{S.knockSrc=null;},2500);}
+    endDay2();
   }
   S.jumpTo=function(sc){
     if(S.closetBox){S.closetBox.on=false;S.closetBox=null;}
@@ -1440,7 +1456,7 @@ const HS=(function(){
   function heartbeat(v=1){const C=AU.C,t=C.currentTime;for(const d of[[0,.6],[.17,.38]]){const o=C.createOscillator();o.frequency.setValueAtTime(60,t+d[0]);o.frequency.exponentialRampToValueAtTime(36,t+d[0]+.16);
     const g=G(0);g.gain.setValueAtTime(d[1]*v,t+d[0]);g.gain.exponentialRampToValueAtTime(.001,t+d[0]+.24);o.connect(g);g.connect(AU.muffle);o.start(t+d[0]);o.stop(t+d[0]+.26);}}
   async function endDay2(){
-    S.ending=true;S.busy=true;setObjective('');setPrompt('');
+    S.busy=true;setObjective('');setPrompt('');controls.look=false;
     const aim=(head,dur)=>{figScene.updateMatrixWorld();const h=new THREE.Vector3(0,.12,0);head.localToWorld(h);const dx=h.x-S.pos.x,dz=h.z-S.pos.z,dy=h.y-S.eye;
       return tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:Math.atan2(dy,Math.hypot(dx,dz))},dur);};
     await aim(MS.head,1.1);
@@ -1450,11 +1466,11 @@ const HS=(function(){
     const P=S.pos.clone(),F=figSit.position.clone();const d0=Math.max(.9,Math.hypot(F.x-P.x,F.z-P.z));
     const dir=new THREE.Vector3(F.x-P.x,0,F.z-P.z).normalize();
     const flick=async(dist,hold,amp,stat)=>{
-      S.lampOff=true;dupShade.material.uniforms.uEmissive.value=0;SFX.click();await wait(.2);
+      S.lampOff=true;dupShade.material.uniforms.uEmissive.value=0;SFX.click();whisper(.3,.2,2);await wait(.24);
       figSit.visible=false;figLie.visible=false;figStand.visible=true;
       const x=P.x+dir.x*dist,z=P.z+dir.z*dist;figStand.position.set(x,0,z);figStand.rotation.y=Math.atan2(P.x-x,P.z-z);
       S.lampOff=false;dupShade.material.uniforms.uEmissive.value=.9;SFX.click();VOIDU.uAmp.value=amp;S.forceStat=stat;
-      aim(MT.head,.3);await wait(hold);};
+      punch(.35+amp*14);aim(MT.head,.22);await wait(hold);};
     const d2=Math.max(.8,d0*.45),d1=Math.max(d2+.35,d0*.7);
     await flick(d1,1.5,.01,.06);
     await flick(d2,1.2,.018,.14);
@@ -1600,16 +1616,33 @@ const HS=(function(){
     S.step='mirrorwait';setObjective('');SFX.click();S.waterOn=false;stream.visible=false;S.mirT=0;
   }
   async function mirrorBeat(){
-    S.step='mirrorbeat';
-    S.selfFrozen=true;await wait(.2);
-    houseAu.drone.gain.value=.22;
-    const t0=gameTime;while(gameTime-t0<2.6){SELF.head.rotation.z=smooth(clamp((gameTime-t0)/2.6,0,1))*.45;await wait(.03);}
-    await wait(1.2);
-    const t1=gameTime;while(gameTime-t1<1.6){const k=smooth(clamp((gameTime-t1)/1.6,0,1));SELF.shR.rotation.x=-1.45*k;SELF.elR.rotation.x=-.1*k;await wait(.03);}
+    S.step='mirrorbeat';S.busy=true;controls.look=false;controls.move=false;
+    const mxp=X1+.09;const aimM=(dy=0)=>{const dx=mxp-S.pos.x,dz=1.6-S.pos.z;return{yaw:Math.atan2(-dx,-dz),pitch:Math.atan2(1.5-S.eye+dy,Math.hypot(dx,dz))};};
+    // walk up to the sink and look
+    {const a=aimM();await tween({x:X1+1.15,z:1.6,eye:1.6,yaw:a.yaw,pitch:a.pitch},2.2);}
+    const fov0=camera.fov;const zoomTo=(f,d)=>{const f0=camera.fov,t0=gameTime;return(async()=>{while(gameTime-t0<d){camera.fov=lerp(f0,f,smooth((gameTime-t0)/d));camera.updateProjectionMatrix();await wait(.02);}})();};
+    zoomTo(52,4);
+    ramp(houseAu.drone.gain,.2,3);
+    // he sways; the reflection follows a beat late
+    const base=S.yaw;
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:base+.22,pitch:S.pitch},1.4);
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:base-.22,pitch:S.pitch},1.8);
+    await wait(.6);
+    // it stops following
+    S.selfFrozen=true;
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:base+.12,pitch:S.pitch},1.6);
+    await wait(.5);
+    whisper(1.4,.16,2);
+    {const t0=gameTime;while(gameTime-t0<2.2){SELF.head.rotation.z=smooth(clamp((gameTime-t0)/2.2,0,1))*.5;await wait(.03);}}
+    await wait(.6);
+    {const t1=gameTime;let hit=false;while(gameTime-t1<1.0){const k=smooth(clamp((gameTime-t1)/1.0,0,1));SELF.shR.rotation.x=-1.5*k;if(k>.6&&!hit){hit=true;punch(.7);}await wait(.02);}}
+    await wait(1.8);
+    S.lampOff=true;SFX.click();whisper(1.4,.25,3);await wait(1.4);
+    S.selfGone=true;S.lampOff=false;SFX.click();punch(1);
     await wait(2.2);
-    S.lampOff=true;SFX.click();await wait(1.2);S.selfGone=true;S.lampOff=false;SFX.click();
-    houseAu.drone.gain.value=.12;
-    await wait(2);
+    await zoomTo(fov0,1.2);
+    ramp(houseAu.drone.gain,.12,2);
+    S.busy=false;controls.look=true;controls.move=true;
     S.step='leavebath';setObjective('Go to her room.');
   }
   async function leaveBath(){
@@ -1698,7 +1731,7 @@ const HS=(function(){
       houseAu.waterBus.gain.setTargetAtTime(S.waterOn?1:0,AU.C.currentTime,.1);
     }
     // bathroom
-    if(S.inBath){if(S.step==='mirrorwait'){S.mirT+=dt;if(S.mirT>3&&looking(X1+.09,1.52,1.6,.85))mirrorBeat();}}
+    if(S.inBath){if(S.step==='mirrorwait'){S.mirT+=dt;if(S.mirT>1.6)mirrorBeat();}}
     // the void: keep him near the seat
     if(S.inVoid){const dx=S.pos.x-X2,dz=S.pos.z-.2,d=Math.hypot(dx,dz);if(d>2.6){S.pos.x=X2+dx/d*2.6;S.pos.z=.2+dz/d*2.6;}}
     // the corridor
@@ -1821,7 +1854,7 @@ const HS=(function(){
     houseAu=a;S.au=a;
   }
   S.start=async function(day=1,scene=null){
-    S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();
+    S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();S.statPunch=0;S.shakeH=0;S.shakeDecay=0;
     if(!houseAu)startAudio();else restoreHouse();
     resetDay();
     if(day===2){try{await document.fonts.load('25px "Reenie Beanie"');}catch(_){}noteDraws.forEach(f=>f());}
@@ -1912,7 +1945,7 @@ const HS=(function(){
       if(u.shake>0){u.shake-=dt;m.rotation.z=Math.sin(u.shake*60)*.06*u.shake;}else m.rotation.z=0;}
     for(const s of steam){const m=s.userData.m;s.visible=S.mugsOnTable&&!m.userData.target&&!m.userData.tipped&&!S.noSteam&&S.phase!=='evening';if(!s.visible)continue;
       s.userData.ph=(s.userData.ph+dt*.4)%1;const p=s.userData.ph;s.position.set(m.position.x+Math.sin(p*9+m.userData.i)*.02,m.position.y+m.userData.h/2+.02+p*.28,m.position.z);s.scale.setScalar(1-p*.7);}
-    const inDup=S.pos.x>X0-1;S.figOn=inDup;
+    const inDup=S.pos.x>X0-1&&S.pos.x<X0+6;S.figOn=inDup;
     if(inDup){
       figScene.updateMatrixWorld();camera.updateMatrixWorld();camera.getWorldDirection(tmpD);
       const hd=figStand.visible?MT.head:(S.swapped?MS.head:ML.head);hd.getWorldPosition(tmpV2);
@@ -1940,6 +1973,8 @@ const HS=(function(){
     if(S.watching>0&&!S.muted){S.watching-=dt;fx.stat=Math.min(.16,fx.stat+dt*.05);if(houseAu){houseAu.tv.vol=.2;if(!S.tvBoxOn){S.tvBoxOn=musicBox(houseAu.tvBox,.12,.9);S.tvBoxOn.semis=-2;S.tvBoxOn.wob=.02;ramp(houseAu.tvBox.gain,.5,1);}}}
     else{fx.stat=Math.max(0,fx.stat-dt*.08);if(houseAu){houseAu.tv.vol=S.muted?0:.025;if(S.tvBoxOn){S.tvBoxOn.on=false;S.tvBoxOn=null;ramp(houseAu.tvBox.gain,0,.3);}}}
     if(S.forceStat!=null)fx.stat=S.forceStat;
+    if(S.statPunch>0){S.statPunch=Math.max(0,S.statPunch-dt*1.4);fx.stat=Math.max(fx.stat,S.statPunch);}
+    if(S.shakeDecay){S.shakeH=Math.max(0,S.shakeH-dt*S.shakeDecay);if(S.shakeH===0)S.shakeDecay=0;}
     // audio
     if(houseAu){const cp=camera.position;
       houseAu.alarmBus.gain.value=alarmOn?((Math.floor(gameTime*8)%8<4&&Math.floor(gameTime*8)%2===0)?.9:0):0;
