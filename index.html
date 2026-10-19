@@ -42,9 +42,10 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 .btn{font-family:var(--ui);font-size:26px;letter-spacing:.3em;text-indent:.3em;background:none;border:1px solid #3a372f;color:var(--ink);padding:.3em 1.4em;cursor:pointer}
 .btn:hover{border-color:var(--warm);color:var(--warm)}
 .fadeout{opacity:0;pointer-events:none}
-.chapters{display:flex;gap:20px;align-items:center;font-family:var(--ui);font-size:18px;color:var(--dim);letter-spacing:.1em}
+.chapters{display:flex;flex-wrap:wrap;justify-content:center;max-width:620px;gap:4px 18px;align-items:center;font-family:var(--ui);font-size:18px;color:var(--dim);letter-spacing:.1em}
 .chap{font:inherit;background:none;border:none;color:var(--dim);cursor:pointer;letter-spacing:.18em;padding:4px 2px;text-decoration:underline;text-underline-offset:5px}
 .chap:hover{color:var(--warm)}
+.chlabel{width:100%;text-align:center;letter-spacing:.3em;font-size:15px;opacity:.7}
 #use{position:fixed;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(26px + env(safe-area-inset-bottom,0px));width:84px;height:84px;border-radius:50%;
   border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--ink);font-family:var(--ui);font-size:20px;letter-spacing:.1em;z-index:4}
 #use.live{border-color:var(--warm);color:var(--warm)}
@@ -68,7 +69,18 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
   <h1>ALMOST THERE</h1>
   <p class="small" id="ctrlText">WASD to walk · mouse to look · E to interact<br>Headphones recommended.</p>
   <button class="btn" id="beginBtn" type="button">BEGIN</button>
-  <div class="chapters">skip to <button class="chap" type="button" data-day="1">monday</button><button class="chap" type="button" data-day="2">tuesday</button></div>
+  <div class="chapters">
+    <span class="chlabel">scenes</span>
+    <button class="chap" type="button" data-day="1">monday</button>
+    <button class="chap" type="button" data-day="2">tuesday</button>
+    <button class="chap" type="button" data-day="2" data-scene="breakfast">breakfast</button>
+    <button class="chap" type="button" data-day="2" data-scene="messages">the messages</button>
+    <button class="chap" type="button" data-day="2" data-scene="outside">go outside</button>
+    <button class="chap" type="button" data-day="2" data-scene="door">the new door</button>
+    <button class="chap" type="button" data-day="2" data-scene="room">the other room</button>
+    <button class="chap" type="button" data-day="2" data-scene="roomsit">he sits up</button>
+    <button class="chap" type="button" data-day="2" data-scene="ending">ending</button>
+  </div>
   <p class="small" style="font-size:16px">prototype · prologue + days 1–2</p>
 </div>
 <div id="end" class="screen" hidden>
@@ -1029,6 +1041,18 @@ const HS=(function(){
         const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',350),ng=G(0);ng.gain.setValueAtTime(.6,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.12);chain(nb,nf,ng,k);nb.start(ti,Math.random());nb.stop(ti+.15);}
       setTimeout(()=>{S.knockSrc=null;},2500);}
   }
+  S.jumpTo=function(sc){
+    if(S.closetBox){S.closetBox.on=false;S.closetBox=null;}
+    const table=()=>{mugs.forEach(m=>{const u=m.userData;u.target=null;m.position.set(u.table[0],.76+u.h/2,u.table[1]);});S.mugsOnTable=true;};
+    const tip=()=>{const m=mugs[2];m.userData.tipped=true;m.rotation.set(PI/2,0,0);m.position.y=.8;};
+    if(sc==='breakfast'){table();place(2.4,5.6,1.6,2.4,7.4);S.step='sit';setObjective('Sit down.');}
+    else if(sc==='messages'){table();tip();place(9.4,4.7,1.6,10.3,3.6);S.step='messages';setObjective('Check the messages.');}
+    else if(sc==='outside'){table();tip();place(4.8,5.2,1.6,4.8,9.9);S.step='outside';S.tries=0;S.muttered=-1;setObjective('Go outside.');}
+    else if(sc==='door'){table();tip();photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;place(4.8,2.4,1.6,4.06,3.2);newDoor.visible=true;setOn(bedBlock,true);S.tries=3;S.step='bed2';setObjective('Go to bed.');}
+    else if(sc==='room')S._jump(false);
+    else if(sc==='roomsit')S._jump(true);
+    else if(sc==='ending'){S._jump(true);(async()=>{await wait(1.8);S.seenT=0;endDay2();})();}
+  };
   S._jump=(sit)=>{S.busy=false;place(X0+3.4,3.2,1.6,X0+1.3,1.2);setPhase('dup');houseAu.drone.gain.value=.15;if(sit){S.step='dup2';S.dupT=0;S.awayT=0;S.seenT=-1e9;swapFig();}else{S.step='dup';S.breathOn=true;}};
   function swapFig(){figLie.visible=false;figSit.visible=true;figSit.rotation.y=Math.atan2(S.pos.x-figSit.position.x,S.pos.z-figSit.position.z);S.swapped=true;}
   async function darkSwap(){S.lampOff=true;dupShade.material.uniforms.uEmissive.value=0;SFX.click();await wait(1.6);swapFig();S.lampOff=false;dupShade.material.uniforms.uEmissive.value=.9;SFX.click();}
@@ -1141,12 +1165,18 @@ const HS=(function(){
     a.breathBus=G(0);const bn=N(),bbp=F('bandpass',650,.8),bg=G(.5);chain(bn,bbp,bg,a.breathBus);a.breath=new PSrc(a.breathBus,new THREE.Vector3(41.3,.7,.75),6,.5,.1);{const nd=a.breath.p||a.breath.g;nd.disconnect();nd.connect(AU.muffle);}
     houseAu=a;S.au=a;
   }
-  S.start=async function(day=1){
+  S.start=async function(day=1,scene=null){
     S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();
     if(!houseAu)startAudio();else restoreHouse();
     resetDay();
     if(day===2){try{await document.fonts.load('25px "Reenie Beanie"');}catch(_){}noteDraws.forEach(f=>f());}
-    if(day===1)alarmOn=true;
+    if(day===1&&!scene)alarmOn=true;
+    if(scene){
+      S.pos.set(2.55,0,1.45);S.eye=1.6;S.yaw=.32;S.pitch=0;S.busy=false;controls.move=true;controls.look=true;
+      S.jumpTo(scene);fadeTo(0,1.2);
+      if(isTouch){$('#use').hidden=false;$('#use').textContent='USE';}
+      return;
+    }
     S.pos.set(2.55,0,1.45);S.eye=.62;S.yaw=.3;S.pitch=1.2;S.busy=true;
     controls.move=false;controls.look=false;
     fadeTo(0,3);
@@ -1275,8 +1305,7 @@ document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',async()
   $('#start').classList.add('fadeout');
   await fadeTo(1,1.2);
   $('#start').hidden=true;
-  await HS.start(+b.dataset.day);
-  const hsh=location.hash.slice(1);if(hsh==='otherroom')HS._jump(false);else if(hsh==='otherroomsit')HS._jump(true);
+  await HS.start(+b.dataset.day,b.dataset.scene||null);
 }));
 })();
 </script>
