@@ -7,7 +7,7 @@ Every morning the alarm rings at 7:00. Every morning there are three mugs.
 Five days. One road. You will not get a straight answer, and that is the point.
 
 ▶ **Play in the browser:** https://baysaI.github.io/almost-there/
-⬇ **Windows download:** see [Releases](../../releases)
+⬇ **Windows download:** see [Releases](../../releases). The game asks if you are sure before it opens. Say yes.
 
 > Content warning: grief, loss of family, a car crash, blood, sudden loud jumpscares and flashing lights.
 > Play with headphones, in the dark, alone.
@@ -67,7 +67,9 @@ Pushing a tag such as `v1.0.0` builds the Windows executables on GitHub Actions 
 
 ## Credits
 
-- Game, design, story: **Mehmet Baysal**
+- Game, story, design: **Mehmet Baysal**
+- The whole story of this game came from a dream I had.
+- Special thanks to **Umut Eren** and **Raşit**.
 - Voices and sound effects generated with ElevenLabs
 - [three.js](https://threejs.org) (MIT)
 - Fonts: VT323, Reenie Beanie, Caveat, Cormorant Garamond (SIL Open Font License, via Google Fonts)
@@ -90,5 +92,8 @@ Beş gün. Tek bir yol. Net bir cevap alamayacaksın; olay da tam olarak bu.
 - Windows sürümü: [Releases](../../releases)
 - Dil: Ayarlar → Dil → Türkçe
 - Bölümler, oyunu bitirince açılır.
+
+Bu oyunun hikâyesinin tamamı gördüğüm bir rüyadan doğdu.
+Umut Eren ve Raşit'e özel teşekkürler.
 
 Kulaklıkla, karanlıkta ve yalnız oyna.
