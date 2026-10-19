@@ -1774,7 +1774,7 @@ const HS=(function(){
     S.kidOn=false;S.humOn=false;S.waterOn=false;S.monVol=0;S.bpm=60;S.flat=false;S.noSteam=false;S.mirrorOn=false;S.inBath=false;S.inVoid=false;S.inCor=false;S.selfFrozen=false;S.selfGone=false;S.winds=0;fx.white=0;
     if(S.boxM){S.boxM.on=false;S.boxM=null;}SELF.shR.rotation.set(0,0,0);SELF.elR.rotation.set(0,0,0);SELF.head.rotation.set(0,0,0);
     if(houseAu){houseAu.water.pos.set(5.8,1,8.75);}carH.visible=on3;carCol.on=on3;laneG.visible=on3;laneFar.visible=false;rainH.visible=on3;tally.visible=S.day===2||S.day===3;
-    stains.forEach(m=>{m.userData.done=false;m.scale.setScalar(1);});bw.forEach(m=>{m.visible=false;});bbath.forEach(m=>{m.visible=false;});stopWorld();herG.visible=false;corMan.visible=false;panEggs.visible=false;plates.forEach(p=>{p.visible=false;});S.bfast=false;S.winFig=0;livWinMat.uniforms.map.value=TX.view;CUR.forEach(c=>{c.k=c.t=0;c.place();});S.tvN=0;S.tvScared=false;S.doorN=0;S.doorScared=false;
+    stains.forEach(m=>{m.userData.done=false;m.scale.setScalar(1);});bw.forEach(m=>{m.visible=false;});bbath.forEach(m=>{m.visible=false;});stopWorld();herG.visible=false;corMan.visible=false;panEggs.visible=false;plates.forEach(p=>{p.visible=false;p.children[1].visible=true;});famSW.visible=false;famSK.visible=false;S.bfast=false;S.winFig=0;livWinMat.uniforms.map.value=TX.view;CUR.forEach(c=>{c.k=c.t=0;c.place();});S.tvN=0;S.tvScared=false;S.doorN=0;S.doorScared=false;
     S.drowsy=false;S.drowsyUI=false;S.blinking=false;S.wiperOn=false;S.dn=0;S.flash3=0;S.scrubbed=0;S.b=0;S.blinkT=0;
     if(on3){setOn(bedBlock,true);chairB.rotation.set(0,PI+.3,PI/2);chairB.position.set(2.5,.22,8.6);photo1.material.uniforms.map.value=TX.photoX3;S.photoTex=TX.photoX3;}
     if(houseAu){houseAu.rainIn.gain.value=on3?.12:0;houseAu.engine3.gain.value=0;}
@@ -2028,7 +2028,7 @@ const HS=(function(){
       else if(E===2&&T>22&&!looking(2.4,.5,8.2,.8)){S.waitEv=3;chairB.position.z=8.48;chairB.rotation.y=PI+.35;tapTo(AU.master,AU.C.currentTime,380,.3,.5,'bandpass');}
       else if(E===3&&T>30){S.waitEv=4;S.noSteam=true;}
       else if(E===4&&T>36){S.waitEv=5;houseAu.fridge.vol=0;houseAu.tick.vol=0;S.monVol=.08;}
-      else if(E===5&&T>42){S.waitEv=6;S.special={label:'Stand up',action:standUp4};}}
+      else if(E===5&&T>42){S.waitEv=6;famBreakfast();}}
     // sounds in rooms you're not in
     if(houseAu&&!S.muted){
       if(S.kidOn){S.kidT-=dt;if(S.kidT<=0){const t=AU.C.currentTime;if(R0()<.55){for(let i=0;i<6;i++)tapTo(houseAu.kidBus,t+i*.13+R0()*.03,650,.4,.07);}else{let tt=t,iv=.42,v=.5;for(let i=0;i<6;i++){tapTo(houseAu.kidBus,tt,300,v,.09);pingTo(houseAu.kidBus,tt,170,v*.4,.12);tt+=iv;iv*=.72;v*=.75;}}S.kidT=rand(1.3,2.6);}
@@ -2116,6 +2116,59 @@ const HS=(function(){
     else{P.root.position.y=1.02;P.neck.scale.y=1.5;P.head.rotation.z=.5;}
     g.visible=false;scene.add(g);g.userData.P=P;return g;}
   const fW=mk('w'),fK=mk('k'),fM=mk('m'),fL=mk('l');const corMan=mk('m');
+  // they sit down with you
+  const famSW=mk('w'),famSK=mk('k');
+  function sitP(P,y){P.root.position.y=y;P.hipL.rotation.set(-PI/2,0,.06);P.hipR.rotation.set(-PI/2,0,-.06);P.knL.rotation.set(PI/2,0,0);P.knR.rotation.set(PI/2,0,0);
+    P.spine.rotation.set(.12,0,0);P.chest.rotation.set(.05,0,0);P.shL.rotation.set(-1.05,0,-.05);P.shR.rotation.set(-1.05,0,.05);P.elL.rotation.set(-.55,0,0);P.elR.rotation.set(-.55,0,0);}
+  function faceYou(g,P,tilt){const a=Math.atan2(S.pos.x-g.position.x,S.pos.z-g.position.z)-g.rotation.y;P.head.rotation.set(-.05,Math.atan2(Math.sin(a),Math.cos(a))*.85,tilt);}
+  async function famBreakfast(){
+    S.busy=true;S.special=null;controls.look=false;setPrompt('');
+    const yaw0=PI,pitch0=-.12;await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:yaw0,pitch:pitch0},1.4);
+    // the front door
+    const steps=worldSnd(null,new THREE.Vector3(4.8,.2,9.6),16,1.3,{wet:.3});
+    const kt=AU.C.currentTime;for(let i=0;i<7;i++)pingTo(steps.bus,kt+i*.07+Math.random()*.04,3800+Math.random()*1800,.05,.12);
+    await wait(.8);tapTo(steps.bus,AU.C.currentTime,900,.6,.08,'bandpass');await wait(.5);SFX.creak();await wait(1.2);
+    tapTo(steps.bus,AU.C.currentTime,220,.5,.25);
+    // two of them. one is small
+    const path=[[4.8,9.4],[4.8,7.6],[4.6,6.2],[3.7,5.7],[2.9,5.85],[2.45,6.05]];const plen=[];let tot=0;for(let i=1;i<path.length;i++){const d=Math.hypot(path[i][0]-path[i-1][0],path[i][1]-path[i-1][1]);plen.push(d);tot+=d;}
+    const at=u=>{let d=u*tot;for(let i=0;i<plen.length;i++){if(d<=plen[i]){const k=d/plen[i];return[lerp(path[i][0],path[i+1][0],k),lerp(path[i][1],path[i+1][1],k)];}d-=plen[i];}return path[path.length-1];};
+    const walkT=7.5,t0=gameTime;let nA=0,nK=0;
+    while(gameTime-t0<walkT){const u=(gameTime-t0)/walkT,p=at(u);steps.src.pos.set(p[0],.2,p[1]);const t=AU.C.currentTime,e=gameTime-t0;
+      if(e>nA){nA+=.62;tapTo(steps.bus,t,300+Math.random()*60,.55,.11);}
+      if(e>nK+.15){nK+=.36;tapTo(steps.bus,t,640+Math.random()*90,.3,.06);}
+      await wait(.016);}
+    // right behind your chair. nothing
+    S.monVol=0;await wait(2.6);
+    // a hand on your shoulder
+    burst(AU.C.currentTime,.6,'bandpass',1500,.12,.6,.05);
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye-.05,yaw:yaw0-.08,pitch:-.62},2.6);
+    await wait(.6);
+    {const b=AU.voices.please;if(b){const C=AU.C,sr=C.createBufferSource();sr.buffer=b;sr.playbackRate.value=.94;const g=G(1.25);let n=chain(sr,F('highpass',300),g);if(C.createStereoPanner){const pn=C.createStereoPanner();pn.pan.value=-.75;n=chain(g,pn);}n.connect(AU.muffle);sr.start();}
+      whisper(1.6,.12,2);subtitle('Please.',2.4,'voice');}
+    steps.stop();
+    await wait(2.2);
+    // they are at the table
+    const PW=famSW.userData.P,PK=famSK.userData.P;
+    famSK.position.set(chairB.position.x,0,chairB.position.z-.04);famSK.rotation.y=chairB.rotation.y;sitP(PK,.47);PK.shL.rotation.set(-.4,0,-.05);PK.shR.rotation.set(-.4,0,.05);
+    famSW.position.set(3.24,0,7.4);famSW.rotation.y=-PI/2;sitP(PW,.49);
+    faceYou(famSW,PW,.42);faceYou(famSK,PK,-.5);famSW.visible=true;famSK.visible=true;
+    let beat=true;(async()=>{let k=0;while(beat){heartbeat(.6+Math.min(k,10)*.06);await wait(Math.max(.34,1-k*.07));k++;}})();
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye+.05,yaw:yaw0,pitch:-.1},3.2);
+    await wait(3.4);
+    {const dx=famSW.position.x-S.pos.x,dz=famSW.position.z-S.pos.z;await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:-.08},2.2);}
+    await wait(1.4);PW.head.rotation.z=1.0;punch(.25);S.forceStat=.1;await wait(.15);S.forceStat=null;
+    await wait(1.6);
+    await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:yaw0,pitch:-.1},.9);
+    // the monitor, faster and faster
+    S.monVol=.1;for(const b of[80,110,150,190,240]){S.bpm=b;await wait(.9);}
+    for(let i=0;i<7;i++){fx.fade=fx.fadeT=i%2?0:1;await wait(.06+Math.random()*.12);}
+    fx.fade=fx.fadeT=1;beat=false;S.flat=true;famSW.visible=false;famSK.visible=false;
+    await wait(2.6);
+    S.flat=false;S.monVol=.03;S.bpm=60;
+    plates.forEach((p,i)=>{p.visible=true;p.children[1].visible=false;});
+    fadeTo(0,1.6);await wait(1.8);
+    controls.look=true;S.busy=false;S.special={label:'Stand up',action:standUp4};
+  }
   function flash(g,x,z,ry,frames=4,delay=0){setTimeout(()=>{g.position.set(x,0,z);g.rotation.y=ry;flashes.push({g,n:frames});g.visible=true;},delay*1000);}
   function tvFlash(){if(S.day===1)flash(fM,8.3,8.7,PI,4,2.6);}
   // papers: what other people wrote down
@@ -2149,7 +2202,7 @@ const HS=(function(){
       else if(r<.8){pingTo(b,t,880,.09,1.6);pingTo(b,t+.62,659,.09,1.6);pingTo(b,t+1.24,587,.08,1.8);}
       else{const o=AU.C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(80,t);o.frequency.linearRampToValueAtTime(130,t+.9);const f=F('bandpass',800,6),g=G(0);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.15,t+.1);g.gain.linearRampToValueAtTime(0,t+1);chain(o,f,g,b);o.start(t);o.stop(t+1.05);}
       setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2600);}}
-  [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG,herG,corMan].forEach(g=>{figScene.add(g);toVoidD(g);});
+  [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG,herG,corMan,famSW,famSK].forEach(g=>{figScene.add(g);toVoidD(g);});
   const famPivot=new THREE.Group();famPivot.position.set(5.95,0,6.15);figScene.add(famPivot);famPivot.add(famG);famG.position.set(-5.95,0,-6.15);
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
