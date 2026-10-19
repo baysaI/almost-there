@@ -26,6 +26,8 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);overflow:hi
 #card{inset:0;display:grid;place-items:center;font-size:clamp(34px,6vw,62px);letter-spacing:.5em;text-indent:.5em;opacity:0;transition:opacity 1.6s}
 #card.show{opacity:1}
 #intrude{inset:0;overflow:hidden;z-index:3}
+#blood{inset:0;width:100%;height:100%;image-rendering:pixelated;opacity:0;z-index:2;transition:opacity 2.5s}
+#blood.now{transition:none}
 #intrude span{position:absolute;font-family:var(--ui);color:#ece6d6;white-space:nowrap;letter-spacing:.06em;text-shadow:3px 0 rgba(190,30,25,.75),-3px 0 rgba(40,150,190,.45),0 0 14px #000}
 #hint{left:50%;bottom:calc(6% + env(safe-area-inset-bottom,0px));transform:translateX(-50%);font-size:22px;color:var(--dim);opacity:0;transition:opacity .6s;white-space:nowrap}
 #hint.show{opacity:1}
@@ -69,6 +71,7 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 <div id="hint" class="hud"></div>
 <div id="card" class="hud"></div>
 <div id="intrude" class="hud"></div>
+<canvas id="blood" class="hud"></canvas>
 <div id="choice" hidden><div class="cbox"><button id="choiceBtn" type="button">Almost there.</button><button id="choiceBtn2" type="button" hidden>Let's stop.</button></div></div>
 <div id="examine" hidden><img id="exImg" alt=""></div>
 <button id="use" type="button" hidden>USE</button>
@@ -161,17 +164,17 @@ const camera=new THREE.PerspectiveCamera(72,4/3,0.08,80);
 camera.rotation.order='YXZ';
 
 const postMat=new THREE.ShaderMaterial({
-  uniforms:{uBright:{value:1},tD:{value:rt.texture},uRes:{value:new THREE.Vector2(320,240)},uBlink:{value:0},uFade:{value:1},uWhite:{value:0},uStatic:{value:0},uTime:{value:0}},
+  uniforms:{uRed:{value:0},uBright:{value:1},tD:{value:rt.texture},uRes:{value:new THREE.Vector2(320,240)},uBlink:{value:0},uFade:{value:1},uWhite:{value:0},uStatic:{value:0},uTime:{value:0}},
   vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}',
   fragmentShader:`
-  uniform sampler2D tD;uniform vec2 uRes;uniform float uBlink,uFade,uWhite,uStatic,uTime,uBright;varying vec2 vUv;
+  uniform sampler2D tD;uniform vec2 uRes;uniform float uBlink,uFade,uWhite,uStatic,uTime,uBright,uRed;varying vec2 vUv;
   float b2(vec2 a){a=floor(a);return fract(a.x/2.+a.y*a.y*.75);}
   float b4(vec2 a){return b2(.5*a)*.25+b2(a);}
   void main(){
     vec2 px=floor(vUv*uRes);
     vec3 c=texture2D(tD,(px+.5)/uRes).rgb;
     float n=fract(sin(dot(px+floor(uTime*20.)*vec2(13.1,7.7),vec2(12.9898,78.233)))*43758.5453);
-    c=mix(c,vec3(n*.8),uStatic);c*=uBright;
+    c=mix(c,vec3(n*.8),uStatic);c*=uBright;c=mix(c,vec3(c.r*.6+.32,c.g*.08,c.b*.06),uRed);
     vec2 q=vUv-.5; c*=1.08-dot(q,q)*.9;
     float d=(b4(px)-.5)/56.;
     c=floor((c+d)*63.+.5)/63.;
@@ -351,6 +354,14 @@ TX.drawing2=tex(64,64,(g,w,h)=>{base(g,w,h,'#e3dcc8');speckle(g,w,h,.08,83);g.gl
   fig(48,24,8,'#c05a8a',true);fig(56,32,5.5,'#d8802a',true);g.globalAlpha=1;g.fillStyle='rgba(120,100,40,.12)';g.fillRect(0,0,64,64);},false);
 TX.paint=tex(32,32,(g,w,h)=>{base(g,w,h,'#d8dad4');speckle(g,w,h,.06,84);});
 function numTex(n){return tex(32,32,(g,w,h)=>{base(g,w,h,'#c9c6bc');g.fillStyle='#1a1a1a';g.font='bold 22px monospace';g.textAlign='center';g.fillText(String(n),16,24);},false);}
+TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${70+r()*60|0},${4+r()*8|0},${4+r()*6|0})`;
+  g.drawImage(TX.tally.image,0,0);g.globalCompositeOperation='source-over';
+  for(let i=0;i<9;i++){const x=r()*w,y=r()*h*.8,rr=5+r()*12;g.fillStyle=red();g.beginPath();g.arc(x,y,rr,0,7);g.fill();
+    for(let k=0;k<10;k++){const a=r()*7,d=rr+r()*14;g.beginPath();g.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,1+r()*2.5,0,7);g.fill();}
+    for(let k=0;k<3;k++){g.fillRect(x-rr*.6+r()*rr*1.2,y,1+(r()*2|0),12+r()*45);}}
+  for(let i=0;i<4;i++){const x=r()*(w-30),y=r()*(h-40);g.fillStyle=red();g.fillRect(x+6,y+12,12,14);for(let f=0;f<4;f++)g.fillRect(x+6+f*3,y+(f===0||f===3?4:0),2,13);g.fillRect(x+1,y+16,6,3);
+    g.fillRect(x+10,y+26,2,10+r()*20);}
+  g.fillStyle=red();for(let x=8;x<w-8;x+=6){if(r()<.8)g.fillRect(x,92+(r()*3|0),2,14+(r()*8|0));}},false);
 TX.clock=tex(32,32,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#d8d2c0';g.beginPath();g.arc(16,16,15,0,7);g.fill();g.fillStyle='#2a2620';
   for(let i=0;i<12;i++){const a=i/12*PI*2;g.fillRect(16+Math.sin(a)*12.5-.5,16-Math.cos(a)*12.5-.5,1.5,1.5);}
   g.strokeStyle='#1a1610';g.lineWidth=2;const ha=(3+17/60)/12*PI*2,ma=17/60*PI*2;g.beginPath();g.moveTo(16,16);g.lineTo(16+Math.sin(ha)*7,16-Math.cos(ha)*7);g.stroke();
@@ -403,7 +414,7 @@ function cyl(rt_,rb,h,seg,t,color,o={}){
 }
 
 /* ================= HUD / FLOW ================= */
-const fx={fade:1,fadeT:1,fadeRate:.5,blink:0,white:0,stat:0};
+const fx={fade:1,fadeT:1,fadeRate:.5,blink:0,white:0,stat:0,red:0};
 let gameTime=0;const timers=[];
 function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
 async function until(fn){while(!fn())await wait(.1);}
@@ -432,6 +443,15 @@ function whisper(dur,vol=.22,layers=3){if(!AU.C)return;const C=AU.C,t=C.currentT
     s.stop(t+dur+.3);}
 }
 function punch(k=1){SFX.sting(k);HS.statPunch=.55*k;HS.shakeH=.9*k;HS.shakeDecay=2.2;}
+function bloodSplat(){const c=$('#blood');const W=200,H=Math.max(100,Math.round(200*innerHeight/innerWidth));c.width=W;c.height=H;const g=c.getContext('2d');g.clearRect(0,0,W,H);
+  const r=Math.random,drips=[];const red=a=>`rgba(${90+r()*60|0},${3+r()*8|0},${3+r()*6|0},${a})`;
+  for(let i=0;i<11;i++){const edge=r()<.7;const x=edge?(r()<.5?r()*W*.28:W-r()*W*.28):W*.25+r()*W*.5,y=r()*H*.75,rr=4+r()*(edge?16:9);
+    g.fillStyle=red(.96);g.beginPath();g.arc(x,y,rr,0,7);g.fill();
+    for(let k=0;k<16;k++){const a=r()*7,d=rr+r()*rr*2.2;g.fillStyle=red(.9);g.beginPath();g.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,.6+r()*2.2,0,7);g.fill();}
+    for(let k=0;k<3;k++)drips.push({x:x-rr*.7+r()*rr*1.4,y:y+rr*.3,w:1+(r()*2|0),len:0,max:10+r()*H*.5,sp:20+r()*55});}
+  c.classList.add('now');c.style.opacity=1;void c.offsetWidth;c.classList.remove('now');
+  const t0=performance.now();(function step(){const dt=(performance.now()-t0)/1000;let any=false;for(const d of drips){const L=Math.min(d.max,d.sp*dt);if(L>d.len){g.fillStyle=red(.95);g.fillRect(d.x,d.y+d.len,d.w,L-d.len+1);d.len=L;}if(L<d.max)any=true;}if(any&&dt<6)requestAnimationFrame(step);})();}
+function bloodFade(){const c=$('#blood');c.style.opacity=0;}
 function mutter(t,d=3.5){subtitle(t,d,'thought');const k=MUTTER[t];if(k&&AU.C)voice(k,t,d,{nosub:true,wet:.03,pan:0,vol:1.3,lp:9500});}
 function showEnd(title,html){$('#endTitle').textContent=title;$('#endText').innerHTML=html;const e=$('#end');e.hidden=false;e.classList.add('fadeout');void e.offsetWidth;e.classList.remove('fadeout');unlockQuiet();}
 async function card(text,dur){const el=$('#card');el.textContent=text;el.classList.add('show');await wait(dur);el.classList.remove('show');await wait(1.6);}
@@ -559,6 +579,7 @@ function humNote(dest,t,f,dur,vol){const C=AU.C;const o=C.createOscillator(),o2=
   const lp=F('lowpass',900),g=G(0),g2=G(.25);o.connect(lp);o2.connect(g2);g2.connect(lp);lp.connect(g);g.connect(dest);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.12);g.gain.setValueAtTime(vol,t+Math.max(.13,dur-.18));g.gain.linearRampToValueAtTime(0,t+dur);
   for(const x of[o,o2,l]){x.start(t);x.stop(t+dur+.05);}}
 function playBuf(key,dest,rate=1){const b=AU.C&&AU.voices[key];if(!b)return 1;const s=AU.C.createBufferSource();s.buffer=b;s.playbackRate.value=rate;s.connect(dest);s.start();return b.duration/rate;}
+function distCurve(k){const n=1024,c=new Float32Array(n);for(let i=0;i<n;i++){const x=i/(n-1)*2-1;c[i]=Math.tanh(k*x)/Math.tanh(k);}return c;}
 function revBuf(b){const r=AU.C.createBuffer(b.numberOfChannels,b.length,b.sampleRate);for(let c=0;c<b.numberOfChannels;c++){const s=b.getChannelData(c),d=r.getChannelData(c);for(let i=0,n=s.length;i<n;i++)d[i]=s[n-1-i];}return r;}
 const SFX={
   step(){const t=AU.C.currentTime;burst(t,.09,'lowpass',380+Math.random()*120,.16+Math.random()*.06,1,.25);},
@@ -576,11 +597,20 @@ const SFX={
   ring(dest){const C=AU.C,t=C.currentTime;for(let k=0;k<2;k++){const t0=t+k*.6;for(const f of[440,480]){const o=C.createOscillator();o.frequency.value=f;const g=G(0);g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.1,t0+.01);g.gain.setValueAtTime(.1,t0+.4);g.gain.linearRampToValueAtTime(0,t0+.42);o.connect(g);g.connect(dest);o.start(t0);o.stop(t0+.45);}}},
   crunch(){const t=AU.C.currentTime;for(let i=0;i<3;i++)burst(t+i*.025+Math.random()*.02,.035,'bandpass',2800+Math.random()*1600,.08,3,.15);},
   sting(k=1){const C=AU.C,t=C.currentTime,d=AU.muffle;
-    {const o=C.createOscillator();o.frequency.setValueAtTime(70,t);o.frequency.exponentialRampToValueAtTime(28,t+1.4);const g=G(0);g.gain.setValueAtTime(.95*k,t);g.gain.exponentialRampToValueAtTime(.001,t+1.8);o.connect(g);g.connect(d);o.start(t);o.stop(t+1.9);}
-    {const s=C.createBufferSource();s.buffer=AU.noise;const f=F('bandpass',3500,1.4);f.frequency.setValueAtTime(3800,t);f.frequency.exponentialRampToValueAtTime(500,t+.7);const g=G(0);g.gain.setValueAtTime(.55*k,t);g.gain.exponentialRampToValueAtTime(.001,t+.9);chain(s,f,g,d);s.start(t,Math.random());s.stop(t+1);}
-    {const g=G(0),lp=F('lowpass',2600);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22*k,t+.012);g.gain.exponentialRampToValueAtTime(.001,t+1.6);chain(g,lp,d);
-     for(const f of[110,116.5,155.6,233,349]){const o=C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(f,t);o.frequency.linearRampToValueAtTime(f*.94,t+1.6);o.connect(g);o.start(t);o.stop(t+1.7);}}
-    {const o=C.createOscillator();o.type='square';o.frequency.setValueAtTime(1800,t);o.frequency.exponentialRampToValueAtTime(900,t+.5);const g=G(0);g.gain.setValueAtTime(.06*k,t);g.gain.exponentialRampToValueAtTime(.001,t+.6);o.connect(g);g.connect(d);o.start(t);o.stop(t+.65);}},
+    {const o=C.createOscillator();o.frequency.setValueAtTime(64,t);o.frequency.exponentialRampToValueAtTime(26,t+1.5);const g=G(0);g.gain.setValueAtTime(1.0*k,t);g.gain.exponentialRampToValueAtTime(.001,t+1.9);o.connect(g);g.connect(d);o.start(t);o.stop(t+2);}
+    {const s=C.createBufferSource();s.buffer=AU.noise;const ws=C.createWaveShaper();ws.curve=distCurve(30);const f=F('lowpass',2200);f.frequency.setValueAtTime(5000,t);f.frequency.exponentialRampToValueAtTime(300,t+1.2);
+     const g=G(0);g.gain.setValueAtTime(.7*k,t);g.gain.exponentialRampToValueAtTime(.001,t+1.4);chain(s,ws,f,g,d);s.start(t,Math.random());s.stop(t+1.5);}},
+  scream(k=1,f0=720,dur=1.5,pan=0){const C=AU.C,t=C.currentTime;
+    const sum=G(1);const ws=C.createWaveShaper();ws.curve=distCurve(9);const out_=G(0);
+    const f1=F('bandpass',850,5),f2=F('bandpass',1250,7),f3=F('bandpass',2700,9),hp=F('highpass',300);const g1=G(1),g2=G(.7),g3=G(.45);
+    sum.connect(hp);hp.connect(f1);hp.connect(f2);hp.connect(f3);f1.connect(g1);f2.connect(g2);f3.connect(g3);const mix=G(2.4);g1.connect(mix);g2.connect(mix);g3.connect(mix);mix.connect(ws);ws.connect(out_);
+    let dest=AU.muffle;if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=pan;out_.connect(p);p.connect(dest);}else out_.connect(dest);
+    out_.gain.setValueAtTime(0,t);out_.gain.linearRampToValueAtTime(.32*k,t+.04);out_.gain.setValueAtTime(.32*k,t+dur*.6);out_.gain.exponentialRampToValueAtTime(.001,t+dur);
+    const vib=C.createOscillator();vib.frequency.value=6.5;const vg=G(f0*.05);vib.connect(vg);const jit=C.createOscillator();jit.type='square';jit.frequency.value=23;const jg=G(f0*.025);jit.connect(jg);
+    for(const m of[1,1.012,2.005]){const o=C.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(f0*.75*m,t);o.frequency.linearRampToValueAtTime(f0*1.18*m,t+.22);o.frequency.linearRampToValueAtTime(f0*.9*m,t+dur);
+      vg.connect(o.frequency);jg.connect(o.frequency);const og=G(m>1.5?.35:.6);o.connect(og);og.connect(sum);o.start(t);o.stop(t+dur+.05);}
+    const n=C.createBufferSource();n.buffer=AU.noise;const nb=F('bandpass',2600,1),ng=G(.5);chain(n,nb,ng,sum);n.start(t,Math.random());n.stop(t+dur);
+    vib.start(t);jit.start(t);vib.stop(t+dur);jit.stop(t+dur);},
   click(){burst(AU.C.currentTime,.03,'highpass',2500,.25,1,.1);},
   whoosh(){const C=AU.C,t=C.currentTime;const s=N(),f=F('bandpass',300,1.2),g=G(0);f.frequency.setValueAtTime(300,t);f.frequency.linearRampToValueAtTime(1600,t+.6);f.frequency.linearRampToValueAtTime(250,t+1.4);
     g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.45,t+.55);g.gain.linearRampToValueAtTime(0,t+1.5);chain(s,f,g);out(g,.2);s.stop(t+1.6);},
@@ -1068,7 +1098,7 @@ const HS=(function(){
   note("DON'T OPEN\nshe's\nsleeping",[5.563,1.42,1.45],-PI/2);
   note("don't\nplay them",[10.12,.607,3.42],0,true);
   note('you already\ncame home',[4.8,1.45,9.933],PI);
-  const tally=d2(add(plane(1.3,.9,TX.tally,0xffffff,{ts:.9,seg:9,rotY:PI/2,pos:[.066,1.45,2.3]})));
+  const tally=d2(add(plane(1.3,.9,TX.tally,0xffffff,{ts:.9,seg:9,rotY:PI/2,pos:[.066,1.45,2.3]})));const tallyMat=tally.material;
   inter(tally,'Look',()=>examine(TX.tally),2.2);
   const newDoor=new THREE.Group();
   newDoor.add(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[4.09,1.025,3.2]}));newDoor.add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[4.13,1.0,2.9]}));
@@ -1428,19 +1458,22 @@ const HS=(function(){
     dupDoor.position.z+=.06;
     await wait(1.25);
     // right behind you
-    const fx=-Math.sin(S.yaw),fz=-Math.cos(S.yaw);
-    const bx=S.pos.x-fx*.62,bz=S.pos.z-fz*.62;
+    const fwx=-Math.sin(S.yaw),fwz=-Math.cos(S.yaw);
+    const bx=S.pos.x-fwx*.62,bz=S.pos.z-fwz*.62;
     figStand.position.set(bx,0,bz);figStand.rotation.y=Math.atan2(S.pos.x-bx,S.pos.z-bz);figStand.visible=true;MT.head.rotation.set(.22,0,.3);
     figScene.updateMatrixWorld();
     const h=new THREE.Vector3(0,.12,0);MT.head.localToWorld(h);
     S.yaw=Math.atan2(-(h.x-S.pos.x),-(h.z-S.pos.z));S.pitch=Math.atan2(h.y-S.eye,Math.hypot(h.x-S.pos.x,h.z-S.pos.z));
-    VOIDU.uAmp.value=.03;punch(1.3);S.statPunch=.7;
-    await wait(1.05);
+    VOIDU.uAmp.value=.035;punch(1.3);S.statPunch=.75;fx.red=.85;bloodSplat();
+    SFX.scream(1,760,1.6,-.2);setTimeout(()=>SFX.scream(.8,540,1.4,.35),90);setTimeout(()=>SFX.scream(.6,980,1.1,.1),220);
+    tallyMat.uniforms.map.value=TX.bloodWall;
+    await wait(1.25);
     S.cut=true;if(S.whine){S.whine.gain.cancelScheduledValues(0);S.whine.gain.setValueAtTime(0,AU.C.currentTime);}
     fx2cut();
     await wait(3.4);
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);SFX.tinnitus(7,.03);
     await wait(2.2);
+    bloodFade();
     await card('WEDNESDAY',3.2);
     dupDoor.position.z-=.06;
     S.start(3);
@@ -1511,7 +1544,7 @@ const HS=(function(){
     const on2=S.day===2;
     D2.forEach(m=>{m.visible=on2;});newDoor.visible=false;setOn(bedBlock,false);
     mugs.forEach((m,i)=>{m.position.set(.32,-10,6.25+i*.2);m.rotation.set(0,0,0);m.userData.target=null;m.userData.tipped=false;});
-    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
+    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;tallyMat.uniforms.map.value=TX.tally;fx.red=0;bloodFade();S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
     S.photoTex=TX.photo;photo1.material.uniforms.map.value=TX.photo;
     chairB.position.set(2.4,0,on2?8.5:8.18);chairB.rotation.y=on2?PI+.55:PI;
     figLie.visible=true;figSit.visible=false;figStand.visible=false;
@@ -2028,7 +2061,7 @@ function frame(now){
   if(stage===HS)fx.blink=HS.blink;
   stage.update(dt);
   tickBoxes();
-  const u=postMat.uniforms;u.uFade.value=fx.fade;u.uWhite.value=fx.white;u.uBlink.value=fx.blink;u.uStatic.value=fx.stat;u.uTime.value=gameTime;
+  const u=postMat.uniforms;u.uFade.value=fx.fade;u.uWhite.value=fx.white;fx.red=Math.max(0,fx.red-dt*.9);u.uRed.value=fx.red;u.uBlink.value=fx.blink;u.uStatic.value=fx.stat;u.uTime.value=gameTime;
   frameN++;
   if(stage===HS&&HS.mirrorOn)HS.renderMirror(renderer);
   if(!(stage===HS&&HS.stutter&&frameN%5!==0)){renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);}
