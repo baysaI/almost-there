@@ -1,5 +1,41 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, dialog } = require('electron');
 const path = require('path');
+
+const TEXT = {
+  en: {
+    title: 'Almost There',
+    message: 'Are you sure you want to open this application?',
+    detail: 'It might hurt.',
+    yes: 'Yes',
+    no: 'No',
+    again: 'You already said yes.'
+  },
+  tr: {
+    title: 'Almost There',
+    message: 'Bu uygulamayı açmak istediğine emin misin?',
+    detail: 'Canın yanabilir.',
+    yes: 'Evet',
+    no: 'Hayır',
+    again: 'Zaten evet dedin.'
+  }
+};
+
+function warn() {
+  const t = app.getLocale().toLowerCase().startsWith('tr') ? TEXT.tr : TEXT.en;
+  const answer = dialog.showMessageBoxSync({
+    type: 'warning',
+    title: t.title,
+    message: t.message,
+    detail: t.detail,
+    buttons: [t.yes, t.no],
+    defaultId: 0,
+    cancelId: 1,
+    noLink: true
+  });
+  if (answer !== 0) {
+    dialog.showMessageBoxSync({ type: 'warning', title: t.title, message: t.again, buttons: [t.yes], noLink: true });
+  }
+}
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -24,5 +60,8 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  warn();
+  createWindow();
+});
 app.on('window-all-closed', () => app.quit());
