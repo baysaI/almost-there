@@ -1,0 +1,27 @@
+{
+  "name": "almost-there",
+  "productName": "Almost There",
+  "version": "1.0.0",
+  "description": "A PS1-style psychological horror game.",
+  "author": "Mehmet Baysal",
+  "license": "MIT",
+  "main": "electron/main.js",
+  "scripts": {
+    "offline": "node scripts/make-offline.mjs",
+    "start": "npm run offline && electron .",
+    "dist": "npm run offline && electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.mehmetbaysal.almostthere",
+    "productName": "Almost There",
+    "copyright": "Copyright © 2026 Mehmet Baysal",
+    "files": ["electron/**", "build/web/**"],
+    "directories": { "output": "dist" },
+    "win": { "target": ["portable", "nsis"], "artifactName": "AlmostThere-${version}-${arch}-${target}.${ext}" },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "shortcutName": "Almost There" }
+  }
+}
