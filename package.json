@@ -19,9 +19,30 @@
     "appId": "com.mehmetbaysal.almostthere",
     "productName": "Almost There",
     "copyright": "Copyright © 2026 Mehmet Baysal",
-    "files": ["electron/**", "build/web/**"],
-    "directories": { "output": "dist" },
-    "win": { "target": ["portable", "nsis"], "artifactName": "AlmostThere-${version}-${arch}-${target}.${ext}" },
-    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "shortcutName": "Almost There" }
+    "files": [
+      "electron/**",
+      "web/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "buildres"
+    },
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "Almost There",
+      "artifactName": "AlmostThere-${version}-setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "AlmostThere-${version}-portable.${ext}"
+    }
   }
 }

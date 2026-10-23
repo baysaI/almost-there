@@ -50,7 +50,7 @@ function createWindow() {
     webPreferences: { contextIsolation: true, sandbox: true }
   });
   Menu.setApplicationMenu(null);
-  win.loadFile(path.join(__dirname, '..', 'build', 'web', 'index.html'));
+  win.loadFile(path.join(__dirname, '..', 'web', 'index.html'));
   win.once('ready-to-show', () => win.show());
   win.webContents.on('before-input-event', (event, input) => {
     if (input.type === 'keyDown' && input.key === 'F11') {
