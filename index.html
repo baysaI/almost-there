@@ -1686,9 +1686,21 @@ const HS=(function(){
     for(let i=1;i<=13;i++){
       subtitle('MESSAGE '+i,1.0,'machine');SFX.beep();
       await wait(.3);ramp(bus.gain,1,.02);
-      if(i === 4){ pingTo(bus, AU.C.currentTime, 720, .3, .8); }
-      if(i === 8){ tapTo(bus, AU.C.currentTime, 280, .5, .8); }
-      if(i === 12){ SFX.crunch(); SFX.thud(); }
+      if(i === 3){
+        burst(AU.C.currentTime, .5, 'bandpass', 1200, .35, 4, .25);
+      }
+      if(i === 6){
+        pingTo(AU.master, AU.C.currentTime, 980, .4, .25);
+      }
+      if(i === 9){
+        burst(AU.C.currentTime, .4, 'bandpass', 3200, .4, 3, .25);
+        tapTo(AU.master, AU.C.currentTime, 75, .8, .5);
+      }
+      if(i === 12){
+        SFX.glassShatter(1.1);
+        SFX.thud();
+        punch(.4);
+      }
       await wait(Math.max(.2, 1.2 - i*.07));
       ramp(bus.gain,0,.02);await wait(.12);
     }
@@ -1699,13 +1711,14 @@ const HS=(function(){
     if(b){const s2=AU.C.createBufferSource();s2.buffer=revBuf(b);s2.playbackRate.value=.65;const g=G(2.2);chain(s2,g,ph);s2.start();await wait(b.duration/.65+1.2);}
     else await wait(1.8);
     
-    // Ghostly voice asking "Why didn't you stop?"
-    voice('rest','You should rest.',4,{wet:.1,pan:.2,vol:1.6,lp:12000});
+    // Distorted voice from machine: "You should rest."
+    voice('rest','You should rest.',4,{wet:.1,pan:.2,vol:1.8,lp:9000});
     await wait(3.8);
-    subtitle("Why didn't you stop?", 3.5, "voice");
-    whisper(3.0, .25, 3);
+    // Horrifying plea: "Why didn't you stop?"
+    voice('please', "Why didn't you stop?", 3.5, {vol: 1.8, lp: 4200, wet: .35});
+    whisper(3.0, .35, 4);
     
-    // Living room TV flickers with oncoming high-beam headlights
+    // Living room TV flickers with oncoming high-beam headlights glare
     S.watching=12;
     tvScreen.material.uniforms.uColor.value.set(0xffeedd);
     
