@@ -1962,23 +1962,23 @@ const HS=(function(){
     if(S.closetBox){S.closetBox.on=false;S.closetBox=null;}
     const table=()=>{mugs.forEach(m=>{const u=m.userData;u.target=null;m.position.set(u.table[0],.76+u.h/2,u.table[1]);});S.mugsOnTable=true;};
     const tip=()=>{const m=mugs[2];m.userData.tipped=true;m.rotation.set(PI/2,0,0);m.position.y=.8;};
-    if(sc==='breakfast'){table();place(2.4,5.6,1.6,2.4,7.4);S.step='sit';setObjective('Sit down.');}
-    else if(sc==='messages'){table();tip();place(9.4,4.7,1.6,10.3,3.6);S.step='messages';setObjective('Check the messages.');}
-    else if(sc==='outside'){table();tip();place(4.8,5.2,1.6,4.8,9.9);S.step='outside';S.tries=0;S.muttered=-1;setObjective('Go outside.');}
-    else if(sc==='door'){table();tip();photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;place(4.8,2.4,1.6,4.06,3.2);newDoor.visible=true;setOn(bedBlock,true);S.tries=3;S.step='bed2';setObjective('Go to bed.');}
-    else if(sc==='room')S._jump(false);
-    else if(sc==='roomsit')S._jump(true);
-    else if(sc==='phone'){table();mugs[2].position.y=-10;place(4.8,5.3,1.6,4.07,3.95);S.cryH=worldSnd('cry',new THREE.Vector3(5.9,1.0,1.4),11,1.0,{loop:true,lp:1300,wet:.4});S.step='phone';S.ringT=0;setObjective('Answer the phone.');}
-    else if(sc==='clean'){table();mugs[2].position.y=-10;place(4.8,9.0,1.6,4.85,7.9);S.step='clean';S.scrubbed=0;setObjective('Clean it up.');}
-    else if(sc==='sleep'){table();mugs[2].position.y=-10;stains.forEach(m=>{m.userData.done=true;m.scale.setScalar(2.2);});bw.forEach(m=>{m.visible=true;});setPhase('night3');place(9.9,5.0,1.6,8.3,6.4);S.step='sleep';setObjective('Go to sleep.');}
-    else if(sc==='wait'){table();plates.forEach(p=>{p.visible=true;});place(2.4,6.0,1.6,2.4,7.4);sit4();}
-    else if(sc==='find'){table();place(2.4,6.0,1.6,2.4,7.4);S.monVol=.05;S.step='find1';S.kidOn=true;S.kidT=1;setObjective('Find them.');kidLead();}
-    else if(sc==='cut'){table();S.monVol=.05;place(2.7,2.6,1.6,1.55,1.45);S.step='cut';wedPhoto.visible=true;wedBack.visible=true;scissors.visible=true;setObjective('Cut her out.');}
-    else if(sc==='bath'){S.monVol=.05;photo1.material.uniforms.map.value=TX.photoCut;S.waterOn=true;enterBath();}
-    else if(sc==='herroom'){S.monVol=.05;photo1.material.uniforms.map.value=TX.photoCut;setPhase('sun4dim');place(5.0,2.6,1.6,5.6,1.45);S.step='herroom';setObjective('Go to her room.');startHerLull();}
-    else if(sc==='corridor'){S.monVol=.05;S.flat=true;flatline();}
-    else if(sc==='ending'){S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);setObjective('Leave.');}
-    else if(sc==='scare'){S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);doorScare();}
+    if(sc==='breakfast'){S.day=2;table();place(2.4,5.6,1.6,2.4,7.4);S.step='sit';setObjective('Sit down.');}
+    else if(sc==='messages'){S.day=2;table();tip();place(9.4,4.7,1.6,10.3,3.6);S.step='messages';setObjective('Check the messages.');}
+    else if(sc==='outside'){S.day=2;table();tip();place(4.8,5.2,1.6,4.8,9.9);S.step='outside';S.tries=0;S.muttered=-1;setObjective('Go outside.');}
+    else if(sc==='door'){S.day=2;table();tip();photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;place(4.8,2.4,1.6,4.06,3.2);newDoor.visible=true;setOn(bedBlock,true);S.tries=3;S.step='bed2';setObjective('Go to bed.');}
+    else if(sc==='room'){S.day=2;S._jump(false);}
+    else if(sc==='roomsit'){S.day=2;S._jump(true);}
+    else if(sc==='phone'){S.day=3;table();mugs[2].position.y=-10;place(4.8,5.3,1.6,4.07,3.95);S.cryH=worldSnd('cry',new THREE.Vector3(5.9,1.0,1.4),11,1.0,{loop:true,lp:1300,wet:.4});S.step='phone';S.ringT=0;setObjective('Answer the phone.');}
+    else if(sc==='clean'){S.day=3;table();mugs[2].position.y=-10;place(4.8,9.0,1.6,4.85,7.9);S.step='clean';S.scrubbed=0;setObjective('Clean it up.');}
+    else if(sc==='sleep'){S.day=3;table();mugs[2].position.y=-10;stains.forEach(m=>{m.userData.done=true;m.scale.setScalar(2.2);});bw.forEach(m=>{m.visible=true;});setPhase('night3');place(9.9,5.0,1.6,8.3,6.4);S.step='sleep';setObjective('Go to sleep.');}
+    else if(sc==='wait'){S.day=4;table();plates.forEach(p=>{p.visible=true;});place(2.4,6.0,1.6,2.4,7.4);sit4();}
+    else if(sc==='find'){S.day=4;table();place(2.4,6.0,1.6,2.4,7.4);S.monVol=.05;S.step='find1';S.kidOn=true;S.kidT=1;setObjective('Find them.');kidLead();}
+    else if(sc==='cut'){S.day=4;table();S.monVol=.05;place(2.7,2.6,1.6,1.55,1.45);S.step='cut';wedPhoto.visible=true;wedBack.visible=true;scissors.visible=true;setObjective('Cut her out.');}
+    else if(sc==='bath'){S.day=4;S.monVol=.05;photo1.material.uniforms.map.value=TX.photoCut;S.waterOn=true;enterBath();}
+    else if(sc==='herroom'){S.day=4;S.monVol=.05;photo1.material.uniforms.map.value=TX.photoCut;setPhase('sun4dim');place(5.0,2.6,1.6,5.6,1.45);S.step='herroom';setObjective('Go to her room.');startHerLull();}
+    else if(sc==='corridor'){S.day=4;S.monVol=.05;S.flat=true;flatline();}
+    else if(sc==='ending'){S.day=2;S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);setObjective('Leave.');}
+    else if(sc==='scare'){S.day=2;S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);doorScare();}
   };
   window.S=S;window.jumpTo=S.jumpTo;
   S._jump=(sit)=>{S.busy=false;place(X0+3.4,3.2,1.6,X0+1.3,1.2);setPhase('dup');houseAu.drone.gain.value=.15;if(sit){S.step='dup2';S.dupT=0;S.awayT=0;S.seenT=-1e9;swapFig();}else{S.step='dup';S.breathOn=true;}};
