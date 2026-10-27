@@ -103,8 +103,8 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 
 <div id="start" class="screen">
   <h1>ALMOST THERE</h1>
-  <p class="small" style="letter-spacing:.3em;margin-top:-8px">A GAME BY MEHMET BAYSAL</p>
-  <p class="small" id="ctrlText">WASD to walk · mouse to look · E to interact<br>Headphones recommended.</p>
+  <p class="small" style="letter-spacing:.3em;margin-top:-8px">A GAME BY MEHMET BAYSAL </p>
+  <p class="small" id="ctrlText">WASD to walk · SHIFT to brisk walk · mouse to look · E to interact<br>Headphones recommended.</p>
   <p class="small" id="tallyLine" hidden style="font-size:26px;letter-spacing:.25em;color:#8a3a30"></p>
   <button class="btn" id="beginBtn" type="button">BEGIN</button>
   <button class="btn" id="chapBtn" type="button" style="font-size:22px;padding:7px 22px;margin-top:-6px;opacity:.8">CHAPTERS</button>
@@ -162,7 +162,7 @@ button:focus-visible{outline:1px solid var(--warm);outline-offset:4px}
 <button id="pauseBtn" type="button" aria-label="Pause" hidden>II</button>
 <div id="end" class="screen" hidden>
   <h1 id="endTitle" style="font-size:clamp(30px,6vw,54px)">WEDNESDAY</h1>
-  <p class="small" id="endText">The prototype ends here.<br>Day 2 of 5.</p>
+  <p class="small" id="endText">The journey has ended.</p>
   <p class="small" style="font-size:16px;letter-spacing:.3em">A GAME BY MEHMET BAYSAL</p>
   <button class="btn" id="againBtn" type="button">AGAIN</button>
 </div>
@@ -180,7 +180,7 @@ const MEM={loops:0,stopped:0};try{Object.assign(MEM,JSON.parse(localStorage.getI
 function saveMem(){try{localStorage.setItem('almostthere_mem',JSON.stringify(MEM));}catch(_){}}
 let GLITCH=0;
 const LANG=SET.lang==='tr'?'tr':'en';
-const TRD={"Make coffee.": "Kahve yap.", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "THE SECOND PASSENGER": "İKİNCİ YOLCU", "ROOM 317": "ODA 317", "NOBODY WAS DRIVING": "KİMSE SÜRMÜYORDU", "belt fastened.": "kemer takılı.", "ST. ANNE PRESS": "ST. ANNE YAYINLARI", "HOW TO KEEP YOUR EYES OPEN": "GÖZLERİ AÇIK TUTMAK", "THE BACK SEAT": "ARKA KOLTUK", "SHE IS SLEEPING": "O UYUYOR", "ALMOST THERE  vol. IV": "AZ KALDI  cilt IV", "WHAT THE CHILD SAW": "ÇOCUĞUN GÖRDÜĞÜ", "COUNTING HEADLIGHTS": "FARLARI SAYMAK", "THE ROAD IS LONGER AT NIGHT": "YOL GECE DAHA UZUN", "don't": "yapma", "THERE WERE NEVER THREE": "HİÇ ÜÇ KİŞİ OLMADINIZ", "ONE PASSENGER": "TEK YOLCU", "LULLABIES FOR LONG DRIVES": "UZUN YOLLAR İÇİN NİNNİLER", "A FATHER'S GUIDE TO FORGETTING": "BİR BABANIN UNUTMA REHBERİ", "HOW MANY BEDS": "KAÇ YATAK", "YOUR SIDE OF THE CAR": "ARABADA SENİN TARAFIN", "DADDY": "BABA", "STOP": "DUR", "OCTOBER": "EKİM", "they come home friday": "cuma eve geliyorlar", "HOME SWEET HOME": "YUVA TATLI YUVA", "LOOK BEHIND": "ARKANA BAK", "ONE": "BİR", "Sit on the couch": "Koltuğa otur", "Throw": "Fırlat", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ"};
+const TRD={"Daddy... where are we?": "Baba... neredeyiz?", "You died here.": "Sen burada öldün.", "IT WON'T COME OFF": "ÇIKMAYACAK", "He can't wake up.": "O uyanamaz.", "Why did you leave us alone?": "Bizi neden yalnız bıraktın?", "Why didn't you stop?": "Neden durmadın?", "Daddy... it's so cold...": "Baba... çok soğuk...", "YOU WERE DRIVING": "SEN SÜRÜYORDUN", "IT HURTS": "CANIM YANIYOR", "A GAME BY MEHMET BAYSAL ": "BİR MEHMET BAYSAL OYUNU · ANTIGRAVITY VERSİYONU", "Hold SHIFT to walk faster": "Daha hızlı yürümek için SHIFT basılı tut", "How many times have you driven this road?": "Bu yolu kaçıncı kez sürüyorsun?", "You are already inside.": "Zaten içeridesin.", "Who was in the back seat?": "Arka koltukta kim vardı?", "Make coffee.": "Kahve yap.", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "THE SECOND PASSENGER": "İKİNCİ YOLCU", "ROOM 317": "ODA 317", "NOBODY WAS DRIVING": "KİMSE SÜRMÜYORDU", "belt fastened.": "kemer takılı.", "ST. ANNE PRESS": "ST. ANNE YAYINLARI", "HOW TO KEEP YOUR EYES OPEN": "GÖZLERİ AÇIK TUTMAK", "THE BACK SEAT": "ARKA KOLTUK", "SHE IS SLEEPING": "O UYUYOR", "ALMOST THERE  vol. IV": "AZ KALDI  cilt IV", "WHAT THE CHILD SAW": "ÇOCUĞUN GÖRDÜĞÜ", "COUNTING HEADLIGHTS": "FARLARI SAYMAK", "THE ROAD IS LONGER AT NIGHT": "YOL GECE DAHA UZUN", "don't": "yapma", "THERE WERE NEVER THREE": "HİÇ ÜÇ KİŞİ OLMADINIZ", "ONE PASSENGER": "TEK YOLCU", "LULLABIES FOR LONG DRIVES": "UZUN YOLLAR İÇİN NİNNİLER", "A FATHER'S GUIDE TO FORGETTING": "BİR BABANIN UNUTMA REHBERİ", "HOW MANY BEDS": "KAÇ YATAK", "YOUR SIDE OF THE CAR": "ARABADA SENİN TARAFIN", "DADDY": "BABA", "STOP": "DUR", "OCTOBER": "EKİM", "they come home friday": "cuma eve geliyorlar", "HOME SWEET HOME": "YUVA TATLI YUVA", "LOOK BEHIND": "ARKANA BAK", "ONE": "BİR", "Sit on the couch": "Koltuğa otur", "Throw": "Fırlat", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ"};
 const TRP={"milk|bread|eggs|juice (the yellow one)|batteries for the|  music box||call insurance back|call her mother back||DO NOT drive at night": ["süt", "ekmek", "yumurta", "meyve suyu (sarı olan)", "müzik kutusu için", "  pil", "", "sigortayı geri ara", "annesini geri ara", "", "GECE araba KULLANMA"], "RE: CLAIM #0317||Dear Sir,||We are unable to process|your claim until the|second passenger has been|identified.||Our records show only one|passenger was travelling.|Please advise.": ["KONU: HASAR #0317", "", "Sayın Bay,", "", "İkinci yolcunun kimliği", "belirlenene kadar", "talebinizi işleme", "alamıyoruz.", "", "Kayıtlarımıza göre araçta", "yalnızca bir yolcu vardı.", "Lütfen bilgi veriniz."], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: conscious at scene.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI", "", "Saat: 03:17", "Araç şeridinden çıktı.", "Fren izi yok.", "", "Sürücü: bilinci açık.", "\"az kaldı\" diye tekrarlıyor.", "", "Kurtarılan yolcu: 1", "Arka çocuk koltuğu: boş.", "Kemer takılı.", "", "Memur: ##########"], "I'm taking her to my|mother's tonight.||Don't follow us.|Don't call.||You haven't slept in|four days.||Please. Just rest.||": ["Onu bu gece annemin", "yanına götürüyorum.", "", "Peşimizden gelme.", "Arama.", "", "Dört gündür", "uyumadın.", "", "Lütfen. Sadece dinlen.", "", ""], "ROOM 317||Visiting hours ended|at 21:00.||Family may stay.||#########|#####": ["ODA 317", "", "Ziyaret saati", "21:00'de bitti.", "", "Aile kalabilir.", "", "#########", "#####"]};
 function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return TRD[t];let m;if((m=/^MESSAGE (\d+)$/.exec(t)))return 'MESAJ '+m[1];if((m=/^it is (.+)\.$/.exec(t)))return 'saat '+m[1]+'.';return t;}
 {const sb=document.getElementById('setBtn'),sc=document.getElementById('settings');
@@ -188,7 +188,7 @@ function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return T
     document.getElementById('sBack').addEventListener('click',e=>{e.stopPropagation();sc.hidden=true;});
     sc.querySelectorAll('.lang').forEach(b=>{b.classList.toggle('on',b.dataset.lang===LANG);b.addEventListener('click',e=>{e.stopPropagation();if(b.dataset.lang===LANG)return;SET.lang=b.dataset.lang;try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}location.reload();});});}}
 const HF=n=>LANG==='tr'?Math.round(n*.84)+'px "Caveat"':n+'px "Reenie Beanie"';
-if(LANG==='tr'){const H={"BEGIN": "BAŞLA", "CREDITS": "EMEĞİ GEÇENLER", "A GAME BY": "BİR OYUNU", "STORY · DESIGN · DIRECTION": "HİKÂYE · TASARIM · YÖNETMEN", "The whole story of this game came from a dream I had.": "Bu oyunun hikâyesinin tamamı gördüğüm bir rüyadan doğdu.", "SPECIAL THANKS": "ÖZEL TEŞEKKÜRLER", "VOICES AND SOUND": "SES VE SESLENDİRME", "ENGINE": "MOTOR", "FONTS": "YAZI TİPLERİ", "Thank you for playing.": "Oynadığın için teşekkürler.", "Get some sleep.": "Biraz uyu.", "CHAPTERS": "BÖLÜMLER", "Finish the game to unlock the chapters.": "Bölümleri açmak için oyunu bitir.", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "the morning": "sabah", "the drive": "yol", "scenes": "sahneler", "monday": "pazartesi", "tuesday": "salı", "wednesday": "çarşamba", "thursday": "perşembe", "friday": "cuma", "breakfast": "kahvaltı", "the messages": "mesajlar", "go outside": "dışarı çık", "the new door": "yeni kapı", "the other room": "öteki oda", "he sits up": "doğruluyor", "ending": "son", "the phone": "telefon", "clean it up": "temizle şunu", "go to sleep": "uyu", "the road": "yol", "wait for them": "onları bekle", "find them": "onları bul", "cut her out": "onu kesip çıkar", "the mirror": "ayna", "her room": "onun odası", "the corridor": "koridor", "the choice": "seçim", "the rest area": "mola yeri", "prototype · prologue + days 1–5": "prototip · giriş + 1–5. günler", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "SETTINGS": "AYARLAR", "LANGUAGE": "DİL", "BACK": "GERİ", "WASD to walk · mouse to look · E to interact": "WASD yürü · fare bak · E etkileşim", "Headphones recommended.": "Kulaklık önerilir.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "VOLUME": "SES", "MOUSE": "FARE", "BRIGHTNESS": "PARLAKLIK", "MAIN MENU": "ANA MENÜ", "ESC to resume": "Devam etmek için ESC", "AGAIN": "TEKRAR", "The prototype ends here.": "Prototip burada bitiyor.", "Day 2 of 5.": "5 günün 2.si.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım."};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let nd;while((nd=w.nextNode())){const k=nd.nodeValue.trim();if(k&&H[k]!=null)nd.nodeValue=nd.nodeValue.replace(k,H[k]);}document.documentElement.lang='tr';}
+if(LANG==='tr'){const H={"Daddy... where are we?": "Baba... neredeyiz?", "You died here.": "Sen burada öldün.", "IT WON'T COME OFF": "ÇIKMAYACAK", "He can't wake up.": "O uyanamaz.", "Why did you leave us alone?": "Bizi neden yalnız bıraktın?", "Why didn't you stop?": "Neden durmadın?", "Daddy... it's so cold...": "Baba... çok soğuk...", "YOU WERE DRIVING": "SEN SÜRÜYORDUN", "IT HURTS": "CANIM YANIYOR", "A GAME BY MEHMET BAYSAL ": "BİR MEHMET BAYSAL OYUNU · ANTIGRAVITY VERSİYONU", "Hold SHIFT to walk faster": "Daha hızlı yürümek için SHIFT basılı tut", "How many times have you driven this road?": "Bu yolu kaçıncı kez sürüyorsun?", "You are already inside.": "Zaten içeridesin.", "Who was in the back seat?": "Arka koltukta kim vardı?", "BEGIN": "BAŞLA", "CREDITS": "EMEĞİ GEÇENLER", "A GAME BY": "BİR OYUNU", "STORY · DESIGN · DIRECTION": "HİKÂYE · TASARIM · YÖNETMEN", "The whole story of this game came from a dream I had.": "Bu oyunun hikâyesinin tamamı gördüğüm bir rüyadan doğdu.", "SPECIAL THANKS": "ÖZEL TEŞEKKÜRLER", "VOICES AND SOUND": "SES VE SESLENDİRME", "ENGINE": "MOTOR", "FONTS": "YAZI TİPLERİ", "Thank you for playing.": "Oynadığın için teşekkürler.", "Get some sleep.": "Biraz uyu.", "CHAPTERS": "BÖLÜMLER", "Finish the game to unlock the chapters.": "Bölümleri açmak için oyunu bitir.", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "the morning": "sabah", "the drive": "yol", "scenes": "sahneler", "monday": "pazartesi", "tuesday": "salı", "wednesday": "çarşamba", "thursday": "perşembe", "friday": "cuma", "breakfast": "kahvaltı", "the messages": "mesajlar", "go outside": "dışarı çık", "the new door": "yeni kapı", "the other room": "öteki oda", "he sits up": "doğruluyor", "ending": "son", "the phone": "telefon", "clean it up": "temizle şunu", "go to sleep": "uyu", "the road": "yol", "wait for them": "onları bekle", "find them": "onları bul", "cut her out": "onu kesip çıkar", "the mirror": "ayna", "her room": "onun odası", "the corridor": "koridor", "the choice": "seçim", "the rest area": "mola yeri", "prototype · prologue + days 1–5": "prototip · giriş + 1–5. günler", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "SETTINGS": "AYARLAR", "LANGUAGE": "DİL", "BACK": "GERİ", "WASD to walk · mouse to look · E to interact": "WASD yürü · SHIFT hızlı yürü · fare bak · E etkileşim", "Headphones recommended.": "Kulaklık önerilir.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "VOLUME": "SES", "MOUSE": "FARE", "BRIGHTNESS": "PARLAKLIK", "MAIN MENU": "ANA MENÜ", "ESC to resume": "Devam etmek için ESC", "AGAIN": "TEKRAR", "The journey has ended.": "Yolculuk sona erdi.", "Day 2 of 5.": "5 günün 2.si.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım."};const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let nd;while((nd=w.nextNode())){const k=nd.nodeValue.trim();if(k&&H[k]!=null)nd.nodeValue=nd.nodeValue.replace(k,H[k]);}document.documentElement.lang='tr';}
 function tallyText(n){let t='';for(let i=1;i<=n;i++){t+='|';if(i%5===0)t+='  ';}return t;}
 function saveSet(){try{localStorage.setItem('almostthere_settings',JSON.stringify(SET));}catch(_){}}
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -995,6 +995,11 @@ const RD=(function(){
   async function loopBack(){
     MEM.loops=(MEM.loops||0)+1;saveMem();
     S.force=true;S.auto=true;
+    // Violent acceleration into the rain
+    S.speed = 36;
+    SFX.tinnitus(4, .03);
+    if(PW) { PW.head.rotation.set(.4, PI/2, 0); }
+    if(PK) { PK.head.rotation.set(.4, -PI/2, 0); }
     if(au&&au.box){au.box.wob=.04;const bx=au.box;const t0=gameTime;(async()=>{while(gameTime-t0<4.5){bx.rate=Math.max(.4,bx.rate-.02);bx.semis-=.05;await wait(.1);}})();}
     ramp(AU.muffle.frequency,500,1.5);
     await wait(4.4);
@@ -1631,60 +1636,145 @@ const HS=(function(){
     S.step='sitting';setObjective('');S.busy=true;
     await tween({x:2.4,z:6.62,eye:1.12,yaw:PI,pitch:-.2},2.2);
     await wait(2.2);mutter('eat something.',3);
-    await wait(5.5);mutter('you have to eat something.',3.5);
-    await wait(5);
+    await wait(4.0);mutter('you have to eat something.',3.5);
+    await wait(4.0);
     await new Promise(r=>{S.special={label:'Answer her',action:r};});
-    flash(fK,2.4,8.42,PI,4,.35);
-    await wait(.7);mutter('please.',3);
-    await wait(3.8);
-    const m=mugs[2];m.userData.tipped=true;m.rotation.set(PI/2,0,0);m.position.y=.76+.04;SFX.thud();ramp(houseAu.drone.gain,.22,.1);SFX.tinnitus(4,.02);
-    await wait(4.5);ramp(houseAu.drone.gain,.1,2);
-    await tween({x:2.4,z:6.0,eye:1.6,yaw:PI,pitch:0},2);
+    
+    // Intense psychological manifestation
+    flash(fK,2.4,8.42,PI,6,.35);
+    await wait(.4);
+    mutter('please.',2.5);
+    
+    // The child's empty chair violently screeches back across the floor
+    chairB.position.z = 8.75;
+    chairB.rotation.y = PI + .55;
+    SFX.creak();
+    burst(AU.C.currentTime, .4, 'lowpass', 240, .8, 1, .4);
+    
+    // Mug violently flips and spills, tinnitus screams, drone surges
+    const m=mugs[2];m.userData.tipped=true;m.rotation.set(PI/2,0,0);m.position.y=.76+.04;
+    m.children[0].material.uniforms.uColor.value.set(0x4a0a08);
+    SFX.thud();
+    ramp(houseAu.drone.gain,.45,.05);
+    SFX.tinnitus(6,.04);
+    
+    // TV turns itself on in the dark living room with loud harsh static
+    S.watching = 8;
+    tvScreen.material.uniforms.uColor.value.set(0xd82010);
+    subtitle("Why did you leave us alone?", 3.8, "thought");
+    whisper(3.2, .3, 4);
+    
+    await wait(4.5);
+    tvScreen.material.uniforms.uColor.value.set(0xb8c0c8);
+    ramp(houseAu.drone.gain,.12,2);
+    await tween({x:2.4,z:6.0,eye:1.6,yaw:PI,pitch:0},1.8);
     S.busy=false;S.step='messages';setObjective('Check the messages.');
   }
   async function playMessages2(){
     S.step='playing';setObjective('');SFX.click();await wait(.3);SFX.beep();subtitle('FOURTEEN NEW MESSAGES',2.6,'machine');S.ledOn=false;
-    await wait(3);
+    await wait(2.4);
     const bus=G(0),ph=F('bandpass',1100,.9);chain(bus,ph);const src=new PSrc(ph,new THREE.Vector3(10.3,.7,3.6),9,1.4,.2);S.msgSrc=src;
     const n1=N(),h1=F('highpass',1400),g1=G(.25);chain(n1,h1,g1,bus);const n2=N(),l2=F('lowpass',200),g2=G(.5);chain(n2,l2,g2,bus);
+    
+    // Escalating, horrifying messages with siren, rain, crash echoes
     for(let i=1;i<=13;i++){
-      subtitle('MESSAGE '+i,1.2,'machine');SFX.beep();
-      await wait(.4);ramp(bus.gain,1,.02);await wait(Math.max(.22,1.5-i*.1));ramp(bus.gain,0,.02);await wait(.15);
+      subtitle('MESSAGE '+i,1.0,'machine');SFX.beep();
+      await wait(.3);ramp(bus.gain,1,.02);
+      if(i === 4){ pingTo(bus, AU.C.currentTime, 720, .3, .8); }
+      if(i === 8){ tapTo(bus, AU.C.currentTime, 280, .5, .8); }
+      if(i === 12){ SFX.crunch(); SFX.thud(); }
+      await wait(Math.max(.2, 1.2 - i*.07));
+      ramp(bus.gain,0,.02);await wait(.12);
     }
+    
     subtitle('MESSAGE 14',2.2,'machine');SFX.beep();
-    await wait(3.2);
+    await wait(2.5);
     const b=AU.voices.rest;
-    if(b){const s2=AU.C.createBufferSource();s2.buffer=revBuf(b);s2.playbackRate.value=.7;const g=G(1.8);chain(s2,g,ph);s2.start();await wait(b.duration/.7+1.6);}
-    else await wait(2);
-    S.watching=16;
-    voice('rest','You should rest.',4,{wet:0,pan:0,vol:1.5,lp:12000});
-    await wait(4.6);
+    if(b){const s2=AU.C.createBufferSource();s2.buffer=revBuf(b);s2.playbackRate.value=.65;const g=G(2.2);chain(s2,g,ph);s2.start();await wait(b.duration/.65+1.2);}
+    else await wait(1.8);
+    
+    // Ghostly voice asking "Why didn't you stop?"
+    voice('rest','You should rest.',4,{wet:.1,pan:.2,vol:1.6,lp:12000});
+    await wait(3.8);
+    subtitle("Why didn't you stop?", 3.5, "voice");
+    whisper(3.0, .25, 3);
+    
+    // Living room TV flickers with oncoming high-beam headlights
+    S.watching=12;
+    tvScreen.material.uniforms.uColor.value.set(0xffeedd);
+    
+    await wait(4.0);
     SFX.click();await wait(.3);SFX.beep();subtitle('END OF MESSAGES',2.6,'machine');
+    tvScreen.material.uniforms.uColor.value.set(0xb8c0c8);
     setTimeout(()=>{[n1,n2].forEach(x=>{try{x.stop();}catch(_){}});S.msgSrc=null;},600);
-    await wait(3.4);mutter("that's not how she sounds.",4);
-    await wait(4.6);
+    await wait(2.8);mutter("that's not how she sounds.",4);
+    await wait(4.0);
     S.step='outside';S.tries=0;S.muttered=-1;setObjective('Go outside.');
   }
   async function outsideLoop(){
     S.busy=true;const n=++S.tries;
-    S.blinkT=1;S.blinkRate=7;SFX.tinnitus(3.5,.03);ramp(AU.muffle.frequency,320,.08);
-    await wait(1.7);
-    ramp(AU.muffle.frequency,18000,.5);
-    if(n===1){place(1.25,5.4,1.6,2.4,7.4);mugs.forEach(m=>{const u=m.userData;u.tipped=false;m.rotation.set(0,0,0);m.position.set(u.table[0],.76+u.h/2,u.table[1]);});S.watching=8;}
-    else if(n===2){place(8.3,3.75,1.1,8.3,9.6);S.watching=13;photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;}
-    else{place(4.8,2.4,1.6,4.06,3.2);newDoor.visible=true;setOn(bedBlock,true);}
+    
+    if(n===1){
+      // Someone violently charges and hammers on the door from outside
+      SFX.rattle();
+      for(let i=0;i<4;i++) tapTo(AU.master, AU.C.currentTime + i*.12, 320, .8, .08);
+      SFX.knock(1.2, .15, 180);
+      await wait(.4);
+      SFX.thud();
+      S.blinkT=1;S.blinkRate=9;SFX.tinnitus(4,.04);ramp(AU.muffle.frequency,280,.05);
+      await wait(1.6);
+      ramp(AU.muffle.frequency,18000,.4);
+      place(1.25,5.4,1.6,2.4,7.4);
+      chairB.position.set(2.4, .2, 8.8);
+      chairB.rotation.set(0, PI, PI/2); // chair knocked completely on its side
+      S.watching=10;
+    }
+    else if(n===2){
+      // Crying on other side of wood
+      SFX.rattle();
+      subtitle("Daddy... it's so cold...", 3.2, "voice");
+      whisper(2.8, .2, 2);
+      await wait(1.2);
+      SFX.crunch(); // glass shattering in living room
+      S.blinkT=1;S.blinkRate=8;SFX.tinnitus(4,.03);ramp(AU.muffle.frequency,300,.08);
+      await wait(1.6);
+      ramp(AU.muffle.frequency,18000,.4);
+      place(8.3,3.75,1.1,8.3,9.6);
+      photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;
+      S.watching=14;
+    }
+    else{
+      // Final warp: door rattles and breathes with blood seeping
+      SFX.thud();
+      S.blinkT=1;S.blinkRate=9;ramp(AU.muffle.frequency,300,.08);
+      await wait(1.4);
+      ramp(AU.muffle.frequency,18000,.4);
+      place(4.8,2.4,1.6,4.06,3.2);
+      newDoor.visible=true;setOn(bedBlock,true);
+    }
+    
     S.blinkT=0;S.blinkRate=.9;
-    await wait(n===2?3.2:1.3);
+    await wait(n===2?2.8:1.2);
     if(n===2)await tween({x:8.3,z:4.35,eye:1.6,yaw:S.yaw,pitch:0},1.8);
     S.busy=false;
     if(n>=3){S.step='bed2';setObjective('Go to bed.');}
   }
   async function enterDup(){
     S.step='entering';S.busy=true;setObjective('');SFX.creak();
-    await fadeTo(1,.5);
-    place(X0+3.4,3.2,1.6,X0+1.3,1.2);setPhase('dup');S.breathOn=true;houseAu.drone.gain.value=.15;
-    await wait(.9);
-    fadeTo(0,1.3);await wait(.6);
+    await fadeTo(1,.6);
+    // Enter freezing dark duplicate room
+    place(X0+3.4,3.2,1.6,X0+1.3,1.2);setPhase('dup');
+    // Heavy, fluid-filled, suffocating lung breathing
+    S.breathOn=true;
+    ramp(houseAu.drone.gain, .28, 1.5);
+    
+    // Slam the door behind player shut
+    SFX.thud();
+    SFX.click();
+    
+    await wait(1.1);
+    fadeTo(0,1.8);
+    await wait(.8);
     S.busy=false;S.step='dup';
   }
   function knockAt(x,y,z){const k=G(1),kp=F('lowpass',700);chain(k,kp);const ks=new PSrc(kp,new THREE.Vector3(x,y,z),8,1.3,.4);{const nd=ks.p||ks.g;nd.disconnect();nd.connect(AU.muffle);}S.knockSrc=ks;
@@ -1692,11 +1782,55 @@ const HS=(function(){
       const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',350),ng=G(0);ng.gain.setValueAtTime(.7,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.12);chain(nb,nf,ng,k);nb.start(ti,Math.random());nb.stop(ti+.15);}
     setTimeout(()=>{S.knockSrc=null;},2500);}
   async function wakeHim(){
-    S.step='dup2';S.busy=true;S.breathOn=false;S.awayT=0;S.figGone=false;
+    S.step='dup2';S.busy=true;
+    // Breathing stops into heavy silence
+    S.breathOn=false;
+    ramp(houseAu.drone.gain, .06, .4);
     await wait(1.2);
-    S.busy=false;
-    await wait(3.5);
-    if(S.step==='dup2')setObjective('Leave.');
+    
+    // Slow, chilling, deliberate head turn on the pillow towards the player
+    const t0 = gameTime;
+    const dur = 2.6;
+    const startRot = ML.head.rotation.y;
+    burst(AU.C.currentTime, .5, 'bandpass', 450, .08, 1, .4);
+    
+    while(gameTime - t0 < dur){
+      const u = smooth((gameTime - t0) / dur);
+      ML.head.rotation.y = lerp(startRot, 1.25, u);
+      ML.head.rotation.z = lerp(0, 0.22, u);
+      figLie.updateMatrixWorld();
+      await wait(0.016);
+    }
+    
+    // Unsettling whisper while the hollow face stares directly at you
+    subtitle("He can't wake up.", 3.2, "thought");
+    whisper(2.8, .22, 3);
+    ramp(houseAu.drone.gain, .35, 2.0);
+    await wait(2.4);
+    
+    // Bedside lamp softly dims and flickers out
+    const lt0 = gameTime;
+    while(gameTime - lt0 < 1.2){
+      const k = 1 - smooth((gameTime - lt0) / 1.2);
+      dupShade.material.uniforms.uEmissive.value = .9 * k;
+      await wait(0.02);
+    }
+    dupShade.material.uniforms.uEmissive.value = 0;
+    S.lampOff = true;
+    SFX.click();
+    
+    // In the dark, the body sinks silently away
+    await wait(1.2);
+    figLie.visible = false;
+    tallyMat.uniforms.map.value = TX.bloodWall;
+    
+    // Red pulse returns
+    dupShade.material.uniforms.uEmissive.value = .4;
+    S.lampOff = false;
+    
+    S.busy = false;
+    S.awayT = 0; S.figGone = true;
+    setObjective('Leave.');
   }
   async function jumpScare(g,P,o={}){
     const lk=controls.look,mv=controls.move;controls.look=false;controls.move=false;setPrompt('');
@@ -1710,36 +1844,117 @@ const HS=(function(){
     g.visible=false;P.head.rotation.copy(hr);P.neck.scale.y=ns;VOIDU.uAmp.value=.006;fx.red=0;
     fx.fade=fx.fadeT=1;await wait(.7);fadeTo(0,1.4);setTimeout(bloodFade,1200);
     controls.look=lk;controls.move=mv;}
-  async function tvScare(){S.busy=true;S.watching=0;burst(AU.C.currentTime,.5,'highpass',2200,.7,1,.1);S.forceStat=.5;await wait(.4);S.forceStat=null;
-    await jumpScare(fW,fW.userData.P,{tilt:.85});S.busy=false;}
-  async function frontScare(){S.busy=true;const a=houseAu.all.gain;a.setTargetAtTime(0,AU.C.currentTime,.05);await wait(1.8);a.setTargetAtTime(1,AU.C.currentTime,.05);
-    burst(AU.C.currentTime,.35,'lowpass',260,1.0,1,.4);SFX.thud();
-    await jumpScare(fM,fM.userData.P,{tilt:1.15,neck:1.9});S.busy=false;}
+  async function tvScare(){
+    S.busy=true;S.watching=0;
+    const curLight = S.lights;
+    S.lights = [[8.3,.88,9.4, .9, .1, .1, 5], null, null, null];
+    tvScreen.material.uniforms.uColor.value.set(0x991111);
+    SFX.tinnitus(4, .04);
+    subtitle("Who was in the back seat?", 3.5, "voice");
+    whisper(3.0, .22, 3);
+    await wait(3.6);
+    SFX.click();
+    tvScreen.material.uniforms.uColor.value.set(0xb8c0c8);
+    S.lights = curLight;
+    burst(AU.C.currentTime, .2, 'highpass', 3500, .3, 1, .2);
+    await wait(1.2);
+    S.busy=false;
+  }
+  async function frontScare(){
+    S.busy=true;
+    const a=houseAu.all.gain;a.setTargetAtTime(0,AU.C.currentTime,.05);
+    await wait(1.8);
+    a.setTargetAtTime(1,AU.C.currentTime,.05);
+    SFX.knock(1.1, .3, 200);
+    await wait(.6);
+    SFX.rattle();
+    subtitle("You are already inside.", 3.0, "thought");
+    whisper(2.5, .18, 2);
+    await wait(2.8);
+    S.busy=false;
+  }
   async function doorScare(){
     S.step='scare';S.busy=true;S.ending=true;setObjective('');setPrompt('');controls.look=false;controls.move=false;
-    figLie.visible=false;figSit.visible=false;
-    SFX.click();await wait(.25);SFX.creak();
-    dupDoor.position.z+=.06;
-    await wait(1.25);
-    const fwx=-Math.sin(S.yaw),fwz=-Math.cos(S.yaw);
-    const bx=S.pos.x-fwx*.62,bz=S.pos.z-fwz*.62;
-    figStand.position.set(bx,0,bz);figStand.rotation.y=Math.atan2(S.pos.x-bx,S.pos.z-bz);figStand.visible=true;MT.head.rotation.set(.18,0,1.15);MT.neck.scale.y=1.8;
-    figScene.updateMatrixWorld();
-    const h=new THREE.Vector3(0,.12,0);MT.head.localToWorld(h);
-    S.yaw=Math.atan2(-(h.x-S.pos.x),-(h.z-S.pos.z));S.pitch=Math.atan2(h.y-S.eye,Math.hypot(h.x-S.pos.x,h.z-S.pos.z));
-    VOIDU.uAmp.value=.035;punch(1.3);S.statPunch=.75;fx.red=.85;bloodSplat();
-    screams();
-    tallyMat.uniforms.map.value=TX.bloodWall;
-    await wait(1.25);
+    
+    // Player tries the exit door handle: it rattles and jams tight with a dead metallic thud
+    SFX.rattle();
+    await wait(.35);
+    SFX.thud();
+    
+    // Blood-red nightmare atmosphere: Deep crimson backlight bathes the walls behind the silhouette
+    S.lampOff = false;
+    S.lights = [
+      [X0 + 1.8, 1.4, 2.0, 1.3, 0.08, 0.08, 7.0],
+      [X0 + 2.5, 0.8, 0.35, 0.6, 0.03, 0.03, 4.5],
+      null,
+      null
+    ];
+    S.amb = [0.26, 0.04, 0.04];
+    S.fog = [0.09, 0.01, 0.01];
+    dupShade.material.uniforms.uEmissive.value = 0.6;
+    dupShade.material.uniforms.uColor.value.set(0xaa1515);
+    tallyMat.uniforms.map.value = TX.bloodWall;
+    
+    // Suffocating wet breathing right against player's neck
+    burst(AU.C.currentTime, .9, 'lowpass', 240, .25, 1, .4);
+    await wait(.6);
+    
+    // Towering entity stands directly behind the player in the red-lit room
+    const fwx = -Math.sin(S.yaw), fwz = -Math.cos(S.yaw);
+    let bx = S.pos.x - fwx * 1.4, bz = S.pos.z - fwz * 1.4;
+    bx = Math.max(X0 + 0.6, Math.min(X0 + 3.4, bx));
+    bz = Math.max(0.6, Math.min(3.8, bz));
+    figStand.position.set(bx, 0, bz);
+    figStand.rotation.y = Math.atan2(S.pos.x - bx, S.pos.z - bz);
+    figStand.visible = true;
+    MT.neck.scale.y = 2.5;
+    MT.head.rotation.set(.22, 0, .85);
+    MT.shR.rotation.set(0, 0, 0);
+    figScene.updateMatrixWorld(true);
+    
+    // Camera is slowly, inescapably forced to look up directly into the towering horror's face
+    const h = new THREE.Vector3(0, .14, 0);
+    MT.head.localToWorld(h);
+    const targetYaw = Math.atan2(-(h.x - S.pos.x), -(h.z - S.pos.z));
+    const targetPitch = Math.atan2(h.y - S.eye, Math.hypot(h.x - S.pos.x, h.z - S.pos.z));
+    await tween({x: S.pos.x, z: S.pos.z, eye: S.eye, yaw: targetYaw, pitch: targetPitch}, 1.7);
+    
+    // 1. FIRST: THE SILHOUETTE STANDS TOWERING IN FULL GLORY
+    // The pitch-black void body is starkly silhouetted against the bloody walls
+    // Heavy agonizing heartbeat pulses through the speakers as its arm raises to point
+    for(let beatCount = 0; beatCount < 4; beatCount++){
+      heartbeat(1.4 + beatCount * .25);
+      fx.red = 0.38 + beatCount * 0.12;
+      VOIDU.uAmp.value = .016 + beatCount * .012;
+      GLITCH = Math.min(.9, .25 + beatCount * .18);
+      // Arm slowly, terrifyingly lifts to point directly at player's heart
+      MT.shR.rotation.x = -1.55 * ((beatCount + 1) / 4);
+      MT.shR.rotation.z = .22 * ((beatCount + 1) / 4);
+      figScene.updateMatrixWorld(true);
+      await wait(.85 - beatCount * .08);
+    }
+    
+    // 2. THEN: SILENCE & CONDEMNATION TEXT BURNS ACROSS THE SCREEN
+    await wait(.35);
+    whisper(2.8, .35, 5);
+    await intrude("YOU WERE DRIVING", 2.4, 2);
+    
+    // 3. THE IMPACT: Blinding high-beam truck headlights, truck horn, explosive metal crash
+    SFX.horn(3.4);
+    fx.white = 1;
+    punch(1.8);
+    SFX.thud();
+    SFX.crunch();
+    
+    await wait(.5);
     S.cut=true;if(S.whine){S.whine.gain.cancelScheduledValues(0);S.whine.gain.setValueAtTime(0,AU.C.currentTime);}
     fx2cut();
     await wait(3.4);
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);SFX.tinnitus(7,.03);
     await wait(2.2);
-    bloodFade();
     await aftermath(2);
     await card('WEDNESDAY',3.2);
-    dupDoor.position.z-=.06;
+    dupDoor.position.z-=.12;
     S.start(3);
   }
   function fx2cut(){fx.fade=fx.fadeT=1;AU.master.gain.cancelScheduledValues(0);AU.master.gain.setValueAtTime(0,AU.C.currentTime);muteHouse();S.forceStat=null;S.statPunch=0;}
@@ -1763,7 +1978,9 @@ const HS=(function(){
     else if(sc==='herroom'){S.monVol=.05;photo1.material.uniforms.map.value=TX.photoCut;setPhase('sun4dim');place(5.0,2.6,1.6,5.6,1.45);S.step='herroom';setObjective('Go to her room.');startHerLull();}
     else if(sc==='corridor'){S.monVol=.05;S.flat=true;flatline();}
     else if(sc==='ending'){S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);setObjective('Leave.');}
+    else if(sc==='scare'){S._jump(false);S.step='dup2';S.breathOn=false;S.figGone=true;figLie.visible=false;place(X0+3.3,3.2,1.6,X0+3.9,3.2);doorScare();}
   };
+  window.S=S;window.jumpTo=S.jumpTo;
   S._jump=(sit)=>{S.busy=false;place(X0+3.4,3.2,1.6,X0+1.3,1.2);setPhase('dup');houseAu.drone.gain.value=.15;if(sit){S.step='dup2';S.dupT=0;S.awayT=0;S.seenT=-1e9;swapFig();}else{S.step='dup';S.breathOn=true;}};
   function swapFig(){figLie.visible=false;figSit.visible=true;figSit.rotation.y=Math.atan2(S.pos.x-figSit.position.x,S.pos.z-figSit.position.z);S.swapped=true;}
   async function darkSwap(){S.lampOff=true;dupShade.material.uniforms.uEmissive.value=0;SFX.click();await wait(1.6);swapFig();S.lampOff=false;dupShade.material.uniforms.uEmissive.value=.9;SFX.click();}
@@ -1876,7 +2093,13 @@ const HS=(function(){
     S.busy=false;
     if(n===1)setObjective('Clean it up.');
     else if(n===2)setObjective('CLEAN IT UP.');
-    else{S.step='cant';setObjective('');GLITCH=.2;stopWorld();ramp(houseAu.drone.gain,.3,.1);await intrude("you can't.",3.2,1);ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
+    else{
+      S.step='cant';setObjective('');GLITCH=.35;stopWorld();
+      bloodSplat();
+      SFX.horn(.4);
+      subtitle("You died here.", 3.2, "thought");
+      whisper(2.8, .3, 4);
+      ramp(houseAu.drone.gain,.4,.1);await intrude("you can't.",3.2,1);ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
   }
   async function sleep3(){
     S.step='sleeping';S.busy=true;setObjective('');
@@ -1894,7 +2117,7 @@ const HS=(function(){
     await wait(1.1);
     S.dn++;
     if(S.dn===1){famPivot.position.set(6.85,0,6.2);famPivot.rotation.y=0;S.stutter=false;setPhase('dark3');S.lights=S.lights.slice();S.lights[2]=[4.8,2.3,6.4,.4,.34,.24,4.6];S.lights[1]=[4.4,.9,6.3,.35,.3,.22,3.4];stepNear(6.85,6.2);ramp(houseAu.rainIn.gain,.3,.3);houseAu.drone.gain.value=.2;}
-    else if(S.dn===2){famPivot.position.set(8.3,0,11.6);famPivot.rotation.y=PI/2;stepNear(8.3,11);S.hidden3=scene.children.filter(c=>c.visible&&![carH,laneG,laneFar,rainH].includes(c));S.hidden3.forEach(c=>c.visible=false);laneFar.visible=true;setPhase('void3');muteHouse();ramp(houseAu.rainIn.gain,.35,.1);ramp(houseAu.engine3.gain,.3,.1);}
+    else if(S.dn===2){famPivot.position.set(8.3,0,11.6);famPivot.rotation.y=PI/2;stepNear(8.3,11);subtitle("Daddy... where are we?", 3.0, "voice");whisper(2.5, .25, 3);S.hidden3=scene.children.filter(c=>c.visible&&![carH,laneG,laneFar,rainH].includes(c));S.hidden3.forEach(c=>c.visible=false);laneFar.visible=true;setPhase('void3');muteHouse();ramp(houseAu.rainIn.gain,.35,.1);ramp(houseAu.engine3.gain,.3,.1);}
     else{S.blinking=false;S.b=0;hint('');if(isTouch)$('#use').hidden=true;famG.visible=false;S.stutter=false;AU.master.gain.cancelScheduledValues(0);AU.master.gain.setValueAtTime(.85,AU.C.currentTime);muteHouse();houseAu.engine3.gain.setTargetAtTime(0,AU.C.currentTime,.05);houseAu.rainIn.gain.setTargetAtTime(0,AU.C.currentTime,.05);ramp(AU.muffle.frequency,18000,.05);RD.finale();return;}
     await wait(.5);ramp(AU.muffle.frequency,18000,.3);
     S.b=0;S.blinkT=0;S.blinkRate=1.5;S.grace=2.2;S.blinking=false;S.drowsy=true;
@@ -2005,7 +2228,12 @@ const HS=(function(){
     t0=gameTime;let nx=0;while(gameTime-t0<2.2){const e=gameTime-t0;w.userData.reveal(.3*e/2.2);SELF.shR.rotation.z=Math.sin(e*9)*.12;SELF.elR.rotation.x=-.4+Math.sin(e*13)*.15;if(e>nx){nx+=.22;squeak(.06);}await wait(.016);}
     S.lampOff=true;SFX.thud();fx.fade=fx.fadeT=1;
     t0=gameTime;nx=0;while(gameTime-t0<2.6){const e=gameTime-t0;w.userData.reveal(.3+.7*e/2.6);if(e>nx){nx+=.16;squeak(.08);}await wait(.016);}
-    w.userData.reveal(1);S.selfGone=true;bloodHand.visible=false;bbath.forEach(m=>{m.visible=true;});
+    w.userData.reveal(1);
+    // Reflection slams both palms violently against the mirror from the inside!
+    SFX.thud();
+    SFX.crunch();
+    punch(.9);
+    S.selfGone=true;bloodHand.visible=false;bbath.forEach(m=>{m.visible=true;});
     await wait(.6);S.lampOff=false;SFX.click();fx.fade=fx.fadeT=0;punch(.2);
     await wait(1.8);
     S.busy=false;controls.look=true;controls.move=true;S.step='leavebath';setObjective('Go to her room.');
@@ -2204,7 +2432,18 @@ const HS=(function(){
     const lp=F('lowpass',900+i*140),g=G(0);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.015);g.gain.setValueAtTime(vol,t+dur);g.gain.linearRampToValueAtTime(0,t+dur+.06);chain(sr,lp,g);
     let n=g;if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=-.6+Math.random()*.3;n=chain(g,p);}out(n,.5);sr.start(t,.6+Math.random()*Math.max(.1,b.duration-dur-1.2),dur+.1);}
   function startHerLull(){if(S.lullH)S.lullH.stop();S.lullH=worldSnd('lull',new THREE.Vector3(5.85,1.25,1.45),12,1.1,{loop:true,lp:800,wet:.4,hum:true});}
-  S.onStep=()=>{if(S.inCor&&corMan.visible&&AU.C){setTimeout(()=>{if(S.inCor&&corMan.visible){const t=AU.C.currentTime;burst(t,.1,'lowpass',300+Math.random()*60,.13,1,.5);}},270);}};
+  S.onStep=()=>{
+    if(S.figOn && AU.C){
+      // Terrifying delayed footstep: someone steps right behind you
+      setTimeout(()=>{
+        if(S.figOn && AU.C){
+          const t=AU.C.currentTime;
+          burst(t, .12, 'lowpass', 240+Math.random()*50, .22, 1, .4);
+        }
+      }, 240);
+    }
+    if(S.inCor&&corMan.visible&&AU.C){setTimeout(()=>{if(S.inCor&&corMan.visible){const t=AU.C.currentTime;burst(t,.1,'lowpass',300+Math.random()*60,.13,1,.5);}},270);}
+  };
   const flashes=[];
   function mk(kind){const P=makeMan();const g=new THREE.Group();g.add(P.root);
     if(kind==='w'){P.root.scale.set(.9,.96,.88);P.root.position.y=.95;const hm=new THREE.Mesh(new THREE.SphereGeometry(.12,14,10),voidMat);hm.position.set(0,.02,-.045);hm.scale.set(1.08,1.75,.85);P.head.add(hm);}
@@ -2421,6 +2660,19 @@ const HS=(function(){
     resetDay();
     if(day>=1){try{await document.fonts.load(HF(25));}catch(_){}noteDraws.forEach(f=>f());if(day===2)writeTimeNote();}
     if(S.loopMon){tally.visible=true;photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;}
+    // Antigravity Loop Escalation
+    if((MEM.loops||0) >= 1) {
+      scene.traverse(o => {
+        if(o.isMesh && o.material && o.material.uniforms && o.material.uniforms.uColor) {
+          if(o.material.uniforms.map && o.material.uniforms.map.value === TX.paper) {
+            o.material.uniforms.uColor.value.set(0xd4cfbd);
+          }
+        }
+      });
+      if(mugs[2]) mugs[2].children[0].material.uniforms.uColor.value.set(0x7a3020);
+      S.ambT = rand(18, 35);
+    }
+  
     if((day===1||day===4)&&!scene)alarmOn=true;
     if(scene){
       S.pos.set(2.55,0,1.45);S.eye=1.6;S.yaw=.32;S.pitch=0;S.busy=false;controls.move=true;controls.look=true;
@@ -2464,9 +2716,13 @@ const HS=(function(){
       const s=((keys.KeyD||keys.ArrowRight)?1:0)-((keys.KeyA||keys.ArrowLeft)?1:0)+joy.x;
       let vx=-Math.sin(S.yaw)*f+Math.cos(S.yaw)*s,vz=-Math.cos(S.yaw)*f-Math.sin(S.yaw)*s;
       const l=Math.hypot(vx,vz);
-      if(l>.05){const sp=1.55*Math.min(1,l)/l;vx*=sp*dt;vz*=sp*dt;
-        if(!collide(S.pos.x+vx,S.pos.z,.25))S.pos.x+=vx;if(!collide(S.pos.x,S.pos.z+vz,.25))S.pos.z+=vz;
-        S.bob+=dt*7.5;S.stepAcc+=Math.hypot(vx,vz);if(S.stepAcc>.62){S.stepAcc=0;SFX.step();if(S.onStep)S.onStep();if(S.day===3)SFX.crunch();}}
+      if(l>.05){
+        const isSprint = (keys.ShiftLeft || keys.ShiftRight || joy.sprint) ? 1.4 : 1.0;
+        const sp=1.65*isSprint*Math.min(1,l)/l;vx*=sp*dt;vz*=sp*dt;
+        const cRad = 0.20; // more forgiving collision radius to glide past doorframes
+        if(!collide(S.pos.x+vx,S.pos.z,cRad))S.pos.x+=vx;
+        if(!collide(S.pos.x,S.pos.z+vz,cRad))S.pos.z+=vz;
+        S.bob+=dt*(isSprint > 1 ? 9.5 : 7.5);S.stepAcc+=Math.hypot(vx,vz);if(S.stepAcc>.62){S.stepAcc=0;SFX.step();if(S.onStep)S.onStep();if(S.day===3)SFX.crunch();}}
       else S.bob*=.9;
     }
     if(S.day===2&&S.step==='outside'&&!S.busy&&S.pos.x>4&&S.pos.x<5.6){
@@ -2491,10 +2747,18 @@ const HS=(function(){
     S.cur=null;let lbl='';
     if(S.special&&!examining){S.cur=S.special;lbl=S.special.label;}
     else if(!S.busy&&!examining&&controls.look){
-      scene.updateMatrixWorld();figScene.updateMatrixWorld();ray.setFromCamera(center,camera);ray.far=3;
+      scene.updateMatrixWorld();figScene.updateMatrixWorld();ray.setFromCamera(center,camera);ray.far=3.8;
       const lab=o=>o?(typeof o.label==='function'?o.label():o.label):null;
-      const hit=ray.intersectObjects(blockers.concat(targets),true).find(h=>shown(h.object)&&!(h.object.userData.alwaysHit&&!lab(h.object.userData.inter)));
-      if(hit){const o=hit.object.userData.inter;if(o&&hit.distance<=o.dist){const l2=typeof o.label==='function'?o.label():o.label;if(l2){S.cur=o;lbl=l2;}}}
+      const hits=ray.intersectObjects(blockers.concat(targets),true).filter(h=>shown(h.object)&&!(h.object.userData.alwaysHit&&!lab(h.object.userData.inter)));
+      if(hits.length>0){
+        for(const hit of hits){
+          const o=hit.object.userData.inter;
+          if(o && hit.distance <= (o.dist * 1.3)){
+            const l2=typeof o.label==='function'?o.label():o.label;
+            if(l2){S.cur=o;lbl=l2;break;}
+          }
+        }
+      }
     }
     setPrompt(lbl);
     flick-=dt;if(flick<0){flick=rand(5,9);}
@@ -2600,11 +2864,10 @@ $('#crBtn').addEventListener('click',e=>{e.stopPropagation();showCredits();});
 $('#crBack').addEventListener('click',e=>{e.stopPropagation();$('#credits').hidden=true;});
 $('#credits').querySelector('.rollIn').addEventListener('animationend',()=>{if(!$('#end').hidden)$('#credits').hidden=true;});
 {const cs=$('#chaptersScr'),grid=cs.querySelector('.chgrid');
-  const open=()=>MEM.stopped||MEM.loops>0||MEM.dev;
-  const refresh=()=>{const o=open();grid.classList.toggle('locked',!o);$('#chLock').hidden=o;};
+  const open=()=>true;
+  const refresh=()=>{grid.classList.toggle('locked',false);$('#chLock').hidden=true;};
   $('#chapBtn').addEventListener('click',e=>{e.stopPropagation();refresh();cs.hidden=false;});
-  $('#chBack').addEventListener('click',e=>{e.stopPropagation();cs.hidden=true;});
-  let code='';addEventListener('keydown',e=>{if(cs.hidden||open())return;code=(code+e.key).slice(-4);if(code==='3317'){MEM.dev=1;saveMem();refresh();SFX&&AU.C&&SFX.click&&SFX.click();}});}
+  $('#chBack').addEventListener('click',e=>{e.stopPropagation();cs.hidden=true;});}
 document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',async()=>{
   $('#chaptersScr').hidden=true;
   RD.hideGhosts();
