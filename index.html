@@ -742,6 +742,12 @@ const SFX={
     for(const f of[392,466]){const o=C.createOscillator();o.type='square';o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+dur+.05);}},
   ring(dest){const C=AU.C,t=C.currentTime;for(let k=0;k<2;k++){const t0=t+k*.6;for(const f of[440,480]){const o=C.createOscillator();o.frequency.value=f;const g=G(0);g.gain.setValueAtTime(0,t0);g.gain.linearRampToValueAtTime(.1,t0+.01);g.gain.setValueAtTime(.1,t0+.4);g.gain.linearRampToValueAtTime(0,t0+.42);o.connect(g);g.connect(dest);o.start(t0);o.stop(t0+.45);}}},
   crunch(){const t=AU.C.currentTime;for(let i=0;i<3;i++)burst(t+i*.025+Math.random()*.02,.035,'bandpass',2800+Math.random()*1600,.08,3,.15);},
+  glassShatter(v=1){const C=AU.C,t=C.currentTime;
+    burst(t,.16,'highpass',2800,.7*v,2,.3);
+    burst(t+.02,.22,'bandpass',4200,.5*v,3,.3);
+    for(const f of[5800,7400,4600,6900,8200,3800]){const ti=t+Math.random()*.08;pingTo(AU.master,ti,f,.28*v,.14);}
+    for(let i=0;i<8;i++){const ti=t+.08+i*.04+Math.random()*.03;pingTo(AU.master,ti,4200+Math.random()*3800,(.18-i*.018)*v,.06);}
+    tapTo(AU.master,t,140,.6*v,.22);},
   sting(k=1){const C=AU.C,t=C.currentTime,d=AU.muffle;
     {const o=C.createOscillator();o.frequency.setValueAtTime(64,t);o.frequency.exponentialRampToValueAtTime(26,t+1.5);const g=G(0);g.gain.setValueAtTime(1.0*k,t);g.gain.exponentialRampToValueAtTime(.001,t+1.9);o.connect(g);g.connect(d);o.start(t);o.stop(t+2);}
     {const s=C.createBufferSource();s.buffer=AU.noise;const ws=C.createWaveShaper();ws.curve=distCurve(30);const f=F('lowpass',2200);f.frequency.setValueAtTime(5000,t);f.frequency.exponentialRampToValueAtTime(300,t+1.2);
