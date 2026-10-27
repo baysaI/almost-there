@@ -437,14 +437,13 @@ TX.drawing2=tex(64,64,(g,w,h)=>{base(g,w,h,'#e3dcc8');speckle(g,w,h,.08,83);g.gl
   fig(48,24,8,'#c05a8a',true);fig(56,32,5.5,'#d8802a',true);g.globalAlpha=1;g.fillStyle='rgba(120,100,40,.12)';g.fillRect(0,0,64,64);},false);
 TX.paint=tex(32,32,(g,w,h)=>{base(g,w,h,'#d8dad4');speckle(g,w,h,.06,84);});
 function numTex(n){return tex(32,32,(g,w,h)=>{base(g,w,h,'#c9c6bc');g.fillStyle='#1a1a1a';g.font='bold 22px monospace';g.textAlign='center';g.fillText(String(n),16,24);},false);}
-TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${70+r()*60|0},${4+r()*8|0},${4+r()*6|0})`;
-  g.drawImage(TX.tally.image,0,0);g.globalCompositeOperation='source-over';
-  for(let i=0;i<9;i++){const x=r()*w,y=r()*h*.8,rr=5+r()*12;g.fillStyle=red();g.beginPath();g.arc(x,y,rr,0,7);g.fill();
-    for(let k=0;k<10;k++){const a=r()*7,d=rr+r()*14;g.beginPath();g.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,1+r()*2.5,0,7);g.fill();}
-    for(let k=0;k<3;k++){g.fillRect(x-rr*.6+r()*rr*1.2,y,1+(r()*2|0),12+r()*45);}}
-  for(let i=0;i<4;i++){const x=r()*(w-30),y=r()*(h-40);g.fillStyle=red();g.fillRect(x+6,y+12,12,14);for(let f=0;f<4;f++)g.fillRect(x+6+f*3,y+(f===0||f===3?4:0),2,13);g.fillRect(x+1,y+16,6,3);
-    g.fillRect(x+10,y+26,2,10+r()*20);}
-  g.fillStyle=red();for(let x=8;x<w-8;x+=6){if(r()<.8)g.fillRect(x,92+(r()*3|0),2,14+(r()*8|0));}},false);
+TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${65+r()*55|0},${6+r()*10|0},${5+r()*8|0})`;
+  g.drawImage(TX.tally.image,0,0);
+  g.fillStyle='rgba(50,8,8,0.35)';g.fillRect(0,0,w,h);
+  for(let i=0;i<12;i++){const x=r()*w,y=r()*h,rr=4+r()*10;g.fillStyle=red();g.beginPath();g.arc(x,y,rr,0,7);g.fill();
+    for(let k=0;k<8;k++){const a=r()*7,d=rr+r()*12;g.beginPath();g.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,1+r()*2,0,7);g.fill();}
+    for(let k=0;k<2;k++){g.fillRect(x-rr*.4+r()*rr*.8,y,1+r()*2|0,10+r()*35);}}
+  speckle(g,w,h,.14,92);},false);
 function bloodText(lines,wm,hm,seed){lines=lines.map(_t);
   const W=Math.round(clamp(wm*260,200,900)),Hh=Math.round(W*hm/wm);const r=rng(seed);
   const mc=document.createElement('canvas');mc.width=W;mc.height=Hh;const m=mc.getContext('2d');m.fillStyle='#000';m.fillRect(0,0,W,Hh);m.fillStyle='#fff';m.strokeStyle='#fff';m.lineJoin='round';m.lineCap='round';
