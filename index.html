@@ -1328,6 +1328,12 @@ const HS=(function(){
   const dupDoor=add(box(.06,2.05,.9,TX.door,0xffffff,{fit:true,seg:9,pos:[X0+3.91,1.025,3.2]}));
   add(box(.05,.05,.05,null,0xb89a58,{seg:9,pos:[X0+3.87,1.0,3.5]}));
   note('go back\nto sleep',[X0+3.873,1.45,3.2],-PI/2);
+  const dupBlood=new THREE.Group();dupBlood.visible=false;scene.add(dupBlood);
+  dupBlood.add(plane(.55,.55,TX.bloodHands,0xffffff,{fit:true,pos:[X0+1.3,1.35,.072]}));
+  dupBlood.add(plane(.75,.75,TX.stain,0xffffff,{fit:true,pos:[X0+2.3,1.15,.072]}));
+  dupBlood.add(plane(.3,1.2,TX.smear,0xffffff,{fit:true,pos:[X0+2.5,1.1,.072]}));
+  dupBlood.add(plane(.55,.55,TX.bloodHands,0xffffff,{fit:true,rotY:-PI/2,pos:[X0+3.92,1.45,1.2]}));
+  dupBlood.add(plane(.8,.8,TX.stain,0xffffff,{fit:true,rotY:-PI/2,pos:[X0+3.92,1.05,.7]}));
   const figScene=new THREE.Scene();S.figScene=figScene;
   function makeMan(){
     const P={},root=new THREE.Group();P.root=root;
@@ -1845,6 +1851,7 @@ const HS=(function(){
     await wait(1.2);
     figLie.visible = false;
     tallyMat.uniforms.map.value = TX.bloodWall;
+    dupBlood.visible = true;
     
     // Red pulse returns
     dupShade.material.uniforms.uEmissive.value = .4;
@@ -2050,7 +2057,7 @@ const HS=(function(){
     const on2=S.day===2;
     D2.forEach(m=>{m.visible=on2;});newDoor.visible=false;setOn(bedBlock,false);
     mugs.forEach((m,i)=>{m.position.set(.32,-10,6.25+i*.2);m.rotation.set(0,0,0);m.userData.target=null;m.userData.tipped=false;});
-    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;tallyMat.uniforms.map.value=TX.tally;fx.red=0;bloodFade();S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
+    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;tallyMat.uniforms.map.value=TX.tally;dupBlood.visible=false;fx.red=0;bloodFade();S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
     S.photoTex=TX.photo;photo1.material.uniforms.map.value=TX.photo;
     chairB.position.set(2.4,0,on2?8.5:8.18);chairB.rotation.y=on2?PI+.55:PI;
     figLie.visible=true;figSit.visible=false;figStand.visible=false;
