@@ -1,5 +1,9 @@
 node_modules/
 web/
 release/
+dist/
+build-log.txt
+AlmostThere-Antigravity/
 .DS_Store
 Thumbs.db
+
