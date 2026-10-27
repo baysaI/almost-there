@@ -1738,10 +1738,14 @@ const HS=(function(){
     else if(n===2){
       // Crying on other side of wood
       SFX.rattle();
-      subtitle("Daddy... it's so cold...", 3.2, "voice");
-      whisper(2.8, .2, 2);
-      await wait(1.2);
-      SFX.crunch(); // glass shattering in living room
+      const crySnd = worldSnd('crylo', new THREE.Vector3(4.8, 1.4, 10.1), 12, 1.8, {lp: 3200, wet: .35});
+      voice('please', "Daddy... it's so cold...", 3.2, {vol: 1.6, lp: 3400, wet: .25});
+      await wait(1.8);
+      if(crySnd) crySnd.stop(0.5);
+      // Glass shatters violently in living room
+      SFX.glassShatter(1.4);
+      SFX.thud();
+      punch(.8);
       S.blinkT=1;S.blinkRate=8;SFX.tinnitus(4,.03);ramp(AU.muffle.frequency,300,.08);
       await wait(1.6);
       ramp(AU.muffle.frequency,18000,.4);
