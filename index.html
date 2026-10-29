@@ -1754,7 +1754,6 @@ const HS=(function(){
     S.busy=true;const n=++S.tries;
     
     if(n===1){
-      // Someone violently charges and hammers on the door from outside
       SFX.rattle();
       for(let i=0;i<4;i++) tapTo(AU.master, AU.C.currentTime + i*.12, 320, .8, .08);
       SFX.knock(1.2, .15, 180);
@@ -1765,16 +1764,14 @@ const HS=(function(){
       ramp(AU.muffle.frequency,18000,.4);
       place(1.25,5.4,1.6,2.4,7.4);
       chairB.position.set(2.4, .2, 8.8);
-      chairB.rotation.set(0, PI, PI/2); // chair knocked completely on its side
+      chairB.rotation.set(0, PI, PI/2);
       S.watching=10;
     }
     else if(n===2){
-      // Crying on other side of wood
       SFX.rattle();
       voice('crylo', "Daddy... it's so cold...", 3.6, {vol: 2.2, lp: 5000, wet: .2});
       voice('please', null, 3.2, {vol: 1.8, lp: 4200, wet: .2});
       await wait(1.2);
-      // Glass shatters violently in living room
       SFX.glassShatter(1.6);
       SFX.thud();
       punch(.8);
@@ -1786,7 +1783,6 @@ const HS=(function(){
       S.watching=14;
     }
     else{
-      // Final warp: door rattles and breathes with blood seeping
       SFX.thud();
       S.blinkT=1;S.blinkRate=9;ramp(AU.muffle.frequency,300,.08);
       await wait(1.4);
