@@ -1717,7 +1717,7 @@ const HS=(function(){
     else await wait(1.8);
     voice('rest','You should rest.',4,{wet:.1,pan:.2,vol:1.8,lp:9000});
     await wait(3.8);
-    voice('please', "Why didn't you stop?", 3.5, {vol: 1.8, lp: 4200, wet: .35});
+    voice('please', '', 3.5, {vol: 1.8, lp: 4200, wet: .35, nosub: true});
     whisper(3.0, .35, 4);
     S.watching=12;
     tvScreen.material.uniforms.uColor.value.set(0xffeedd);
