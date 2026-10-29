@@ -1825,12 +1825,10 @@ const HS=(function(){
     setTimeout(()=>{S.knockSrc=null;},2500);}
   async function wakeHim(){
     S.step='dup2';S.busy=true;
-    // Breathing stops into heavy silence
     S.breathOn=false;
     ramp(houseAu.drone.gain, .06, .4);
     await wait(1.2);
     
-    // Slow, chilling, deliberate head turn on the pillow towards the player
     const t0 = gameTime;
     const dur = 2.6;
     const startRot = ML.head.rotation.y;
@@ -1844,13 +1842,11 @@ const HS=(function(){
       await wait(0.016);
     }
     
-    // Unsettling whisper while the hollow face stares directly at you
     subtitle("He can't wake up.", 3.2, "thought");
     whisper(2.8, .22, 3);
     ramp(houseAu.drone.gain, .35, 2.0);
     await wait(2.4);
     
-    // Bedside lamp softly dims and flickers out
     const lt0 = gameTime;
     while(gameTime - lt0 < 1.2){
       const k = 1 - smooth((gameTime - lt0) / 1.2);
@@ -1861,13 +1857,11 @@ const HS=(function(){
     S.lampOff = true;
     SFX.click();
     
-    // In the dark, the body sinks silently away
     await wait(1.2);
     figLie.visible = false;
     tallyMat.uniforms.map.value = TX.bloodWall;
     dupBlood.visible = true;
     
-    // Red pulse returns
     dupShade.material.uniforms.uEmissive.value = .4;
     S.lampOff = false;
     
