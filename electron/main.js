@@ -59,7 +59,12 @@ function createWindow() {
     backgroundColor: '#060607',
     title: 'Almost There',
     autoHideMenuBar: true,
-    webPreferences: { contextIsolation: true, sandbox: true }
+    webPreferences: {
+      contextIsolation: true,
+      sandbox: true,
+      preload: path.join(__dirname, 'preload.js'),
+      additionalArguments: ['--at-name=' + encodeURIComponent(playerName())]
+    }
   });
   Menu.setApplicationMenu(null);
   win.loadFile(path.join(__dirname, '..', 'web', 'index.html'));
