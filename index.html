@@ -2865,6 +2865,7 @@ function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);rendere
 addEventListener('resize',resize);resize();
 RD.enter();fx.fade=.15;fx.fadeT=.15;
 if(MEM.inGame){const l=$('#leftLine');l.textContent=_t('you left them.');l.hidden=false;MEM.inGame=0;saveMem();}
+else if(NIGHT3){const l=$('#leftLine');l.textContent=_t('you should be asleep.');l.hidden=false;}
 if((MEM.loops||0)>0){const tl=$('#tallyLine');tl.textContent=tallyText(MEM.loops);tl.hidden=false;if(!MEM.stopped)RD.showGhosts();}
 let last=performance.now(),frameN=0;
 let paused=false,pausedAt=0,selfUnlock=false,HANG=false;
