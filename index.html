@@ -2114,7 +2114,7 @@ const HS=(function(){
     S.drowsy=false;S.blinking=true;S.blinkT=1;S.blinkRate=10;ramp(AU.muffle.frequency,400,.1);
     await wait(1.1);
     S.dn++;
-    if(S.dn===1){famPivot.position.set(6.85,0,6.2);famPivot.rotation.y=0;S.stutter=false;setPhase('dark3');S.lights=S.lights.slice();S.lights[2]=[4.8,2.3,6.4,.4,.34,.24,4.6];S.lights[1]=[4.4,.9,6.3,.35,.3,.22,3.4];stepNear(6.85,6.2);ramp(houseAu.rainIn.gain,.3,.3);houseAu.drone.gain.value=.2;}
+    if(S.dn===1){famPivot.position.set(6.85,0,6.2);famPivot.rotation.y=0;setPhase('dark3');S.lights=S.lights.slice();S.lights[2]=[4.8,2.3,6.4,.4,.34,.24,4.6];S.lights[1]=[4.4,.9,6.3,.35,.3,.22,3.4];stepNear(6.85,6.2);ramp(houseAu.rainIn.gain,.3,.3);houseAu.drone.gain.value=.2;}
     else if(S.dn===2){famPivot.position.set(8.3,0,11.6);famPivot.rotation.y=PI/2;stepNear(8.3,11);whisper(2.5,.25,3);S.hidden3=scene.children.filter(c=>c.visible&&![carH,laneG,laneFar,rainH].includes(c));S.hidden3.forEach(c=>c.visible=false);laneFar.visible=true;setPhase('void3');muteHouse();ramp(houseAu.rainIn.gain,.35,.1);ramp(houseAu.engine3.gain,.3,.1);}
     else{S.blinking=false;S.b=0;hint('');if(isTouch)$('#use').hidden=true;famG.visible=false;S.stutter=false;AU.master.gain.cancelScheduledValues(0);AU.master.gain.setValueAtTime(.85,AU.C.currentTime);muteHouse();houseAu.engine3.gain.setTargetAtTime(0,AU.C.currentTime,.05);houseAu.rainIn.gain.setTargetAtTime(0,AU.C.currentTime,.05);ramp(AU.muffle.frequency,18000,.05);RD.finale();return;}
     await wait(.5);ramp(AU.muffle.frequency,18000,.3);
