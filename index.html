@@ -1462,7 +1462,7 @@ const HS=(function(){
     {s1:["YOU WEREN'T",'IN THE CAR'],s4:['YOU WERE','ASLEEP'],wide:"YOU WEREN'T DRIVING",chant:['NOT YOU','NOT YOU','NOT YOU'],small:'NOT YOU'}];
   const WL=WH[EV],WO=[1,2,3].map(i=>WH[(EV+i)%4]),P=[0,1,2,3].map(i=>WH[(EV+i)%4]);
   const bwFlip=[],flip=(m,lines)=>{const p=m.geometry.parameters;m.userData.t0=m.material.uniforms.map.value;m.userData.t1=bloodText(lines,p.width,p.height,bwFlip.length*31+7);bwFlip.push(m);};
-  flip(bwall(P[0].s1,1.5,.85,[5.526,1.6,9.05],-PI/2,1),WO[2].s1);
+  flip(bwall(P[0].s1,1.5,.85,[5.526,1.6,9.05],-PI/2,1),P[2].s1);
   bwall([P[1].wide],2.9,.45,[8.5,2.15,3.074],0,1);
   bwall(P[2].chant,1.85,1.55,[5.674,1.4,8.8],PI/2,1);
   flip(bwall(P[3].s4,1.2,.85,[3.926,1.5,5.25],-PI/2,2),WO[0].s4);
