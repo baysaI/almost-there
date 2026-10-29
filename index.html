@@ -1310,7 +1310,7 @@ const HS=(function(){
     const m=plane(.15,.15,t,0xffffff,{fit:true,seg:9,pos});
     if(flat){m.rotation.x=-PI/2;m.rotation.z=.3;}else{m.rotation.y=ry;m.rotation.z=(R0()-.5)*.25;}
     const hz=new THREE.Mesh(new THREE.PlaneGeometry(.3,.3),new THREE.MeshBasicMaterial({visible:false}));hz.position.z=.006;m.add(hz);
-    add(m);(day===3?d3:d2)(m);inter(m,'Read',()=>examine(t),1.9);return m;
+    add(m);(day===3?d3:d2)(m);inter(m,'Read',()=>{const i=reads++%V.length;if(V[i]!==text){text=V[i];draw();}examine(t);},1.9);return m;
   }
   note('the yellow\none\nis hers',[.759,1.52,5.13],PI/2);
   note("DON'T OPEN\nshe's\nsleeping",[5.563,1.42,1.45],-PI/2);
