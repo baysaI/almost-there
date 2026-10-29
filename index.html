@@ -1302,7 +1302,7 @@ const HS=(function(){
   const D2=[];function d2(m){m.visible=false;D2.push(m);return m;}
   const D3=[];function d3(m){m.visible=false;D3.push(m);return m;}
   const noteDraws=[];
-  function note(text,pos,ry,flat,day=2){text=_t(text);
+  function note(text,pos,ry,flat,day=2){const V=[].concat(text).map(_t);text=V[0];let reads=0;
     const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
     const draw=()=>{const g=c.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,31);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
       g.fillStyle='#1d1a30';g.font=HF(25)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';const L=text.split('\n');L.forEach((l,i)=>g.fillText(l,48,50+(i-(L.length-1)/2)*23));t.needsUpdate=true;};
