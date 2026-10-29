@@ -1743,7 +1743,6 @@ const HS=(function(){
   async function outsideLoop(){
     initAudio(); if(AU.C && AU.C.state==='suspended') AU.C.resume().catch(()=>{});
     S.busy=true;const n=++S.tries;
-    
     if(n===1){
       SFX.rattle();
       for(let i=0;i<4;i++) tapTo(AU.master, AU.C.currentTime + i*.12, 320, .8, .08);
@@ -1781,7 +1780,6 @@ const HS=(function(){
       place(4.8,2.4,1.6,4.06,3.2);
       newDoor.visible=true;setOn(bedBlock,true);
     }
-    
     S.blinkT=0;S.blinkRate=.9;
     await wait(n===2?2.8:1.2);
     if(n===2)await tween({x:8.3,z:4.35,eye:1.6,yaw:S.yaw,pitch:0},1.8);
