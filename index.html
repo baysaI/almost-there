@@ -2072,7 +2072,7 @@ const HS=(function(){
     const on2=S.day===2;
     D2.forEach(m=>{m.visible=on2;});newDoor.visible=false;setOn(bedBlock,false);
     mugs.forEach((m,i)=>{m.position.set(.32,-10,6.25+i*.2);m.rotation.set(0,0,0);m.userData.target=null;m.userData.tipped=false;m.children[0].material.uniforms.uColor.value.set(mugDefs[i][0]);});
-    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;tallyMat.uniforms.map.value=TX.tally;dupBlood.visible=false;fx.red=0;bloodFade();S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;
+    S.mugsOnTable=false;S.ledOn=true;S.watching=0;alarmOn=false;S.forceStat=null;headS.rotation.z=0;S.cut=false;S.figInView=false;S.stutter=false;S.whineBoost=null;VOIDU.uAmp.value=.006;figStand.visible=false;tallyMat.uniforms.map.value=TX.tally;dupBlood.visible=false;fx.red=0;bloodFade();S.breathOn=false;S.swapped=false;S.ending=false;S.special=null;S.lampOff=false;dupShade.material.uniforms.uColor.value.set(0xd8c8a0);dupShade.material.uniforms.uEmissive.value=.9;
     S.photoTex=TX.photo;photo1.material.uniforms.map.value=TX.photo;
     chairB.position.set(2.4,0,on2?8.5:8.18);chairB.rotation.y=on2?PI+.55:PI;
     figLie.visible=true;figSit.visible=false;figStand.visible=false;
