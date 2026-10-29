@@ -2426,7 +2426,7 @@ const HS=(function(){
   function snipGasp(i){const b=AU.voices[i%2?'wscr':'wscr2'];if(!b)return;const C=AU.C,t=C.currentTime+.03,dur=.12+i*.045,vol=.05+i*.05;const sr=C.createBufferSource();sr.buffer=b;sr.playbackRate.value=.9+Math.random()*.12;
     const lp=F('lowpass',900+i*140),g=G(0);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.015);g.gain.setValueAtTime(vol,t+dur);g.gain.linearRampToValueAtTime(0,t+dur+.06);chain(sr,lp,g);
     let n=g;if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=-.6+Math.random()*.3;n=chain(g,p);}out(n,.5);sr.start(t,.6+Math.random()*Math.max(.1,b.duration-dur-1.2),dur+.1);}
-  function startHerLull(){if(S.lullH)S.lullH.stop();S.lullH=worldSnd('lull',new THREE.Vector3(5.85,1.25,1.45),12,1.1,{loop:true,lp:800,wet:.4,hum:true});}
+  function startHerLull(){if(S.lullH)S.lullH.stop();S.lullH=worldSnd('lull',new THREE.Vector3(5.85,1.25,1.45),12,1.1,{loop:true,lp:800,wet:.4,hum:true,rate:.93});}
   S.onStep=()=>{
     if(S.figOn && AU.C){
       setTimeout(()=>{
