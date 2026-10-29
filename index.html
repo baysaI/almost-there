@@ -2762,7 +2762,7 @@ const HS=(function(){
       if(l>.05){
         const isSprint = (keys.ShiftLeft || keys.ShiftRight || joy.sprint) ? 1.4 : 1.0;
         const sp=1.65*isSprint*Math.min(1,l)/l;vx*=sp*dt;vz*=sp*dt;
-        const cRad = 0.20; // more forgiving collision radius to glide past doorframes
+        const cRad = 0.20;
         if(!collide(S.pos.x+vx,S.pos.z,cRad))S.pos.x+=vx;
         if(!collide(S.pos.x,S.pos.z+vz,cRad))S.pos.z+=vz;
         S.bob+=dt*(isSprint > 1 ? 9.5 : 7.5);S.stepAcc+=Math.hypot(vx,vz);if(S.stepAcc>.62){S.stepAcc=0;SFX.step();if(S.onStep)S.onStep();if(S.day===3)SFX.crunch();}}
