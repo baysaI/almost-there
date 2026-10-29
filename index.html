@@ -2412,7 +2412,7 @@ const HS=(function(){
         if(walked<21){if(!seen){WIFE.shR.rotation.set(0,0,2.5);WIFE.elR.rotation.z=.5*Math.sin(t*5);}}
         else if(!seen){WIFE.shR.rotation.z+=(0-WIFE.shR.rotation.z)*Math.min(1,dt*.8);WIFE.elR.rotation.z*=.95;WIFE.head.rotation.z+=(.7-WIFE.head.rotation.z)*Math.min(1,dt*.35);}
         if(S.corPhase===0&&walked>12){S.corPhase=1;kidG.visible=true;}
-        if(kidG.visible){kidG.position.set(X3+.55,0,wifeG.position.z+.15);KID.shL.rotation.set(0,0,-1.0);if(walked>21)KID.shR.rotation.set(-1.45,0,0);else KID.shR.rotation.set(0,0,0);}
+        if(kidG.visible){kidG.position.set(X3+.55,0,wifeG.position.z+.15);KID.shL.rotation.set(0,0,-1.0);if(!seen){if(walked>21)KID.shR.rotation.set(-1.45,0,0);else KID.shR.rotation.set(0,0,0);}}
         if(S.corPhase===1&&walked>29&&!S.busy){S.busy=true;corridorEnd();}}
     }
   }
