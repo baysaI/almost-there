@@ -1359,8 +1359,9 @@ const HS=(function(){
   dupBlood.add(plane(.55,.55,TX.bloodHands,0xffffff,{fit:true,rotY:-PI/2,pos:[X0+3.92,1.45,1.2]}));
   dupBlood.add(plane(.8,.8,TX.stain,0xffffff,{fit:true,rotY:-PI/2,pos:[X0+3.92,1.05,.7]}));
   const figScene=new THREE.Scene();S.figScene=figScene;
+  const MEN=[];
   function makeMan(){
-    const P={},root=new THREE.Group();P.root=root;
+    const P={},root=new THREE.Group();P.root=root;MEN.push(P);
     const M=(geo,x,y,z,par,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(geo,voidMat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);par.add(m);return m;};
     const J=(par,x,y,z)=>{const g=new THREE.Group();g.position.set(x,y,z);par.add(g);return g;};
     const sph=r=>new THREE.SphereGeometry(r,7,5);
