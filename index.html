@@ -2411,7 +2411,7 @@ const HS=(function(){
         if((S.monVol||0)>.005){S.monT=(S.monT||0)-dt;if(S.monT<=0){S.monT=60/(S.bpm||60);const t=AU.C.currentTime+.01;const o=AU.C.createOscillator();o.frequency.value=960;const g=G(0);g.gain.setValueAtTime(.5,t);g.gain.setValueAtTime(.5,t+.08);g.gain.linearRampToValueAtTime(0,t+.1);o.connect(g);g.connect(houseAu.monBus);o.start(t);o.stop(t+.12);}}}}
     if(S.step==='waiting'){S.waitT+=dt;const T=S.waitT,E=S.waitEv;
       if(E===0&&T>6){S.waitEv=1;S.monVol=.035;S.bpm=60;}
-      else if(E===1&&T>14&&!looking(2.4,.8,7.72,.85)){S.waitEv=2;spoon.visible=true;pingTo(AU.master,AU.C.currentTime,2600,.06,.5);}
+      else if(E===1&&T>14&&(!looking(2.4,.8,7.72,.85)||T>26)){S.waitEv=2;spoon.visible=true;pingTo(AU.master,AU.C.currentTime,2600,.06,.5);}
       else if(E===2&&T>22&&!looking(2.4,.5,8.2,.8)){S.waitEv=3;chairB.position.z=8.48;chairB.rotation.y=PI+.35;tapTo(AU.master,AU.C.currentTime,380,.3,.5,'bandpass');}
       else if(E===3&&T>30){S.waitEv=4;S.noSteam=true;}
       else if(E===4&&T>36){S.waitEv=5;houseAu.fridge.vol=0;houseAu.tick.vol=0;S.monVol=.08;}
