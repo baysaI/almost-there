@@ -2867,7 +2867,12 @@ RD.enter();fx.fade=.15;fx.fadeT=.15;
 if(MEM.inGame){const l=$('#leftLine');l.textContent=_t('you left them.');l.hidden=false;MEM.inGame=0;saveMem();}
 if((MEM.loops||0)>0){const tl=$('#tallyLine');tl.textContent=tallyText(MEM.loops);tl.hidden=false;if(!MEM.stopped)RD.showGhosts();}
 let last=performance.now(),frameN=0;
-let paused=false,pausedAt=0,selfUnlock=false;
+let paused=false,pausedAt=0,selfUnlock=false,HANG=false;
+function fakeHang(){return new Promise(res=>{HANG=true;unlockQuiet();for(const k in keys)keys[k]=false;if(AU.C)AU.C.suspend();const t0=document.title;document.title=t0+' (Not Responding)';
+  const d=$('#hang');d.querySelector('.hMsg').textContent=_t('Almost There is not responding.');d.querySelector('.hSub').textContent=_t('If you close it now, they will be alone.');
+  d.querySelector('.hClose').textContent=_t('Close the program');d.querySelector('.hWait').textContent=_t('Wait');const show=setTimeout(()=>{d.hidden=false;},1600);
+  const done=close=>{if(!HANG)return;clearTimeout(show);d.hidden=true;document.title=t0;HANG=false;if(AU.C)AU.C.resume();if(close){fx.fade=fx.fadeT=1;setTimeout(()=>res(true),2200);}else res(false);};
+  d.querySelector('.hWait').onclick=e=>{e.stopPropagation();done(false);};d.querySelector('.hClose').onclick=e=>{e.stopPropagation();done(true);};setTimeout(()=>done(false),12000);});}
 function unlockQuiet(){if(document.exitPointerLock&&locked()){selfUnlock=true;document.exitPointerLock();}}
 function gameOn(){return $('#start').hidden&&$('#end').hidden;}
 function setPause(p){
