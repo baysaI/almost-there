@@ -2779,8 +2779,7 @@ const HS=(function(){
       if(S.twK>0){S.twK-=dt;nk.rotation.z=S.twA;}else nk.rotation.z=0;
       ensureWhine();
       if(!S.cut){const on=S.figInView;AU.master.gain.setTargetAtTime(on?.1:.85,AU.C.currentTime,on?.03:.5);S.whine.gain.setTargetAtTime(on?(S.whineBoost||.018):0,AU.C.currentTime,.04);}
-      S.stutter=S.figInView&&!S.cut;
-    }else S.stutter=false;
+    }
     if(famG.visible&&!S.blinking){camera.updateMatrixWorld();camera.getWorldDirection(tmpD);tmpV.set(famPivot.position.x,1.0,famPivot.position.z).sub(camera.position).normalize();const on=tmpV.dot(tmpD)>.82;
       ensureWhine();S.stutter=on;
       if(on){S.famSeen=(S.famSeen||0)+dt;const k=S.famSeen;S.famW.head.rotation.y=Math.min(PI,k*.45);S.famW.neck.scale.y=1+Math.min(1.1,k*.18);S.famC.head.rotation.z=-Math.min(1.5,k*.3);}AU.master.gain.setTargetAtTime(on?.14:.85,AU.C.currentTime,on?.03:.4);S.whine.gain.setTargetAtTime(on?.016:0,AU.C.currentTime,.04);}
