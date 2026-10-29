@@ -2703,7 +2703,6 @@ const HS=(function(){
     resetDay();
     if(day>=1){try{await document.fonts.load(HF(25));}catch(_){}noteDraws.forEach(f=>f());if(day===2)writeTimeNote();}
     if(S.loopMon){tally.visible=true;photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;}
-    // Loop Escalation
     if((MEM.loops||0) >= 1) {
       scene.traverse(o => {
         if(o.isMesh && o.material && o.material.uniforms && o.material.uniforms.uColor) {
