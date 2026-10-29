@@ -945,7 +945,7 @@ const RD=(function(){
     if(S.drowsy&&!S.force){
       if(S.sleepT>0){S.sleepT-=dt;S.b=1;if(S.sleepT<=0){S.b=0;S.grace=.8;S.shake=RM?0:.45;ramp(AU.muffle.frequency,18000,.05);SFX.thud();}}
       else{S.grace-=dt;const rate=Math.min(.45,.11+(S.t-19)*.007);if(S.grace<=0)S.b+=rate*dt*(.5+R0()*1.0);
-        if(S.b>.42&&!S.hintShown){S.hintShown=true;hint(isTouch?'Tap WAKE to stay awake':'SPACE  stay awake');}
+        if(S.b>.12&&!S.hintShown){S.hintShown=true;hint(isTouch?'Tap WAKE to stay awake':'SPACE  stay awake');}
         if(S.b>=.97){S.sleepT=1.3;S.carVX-=1.1;ramp(AU.muffle.frequency,380,.15);if(S.d5&&S.onSleep)S.onSleep();}}
     }
     if(S.force)S.b=Math.min(1,S.b+.24*dt);
