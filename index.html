@@ -16,6 +16,12 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);overflow:hi
 .hud{position:fixed;pointer-events:none;font-family:var(--ui)}
 #objective{top:calc(16px + env(safe-area-inset-top,0px));left:calc(20px + env(safe-area-inset-left,0px));font-size:22px;color:var(--dim);opacity:0;transition:opacity .9s;letter-spacing:.05em}
 #objective.show{opacity:1}
+#hang{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);cursor:default}
+#hang .hBox{background:#f0f0f0;color:#111;font:14px "Segoe UI",Tahoma,sans-serif;width:min(420px,90vw);border:1px solid #777;box-shadow:0 6px 24px rgba(0,0,0,.5);letter-spacing:0}
+#hang .hBar{background:#fff;padding:8px 12px;font-size:12px;border-bottom:1px solid #ddd}
+#hang p{margin:14px 16px 0}#hang .hSub{color:#444;font-size:12px}
+#hang .hBtns{display:flex;justify-content:flex-end;gap:8px;padding:16px}
+#hang button{font:13px "Segoe UI",Tahoma,sans-serif;padding:5px 14px;background:#e1e1e1;border:1px solid #adadad;color:#111;cursor:default;letter-spacing:0}
 #cross{left:50%;top:50%;width:3px;height:3px;margin:-1px 0 0 -1px;background:var(--ink);opacity:.3}
 #prompt{left:50%;top:calc(50% + 26px);transform:translateX(-50%);font-size:24px;opacity:0;transition:opacity .2s;white-space:nowrap;text-shadow:0 0 6px #000}
 #prompt.show{opacity:.92}
