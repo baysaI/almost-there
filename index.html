@@ -312,7 +312,9 @@ function setLights(list,amb,fog,near,far){
 }
 function tex(w,h,draw,repeat=true){
   const c=document.createElement('canvas');c.width=w;c.height=h;
-  const g=c.getContext('2d');g.imageSmoothingEnabled=false;draw(g,w,h);
+  const g=c.getContext('2d');g.imageSmoothingEnabled=false;
+  const ft=g.fillText.bind(g);g.fillText=(s,x,y,mw)=>ft(s,x,y,mw!=null?mw:g.textAlign==='center'?w-6:g.textAlign==='right'?Math.max(8,x-3):Math.max(8,w-x-3));
+  draw(g,w,h);
   const t=new THREE.CanvasTexture(c);
   t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;t.anisotropy=8;
   t.wrapS=t.wrapT=repeat?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;
