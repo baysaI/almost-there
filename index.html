@@ -1647,7 +1647,7 @@ const HS=(function(){
   for(const m of mugs){
     inter(m,()=>S.step==='take'?'Take the mugs':(S.mugsOnTable&&!S.putTried&&['sit','messages','bed','outside'].includes(S.step)?'Put one away':null),()=>{
       if(S.step==='take'){if(S.bfast){panEggs.visible=false;mugs.forEach((mm,i)=>{if(mm.position.y>-5)plates[i].visible=true;});if(S.burnt)plates.forEach(p=>{const e=p.children[1];e.children[0].material=mat(null,0x4a3624);e.children[1].material=mat(null,0x2a1408);});}mugs.forEach(mm=>{if(mm.position.y<-5)return;mm.userData.target=new THREE.Vector3(mm.userData.table[0],.76+mm.userData.h/2,mm.userData.table[1]);});S.mugsOnTable=true;S.step='sit';setObjective('Sit down.');}
-      else{m.userData.shake=.5;SFX.thud();ramp(houseAu.drone.gain,.16,.2);setTimeout(()=>ramp(houseAu.drone.gain,.06,1.5),900);}
+      else{S.putTried=true;m.userData.shake=.5;SFX.thud();ramp(houseAu.drone.gain,.16,.2);setTimeout(()=>ramp(houseAu.drone.gain,.06,1.5),900);}
     },2.1);
   }
   inter(chairA,()=>S.step==='sit'?'Sit down':null,async()=>{
