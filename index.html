@@ -2836,7 +2836,7 @@ function frame(now){
   const u=postMat.uniforms;u.uFade.value=fx.fade;u.uWhite.value=fx.white;u.uGlitch.value=GLITCH;fx.red=Math.max(0,fx.red-dt*.9);u.uRed.value=fx.red;u.uBlink.value=fx.blink;u.uStatic.value=fx.stat;u.uTime.value=gameTime;
   frameN++;
   if(stage===HS&&HS.mirrorOn)HS.renderMirror(renderer);
-  if(!(stage===HS&&HS.stutter&&frameN%5!==0)){renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);}
+  renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);
   renderer.setRenderTarget(null);renderer.render(postScene,postCam);
   VOIDU.uTime.value=gameTime;
   if(stage.figScene){FIGU.uFade.value=fx.fade;VOIDD.uWhite.value=fx.white;renderer.autoClear=false;renderer.clearDepth();renderer.render(stage.figScene,camera);renderer.autoClear=true;}
