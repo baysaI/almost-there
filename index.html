@@ -1660,7 +1660,7 @@ const HS=(function(){
     VH.visible=true;hEgg.visible=false;hArm.position.set(.2,-.45,-.3);await handTo([.08,-.1,-.52],[-.1,0,0],.55);tapTo(AU.master,AU.C.currentTime,700,.25,.08);hEgg.visible=true;
     await handTo([.16,-.17,-.38],[.15,.1,0],.5);await swingDoor(0,.55);burst(AU.C.currentTime,.2,'lowpass',380,.4,1,.2);houseAu.fridge.vol=.05;
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.5);S.busy=false;S.step='cook';setObjective('Cook the eggs.');},2.2);
-  inter(pan,()=>S.step==='cook'?'Cook the eggs':null,async()=>{S.step='cooking';setObjective('');S.busy=true;
+  inter(pan,()=>S.step==='cook'?'Cook the eggs':(S.step==='stove'&&!S.busy?'Turn off the stove':null),async()=>{if(S.step==='stove')return stoveOff();S.step='cooking';setObjective('');S.busy=true;
     const dx=pan.position.x-S.pos.x,dz=pan.position.z-S.pos.z;await tween({x:S.pos.x,z:S.pos.z,eye:1.5,yaw:Math.atan2(-dx,-dz),pitch:-.95},.9);
     SFX.click();await wait(.6);
     panEggs.children.forEach(c=>{c.visible=false;});panEggs.visible=true;VH.visible=true;hEgg.visible=true;
@@ -1668,12 +1668,24 @@ const HS=(function(){
     for(let i=0;i<3;i++){await handTo(over(),[-.1,0,0],.35);const t=AU.C.currentTime;tapTo(AU.master,t,3200,.4,.04,'bandpass');tapTo(AU.master,t+.05,900,.2,.12);
       hEgg.visible=false;panEggs.children[i*2].visible=panEggs.children[i*2+1].visible=true;{const o=over();await handTo([o[0]+.07,o[1]-.08,o[2]],[-.1,.05,0],.35);}if(i<2)hEgg.visible=true;await wait(.2);}
     await handTo([.2,-.45,-.3],[0,0,0],.4);VH.visible=false;
-    panEggs.visible=true;
-    const t0=AU.C.currentTime;for(let i=0;i<70;i++)burst(t0+i*.075+Math.random()*.05,.05,'bandpass',3500+Math.random()*2500,.05+Math.random()*.05,1.5,.05);
-    if(S.day===4)for(let i=0;i<22;i++)burst(t0+2.4+i*.13+Math.random()*.08,.16,'lowpass',240+Math.random()*180,.05+i*.006,4,.05);
-    await wait(5.4);
+    panEggs.visible=true;S.cookT=0;S.burnt=false;S.step='stove';
+    await wait(1.2);
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.8);
-    S.busy=false;S.step='coffee';setObjective('Make coffee.');},2.2);
+    S.busy=false;setObjective('Turn off the stove.');},2.2);
+  const smoke=[];for(let k=0;k<10;k++){const s=box(.05,.05,.05,null,0x4a4846,{seg:9,em:.15});s.visible=false;s.userData.ph=k/10;scene.add(s);smoke.push(s);}
+  function stoveTick(dt){
+    for(const s of smoke){s.visible=S.burnt&&(S.step==='stove'||S.smokeT>0);if(!s.visible)continue;const p=s.userData.ph=(s.userData.ph+dt*.35)%1;
+      s.position.set(pan.position.x+Math.sin(p*7+s.id)*.06,pan.position.y+.05+p*.9,pan.position.z+Math.cos(p*5+s.id)*.06);s.scale.setScalar(1+p*3);}
+    if(S.smokeT>0)S.smokeT-=dt;
+    const on=S.step==='stove';if(!on&&S.step!=='stoveoff')return;const burnAt=S.day===4?7:14;
+    if(on){S.cookT+=dt;
+      if(Math.random()<dt*(S.burnt?22:14))burst(AU.C.currentTime,.05,'bandpass',S.burnt?1800+Math.random()*1500:3500+Math.random()*2500,S.burnt?.09:.06,1.5,.05);
+      if(S.day===4&&Math.random()<dt*3)burst(AU.C.currentTime,.16,'lowpass',240+Math.random()*180,.08,4,.05);
+      if(!S.burnt&&S.cookT>burnAt){S.burnt=true;S.alarmT=0;panEggs.children.forEach((c,i)=>{c.material=mat(null,i%2?0x2a1408:0x4a3624);});}}
+    if(S.burnt&&!(S.day===4&&!on)){S.alarmT-=dt;if(S.alarmT<=0){if(S.day===4&&S.cookT>burnAt+4){S.alarmT=.9;SFX.beep();}else{S.alarmT=.42;tone(AU.C.currentTime,3150,.16,.07,'square');}}}}
+  async function stoveOff(){S.step='stoveoff';setObjective('');SFX.click();
+    if(S.burnt){if(S.day===4){await wait(.3);tone(AU.C.currentTime,1046,2.2,.1);await wait(2.4);}else await wait(2.2);}
+    S.smokeT=4;S.step='coffee';setObjective('Make coffee.');}
   async function sofaSit(){S.busy=true;S.onSofa=true;await tween({x:8.05,z:3.78,eye:1.05,yaw:PI,pitch:-.05},1.6);S.busy=false;controls.move=false;S.sofaT=0;S.special={label:'Stand up',action:sofaStand};}
   async function sofaStand(){S.busy=true;await tween({x:8.05,z:4.55,eye:1.6,yaw:S.yaw,pitch:0},1.2);S.busy=false;controls.move=true;S.onSofa=false;}
   inter(sofaSeat,()=>(S.day!==3&&!S.busy&&!S.special&&!S.onSofa)?'Sit on the couch':null,sofaSit,2.4);
