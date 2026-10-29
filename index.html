@@ -1209,6 +1209,12 @@ const HS=(function(){
   add(box(.12,.85,.42,TX.fabric,0x34343c,{seg:9,pos:[4.15,1.25,9.45]}));
   add(box(.28,.1,.12,null,0x2a2420,{seg:9,pos:[4.35,.05,9.2]}));add(box(.28,.1,.12,null,0x2a2420,{seg:9,pos:[4.35,.05,9.38]}));
   const fridgeM=solid(box(.7,1.8,.7,TX.fridge,0xffffff,{fit:true,pos:[.4,.9,4.95]}));
+  const fridgeIn=tex(48,128,()=>{},false);
+  const drawFridgeIn=n=>{const g=fridgeIn.image.getContext('2d'),w=48,h=128;g.fillStyle='#dfe2dc';g.fillRect(0,0,w,h);g.fillStyle='rgba(0,0,0,.16)';g.fillRect(0,h*.72,w,h*.28);
+    g.fillStyle='#9aa09a';for(const y of[34,66,98])g.fillRect(0,y,w,2);g.fillStyle='#b8c4a0';g.fillRect(6,16,7,18);g.fillStyle='#d8d0b0';g.fillRect(30,22,10,12);g.fillStyle='#7a2a20';g.fillRect(16,86,12,12);
+    g.fillStyle='#8a8070';g.fillRect(8,53,32,13);for(let i=0;i<6;i++){g.fillStyle=i<n?'#f2efe6':'#5e574e';g.beginPath();g.ellipse(13+(i%3)*11,i<3?57:62.5,3.5,2.8,0,0,7);g.fill();}fridgeIn.needsUpdate=true;};
+  drawFridgeIn(6);const fIn=add(plane(.64,1.7,fridgeIn,0xffffff,{fit:true,seg:9,em:.55,rotY:PI/2,pos:[.752,.9,4.95]}));
+  const fridgeDoor=new THREE.Group();fridgeDoor.position.set(.76,0,4.605);fridgeDoor.add(box(.04,1.76,.69,TX.fridge,0xffffff,{fit:true,seg:9,pos:[.02,.9,.345]}));scene.add(fridgeDoor);
   add(box(.03,.4,.04,null,0x9a9a9a,{seg:9,pos:[.77,1.2,5.22]}));
   const drawing=add(plane(.28,.32,TX.drawing,0xffffff,{fit:true,seg:9,rotY:PI/2,pos:[.757,1.25,4.85]}));
   {const mg=add(plane(.3,.22,TX.magnets,0xffffff,{fit:true,seg:9,rotY:PI/2,pos:[.756,1.6,5.12]}));inter(mg,'Look',()=>examine(TX.magnets),1.8);
@@ -2667,6 +2673,10 @@ const HS=(function(){
     a.breathBus=G(0);const bn=N(),bbp=F('bandpass',650,.8),bg=G(.5);chain(bn,bbp,bg,a.breathBus);a.breath=new PSrc(a.breathBus,new THREE.Vector3(41.3,.7,.75),6,.5,.1);{const nd=a.breath.p||a.breath.g;nd.disconnect();nd.connect(AU.muffle);}
     houseAu=a;S.au=a;
   }
+  const onDoor=[];scene.traverse(o=>{if(!o.isMesh||o===fIn)return;let p=o.parent,top=true;while(p&&p!==scene){if(p===fridgeDoor||p.position.lengthSq()>1e-6||p.rotation.y)top=false;p=p.parent;}
+    if(top&&o.position.x>.754&&o.position.x<.79&&o.position.z>4.6&&o.position.z<5.3&&o.position.y>.05&&o.position.y<1.8){o.position.x+=.05;onDoor.push({o,x:o.position.x,z:o.position.z,ry:o.rotation.y});}});
+  const doorAt=a=>{fridgeDoor.rotation.y=a;const c=Math.cos(a),s=Math.sin(a);for(const d of onDoor){const dx=d.x-.76,dz=d.z-4.605;d.o.position.x=.76+dx*c+dz*s;d.o.position.z=4.605-dx*s+dz*c;d.o.rotation.y=d.ry+a;}};
+  async function swingDoor(a,dur){const a0=fridgeDoor.rotation.y,t0=gameTime;while(gameTime-t0<dur){doorAt(lerp(a0,a,smooth((gameTime-t0)/dur)));await wait(.016);}doorAt(a);}
   S.days=['','MONDAY','TUESDAY','WEDNESDAY','THURSDAY'];
   S.next=d=>{const p=d-1,r=S.reps=S.reps||{};if(p>=2&&!S.jumped&&!r[p]&&SEEN.size-S.seen0<1){r[p]=1;S.again=true;return p;}S.again=false;return d;};
   S.start=async function(day=1,scene=null){
