@@ -1372,7 +1372,6 @@ const HS=(function(){
     P.chest=J(P.spine,0,.25,0);M(up(.3,.16,.2),0,0,0,P.chest,1,1,.58);M(sph(.2),0,.29,0,P.chest,1,.32,.58);
     P.neck=J(P.chest,0,.3,0);M(up(.17,.052,.044),0,0,0,P.neck);
     P.head=J(P.neck,0,.16,.01);M(sph(.105),0,.12,0,P.head,.86,1.2,1);M(sph(.07),0,.035,.03,P.head,.95,.8,1);
-    M(sph(.022),-.088,.125,-.005,P.head,.5,1,.8);M(sph(.022),.088,.125,-.005,P.head,.5,1,.8);
     for(const sd of[-1,1]){const n=sd<0?'L':'R';
       const sh=J(P.chest,sd*.205,.25,0);P['sh'+n]=sh;M(sph(.062),0,0,0,sh);M(down(.36,.052,.044),0,0,0,sh);
       const el=J(sh,0,-.36,0);P['el'+n]=el;M(sph(.045),0,0,0,el);M(down(.35,.043,.033),0,0,0,el);
