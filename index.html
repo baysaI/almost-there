@@ -1387,7 +1387,7 @@ const HS=(function(){
   const ML=makeMan();ML.root.position.set(X0+1.3,.66,1.38);ML.root.rotation.x=-PI/2+.14;
   ML.shL.rotation.z=-.06;ML.shR.rotation.z=.06;ML.head.rotation.x=-.05;
   figLie.add(ML.root);figScene.add(figLie);
-  const dupSheet=new THREE.Group();dupSheet.position.set(X0+1.3,.8,0);dupSheet.add(box(.82,.07,1.9,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,0,1.79]}));dupSheet.add(box(.82,.3,.05,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,-.15,2.74]}));
+  const dupSheet=new THREE.Group();dupSheet.position.set(X0+1.3,.8,0);dupSheet.add(box(.92,.07,1.9,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,0,1.79]}));dupSheet.add(box(.92,.3,.05,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,-.15,2.74]}));
   for(const q of[[1.25,.3,1.2,.22,1.5],[2.25,.16,1.3,.5,1]]){const lb=new THREE.Mesh(new THREE.SphereGeometry(q[1],8,6),mat(TX.blanket,0xd0c8bc));lb.scale.set(q[2],q[3],q[4]);lb.position.set(0,0,q[0]);dupSheet.add(lb);}
   scene.add(dupSheet);
   const figSit=new THREE.Group();
