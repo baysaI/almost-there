@@ -1812,12 +1812,10 @@ const HS=(function(){
     S.breathOn=false;
     ramp(houseAu.drone.gain, .06, .4);
     await wait(1.2);
-    
     const t0 = gameTime;
     const dur = 2.6;
     const startRot = ML.head.rotation.y;
     burst(AU.C.currentTime, .5, 'bandpass', 450, .08, 1, .4);
-    
     while(gameTime - t0 < dur){
       const u = smooth((gameTime - t0) / dur);
       ML.head.rotation.y = lerp(startRot, 1.25, u);
@@ -1825,12 +1823,10 @@ const HS=(function(){
       figLie.updateMatrixWorld();
       await wait(0.016);
     }
-    
     subtitle("He can't wake up.", 3.2, "thought");
     whisper(2.8, .22, 3);
     ramp(houseAu.drone.gain, .35, 2.0);
     await wait(2.4);
-    
     const lt0 = gameTime;
     while(gameTime - lt0 < 1.2){
       const k = 1 - smooth((gameTime - lt0) / 1.2);
@@ -1840,15 +1836,12 @@ const HS=(function(){
     dupShade.material.uniforms.uEmissive.value = 0;
     S.lampOff = true;
     SFX.click();
-    
     await wait(1.2);
     figLie.visible = false;
     tallyMat.uniforms.map.value = TX.bloodWall;
     dupBlood.visible = true;
-    
     dupShade.material.uniforms.uEmissive.value = .4;
     S.lampOff = false;
-    
     S.busy = false;
     S.awayT = 0; S.figGone = true;
     setObjective('Leave.');
