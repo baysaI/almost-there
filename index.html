@@ -2079,7 +2079,7 @@ const HS=(function(){
     flash(fL,st.position.x,st.position.z-.7,0,3,1.1);
     const TXT=['clean it up','CLEAN IT UP','CLEAN IT UP'];
     whisper(2.6,.16+n*.1,1+n*2);S.shakeH=.3*n;SFX.thud();intrude(TXT[n-1],2.6,1+n*7);
-    for(let i=0;i<9;i++){burst(AU.C.currentTime,.22,'bandpass',1300+Math.random()*700,.22,2,.1);S.bob+=.7;await wait(.27);}
+    for(let i=0;i<9;i++){burst(AU.C.currentTime,.22,'bandpass',1300+Math.random()*700,.22,2,.1);if(n>1)burst(AU.C.currentTime+.05,.2,'lowpass',300+Math.random()*120,.07*n,5,.05);S.bob+=.7;await wait(.27);}
     S.shakeH=0;
     st.scale.multiplyScalar(1.5);
     if(n===1){worldSnd('wscr',new THREE.Vector3(1.4,1.3,2.0),15,1.25,{lp:1700,wet:.45});if(!S.cryH)S.cryH=worldSnd('cry',new THREE.Vector3(5.9,1.0,1.4),12,.8,{loop:true,lp:1100,wet:.45,offset:7});}
