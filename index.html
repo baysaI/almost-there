@@ -306,7 +306,7 @@ function tex(w,h,draw,repeat=true){
   const c=document.createElement('canvas');c.width=w;c.height=h;
   const g=c.getContext('2d');g.imageSmoothingEnabled=false;draw(g,w,h);
   const t=new THREE.CanvasTexture(c);
-  t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
+  t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;t.anisotropy=8;
   t.wrapS=t.wrapT=repeat?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;
   return t;
 }
