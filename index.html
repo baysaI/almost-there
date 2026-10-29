@@ -556,7 +556,10 @@ function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
 async function until(fn){while(!fn())await wait(.1);}
 function fadeTo(v,s){fx.fadeT=v;fx.fadeRate=1/Math.max(s,.01);return wait(s);}
 let objTimer,OBJ_LIE=false;
-function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{el.textContent=_t(t)||'';if(t)el.classList.add('show');},500);}
+function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{
+  const lies=['Leave.','Go to sleep.','Wake her up.','Sit down.','Find them.'].filter(x=>x!==t);
+  if(OBJ_LIE&&t&&Math.random()<.35){el.textContent=_t(lies[Math.random()*lies.length|0]);el.classList.add('show');objTimer=setTimeout(()=>{el.textContent=_t(t);},1400);return;}
+  el.textContent=_t(t)||'';if(t)el.classList.add('show');},500);}
 let subTimer;
 function subtitle(text,dur=4,kind='voice'){const el=$('#subtitle');el.className='hud '+kind;el.textContent=_t(text);void el.offsetWidth;el.classList.add('show');clearTimeout(subTimer);subTimer=setTimeout(()=>el.classList.remove('show'),dur*1000);}
 const MUTTER={'good girl.':'m_goodgirl','eat something.':'m_eat','you have to eat something.':'m_haveto','please.':'m_please',"that's not how she sounds.":'m_notsounds','almost there.':'m_almost'};
