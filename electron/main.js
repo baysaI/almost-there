@@ -1,5 +1,17 @@
 const { app, BrowserWindow, Menu, dialog } = require('electron');
 const path = require('path');
+const os = require('os');
+
+function pickName(u) {
+  const first = String(u || '').trim().split(/[\s._-]+/)[0] || '';
+  if (!/^[A-Za-zÇĞİÖŞÜçğıöşü]{2,12}$/.test(first)) return '';
+  if (/^(users?|admin|administrator|owner|guest|pc|desktop|laptop|windows|default|test|home|kullan[ıi]c[ıi]|misafir|y[öo]netici|sahip|asus|lenovo|dell|hp|acer|msi|monster|casper|toshiba|samsung|huawei|excalibur)$/i.test(first)) return '';
+  return first[0].toUpperCase() + first.slice(1).toLowerCase();
+}
+
+function playerName() {
+  try { return pickName(os.userInfo().username); } catch (_) { return ''; }
+}
 
 const TEXT = {
   en: {
