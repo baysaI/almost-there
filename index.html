@@ -2408,6 +2408,7 @@ const HS=(function(){
         if(C.mute===1){C.muteT+=dt;if(R0()<.25)S.lights[R0()*4|0]=null;if(C.muteT>3.2){C.mute=2;S.flatMute=false;}}
       }
       if(S.corPhase<2){wifeG.position.z=Math.min(wifeG.position.z,pz-14.5);const t=gameTime;
+        camera.getWorldDirection(tmpD);tmpV.copy(wifeG.position).setY(1.3).sub(camera.position).normalize();const seen=tmpV.dot(tmpD)>.93;
         if(walked<21){WIFE.shR.rotation.set(0,0,2.5);WIFE.elR.rotation.z=.5*Math.sin(t*5);}
         else{WIFE.shR.rotation.z+=(0-WIFE.shR.rotation.z)*Math.min(1,dt*.8);WIFE.elR.rotation.z*=.95;WIFE.head.rotation.z+=(.7-WIFE.head.rotation.z)*Math.min(1,dt*.35);}
         if(S.corPhase===0&&walked>12){S.corPhase=1;kidG.visible=true;}
