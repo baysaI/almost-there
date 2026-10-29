@@ -1097,9 +1097,7 @@ const RD=(function(){
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);SFX.tinnitus(7,.03);
     await wait(2.2);
     await aftermath(3);
-    await card('THURSDAY',3.2);
-    roadMan.visible=false;
-    HS.start(4);
+    {const d=HS.next(4);await card(HS.days[d],3.2);roadMan.visible=false;HS.start(d);}
   };
   S.interact=function(){if(S.rest&&S.canTry){S.canTry=false;setPrompt('');SFX.rattle();setTimeout(()=>mutter('please.',3),700);}};
   S.reset=function(){S.attract=false;S.t=0;oncNext=11;};
