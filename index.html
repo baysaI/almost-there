@@ -2903,7 +2903,8 @@ $('#credits').querySelector('.rollIn').addEventListener('animationend',()=>{if(!
   const open=()=>MEM.stopped||MEM.loops>0||MEM.dev;
   const refresh=()=>{const o=open();grid.classList.toggle('locked',!o);$('#chLock').hidden=o;};
   $('#chapBtn').addEventListener('click',e=>{e.stopPropagation();refresh();cs.hidden=false;});
-  $('#chBack').addEventListener('click',e=>{e.stopPropagation();cs.hidden=true;});}
+  $('#chBack').addEventListener('click',e=>{e.stopPropagation();cs.hidden=true;});
+  let code='';addEventListener('keydown',e=>{if(cs.hidden||open())return;code=(code+e.key).slice(-4);if(code==='3317'){MEM.dev=1;saveMem();refresh();SFX&&AU.C&&SFX.click&&SFX.click();}});}
 document.querySelectorAll('.chap').forEach(b=>b.addEventListener('click',async()=>{
   $('#chaptersScr').hidden=true;
   RD.hideGhosts();
