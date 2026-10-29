@@ -1635,6 +1635,7 @@ const HS=(function(){
     for(let i=0;i<3;i++){const t=AU.C.currentTime;tapTo(AU.master,t,3200,.4,.04,'bandpass');tapTo(AU.master,t+.05,900,.2,.12);await wait(.9);}
     panEggs.visible=true;
     const t0=AU.C.currentTime;for(let i=0;i<70;i++)burst(t0+i*.075+Math.random()*.05,.05,'bandpass',3500+Math.random()*2500,.05+Math.random()*.05,1.5,.05);
+    if(S.day===4)for(let i=0;i<22;i++)burst(t0+2.4+i*.13+Math.random()*.08,.16,'lowpass',240+Math.random()*180,.05+i*.006,4,.05);
     await wait(5.4);
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.8);
     S.busy=false;S.step='coffee';setObjective('Make coffee.');},2.2);
