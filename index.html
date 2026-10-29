@@ -2893,7 +2893,7 @@ function applySet(){if(AU.vol)AU.vol.gain.value=SET.vol;postMat.uniforms.uBright
 bindRange('#pVol','vol',100);bindRange('#pSens','sens',100);bindRange('#pBright','bright',100);bindRange('#sVol','vol',100);bindRange('#sSens','sens',100);bindRange('#sBright','bright',100);applySet();
 if(isTouch)$('#pauseBtn').hidden=false;
 function frame(now){
-  if(paused){last=now;requestAnimationFrame(frame);return;}
+  if(paused||HANG){last=now;requestAnimationFrame(frame);return;}
   const dt=Math.min(.05,(now-last)/1000);last=now;gameTime+=dt;
   for(let i=timers.length-1;i>=0;i--)if(timers[i].t<=gameTime){const r=timers[i].r;timers.splice(i,1);r();}
   if(fx.fade<fx.fadeT)fx.fade=Math.min(fx.fadeT,fx.fade+fx.fadeRate*dt);else if(fx.fade>fx.fadeT)fx.fade=Math.max(fx.fadeT,fx.fade-fx.fadeRate*dt);
