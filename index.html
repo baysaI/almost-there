@@ -310,6 +310,8 @@ function setLights(list,amb,fog,near,far){
   if(near!=null)SH.uFogNear.value=near;
   if(far!=null)SH.uFogFar.value=far;
 }
+const TEXD=[];
+document.fonts&&Promise.all([HF(25),'16px "Cormorant Garamond"','16px VT323'].map(f=>document.fonts.load(f).catch(()=>{}))).then(()=>TEXD.forEach(f=>f()));
 function tex(w,h,draw,repeat=true){
   const c=document.createElement('canvas');c.width=w;c.height=h;
   const g=c.getContext('2d');g.imageSmoothingEnabled=false;
@@ -318,6 +320,7 @@ function tex(w,h,draw,repeat=true){
   const t=new THREE.CanvasTexture(c);
   t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;t.anisotropy=8;
   t.wrapS=t.wrapT=repeat?THREE.RepeatWrapping:THREE.ClampToEdgeWrapping;
+  TEXD.push(()=>{g.clearRect(0,0,w,h);draw(g,w,h);t.needsUpdate=true;});
   return t;
 }
 function speckle(g,w,h,amt,seed){const r=rng(seed);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const v=(r()-.5)*amt;g.fillStyle=v>0?`rgba(255,255,255,${v})`:`rgba(0,0,0,${-v})`;g.fillRect(x,y,1,1);}}
