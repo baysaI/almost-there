@@ -595,6 +595,9 @@ function screams(){if(!AU.C)return;const C=AU.C,t=C.currentTime;
   const play=(key,at,rate,vol,pan,lp)=>{const b=AU.voices[key];if(!b)return;const s=C.createBufferSource();s.buffer=b;s.playbackRate.value=rate;const g=G(vol);let n=g;if(lp){const f=F('lowpass',lp);g.connect(f);n=f;}
     if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=pan;n.connect(p);p.connect(AU.muffle);}else n.connect(AU.muffle);s.connect(g);s.start(t+at);};
   play('scream1',0,1,1.5,-.15);play('scream2',.1,.92,1.2,.3);play('scream1',.42,.74,.8,.1,2600);play('scream2',.75,.6,.55,-.3,1400);}
+function breathe(dest,t,cycles=3,vol=.1){const C=AU.C;for(let i=0;i<cycles;i++){const t0=t+i*2.6;
+  const a=C.createBufferSource();a.buffer=AU.noise;const fa=F('bandpass',1100,.8),ga=G(0);ga.gain.setValueAtTime(0,t0);ga.gain.linearRampToValueAtTime(vol*.7,t0+.8);ga.gain.linearRampToValueAtTime(0,t0+1.05);chain(a,fa,ga,dest);a.start(t0,Math.random());a.stop(t0+1.1);
+  const b=C.createBufferSource();b.buffer=AU.noise;const fb=F('bandpass',520,.7),gb=G(0);gb.gain.setValueAtTime(0,t0+1.2);gb.gain.linearRampToValueAtTime(vol,t0+1.35);gb.gain.exponentialRampToValueAtTime(.001,t0+2.4);chain(b,fb,gb,dest);b.start(t0+1.2,Math.random());b.stop(t0+2.45);}}
 function punch(k=1){SFX.sting(k);HS.statPunch=.55*k;HS.shakeH=.9*k;HS.shakeDecay=2.2;}
 function bloodSplat(){const c=$('#blood');const W=200,H=Math.max(100,Math.round(200*innerHeight/innerWidth));c.width=W;c.height=H;const g=c.getContext('2d');g.clearRect(0,0,W,H);
   const r=Math.random,drips=[];const red=a=>`rgba(${90+r()*60|0},${3+r()*8|0},${3+r()*6|0},${a})`;
