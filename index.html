@@ -1949,7 +1949,8 @@ const HS=(function(){
     await wait(.5);
     S.cut=true;if(S.whine){S.whine.gain.cancelScheduledValues(0);S.whine.gain.setValueAtTime(0,AU.C.currentTime);}
     fx2cut();
-    await wait(3.4);
+    await wait(1.1);AU.muffle.frequency.setValueAtTime(650,AU.C.currentTime);screams();
+    await wait(2.3);AU.muffle.frequency.setValueAtTime(18000,AU.C.currentTime);
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);SFX.tinnitus(7,.03);
     await wait(2.2);
     await aftermath(2);
