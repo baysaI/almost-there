@@ -555,7 +555,7 @@ let gameTime=0;const timers=[];
 function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
 async function until(fn){while(!fn())await wait(.1);}
 function fadeTo(v,s){fx.fadeT=v;fx.fadeRate=1/Math.max(s,.01);return wait(s);}
-let objTimer;
+let objTimer,OBJ_LIE=false;
 function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{el.textContent=_t(t)||'';if(t)el.classList.add('show');},500);}
 let subTimer;
 function subtitle(text,dur=4,kind='voice'){const el=$('#subtitle');el.className='hud '+kind;el.textContent=_t(text);void el.offsetWidth;el.classList.add('show');clearTimeout(subTimer);subTimer=setTimeout(()=>el.classList.remove('show'),dur*1000);}
