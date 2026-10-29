@@ -2065,7 +2065,7 @@ const HS=(function(){
   function muteHouse(){if(!houseAu)return;S.watching=0;houseAu.all.gain.value=0;[houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,houseAu.phone,houseAu.kid,houseAu.hum,houseAu.water].forEach(p=>{p.vol=0;p.g.gain.setTargetAtTime(0,AU.C.currentTime,.05);});if(S.whine)S.whine.gain.setTargetAtTime(0,AU.C.currentTime,.05);S.muted=true;}
   function restoreHouse(){if(!houseAu)return;houseAu.all.gain.value=1;houseAu.fridge.vol=.05;houseAu.tick.vol=.22;houseAu.tv.vol=.025;houseAu.outside.vol=0;houseAu.alarm.vol=.3;houseAu.closet.vol=.9;houseAu.breath.vol=.5;houseAu.phone.vol=1;houseAu.kid.vol=.9;houseAu.hum.vol=.9;houseAu.water.vol=.6;S.muted=false;}
   function resetDay(){
-    G1.visible=S.day===1;S.famSeen=0;if(S.famW){S.famW.head.rotation.y=0;S.famW.neck.scale.y=1;S.famC.head.rotation.z=0;}MT.neck.scale.y=1;MT.head.rotation.set(0,0,0);MT.shR.rotation.set(.08,0,.04);WIFE.head.rotation.y=0;KID.head.rotation.y=0;WIFE.neck.scale.y=1;
+    G1.visible=S.day===1;S.famSeen=0;if(S.famW){S.famW.head.rotation.y=0;S.famW.neck.scale.y=1;S.famC.head.rotation.z=0;}MT.neck.scale.y=1;MT.head.rotation.set(0,0,0);MT.shR.rotation.set(.08,0,.04);ML.head.rotation.set(-.05,0,0);WIFE.head.rotation.y=0;KID.head.rotation.y=0;WIFE.neck.scale.y=1;
     S.loopMon=S.day===1&&(MEM.loops||0)>0;loopNote.visible=S.loopMon;S.ambT=null;
     GLITCH=[0,S.loopMon?.18:0,.1,.2,.32][S.day]||0;
     if(S.hidden3){S.hidden3.forEach(c=>c.visible=true);S.hidden3=null;}
