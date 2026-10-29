@@ -472,7 +472,7 @@ function bloodText(lines,wm,hm,seed){lines=lines.map(_t);
     const V=new Uint8Array(W*Hh);for(let x=0;x<W;x++){let last=-1e9;for(let y=0;y<Hh;y++){if(T[y*W+x])last=y;if(y-last<=rim)V[y*W+x]=1;}last=1e9;for(let y=Hh-1;y>=0;y--){if(T[y*W+x])last=y;if(last-y<=rim)V[y*W+x]=1;}}
     for(let i=0;i<W*Hh;i++){if(V[i]&&!M[i]&&o[i*4+3]===0){o[i*4]=38;o[i*4+1]=2;o[i*4+2]=2;o[i*4+3]=255;}}}
   m.putImageData(out,0,0);
-  const t=new THREE.CanvasTexture(mc);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t;}
+  const t=new THREE.CanvasTexture(mc);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.anisotropy=8;return t;}
 TX.bloodHands=(()=>{const c=document.createElement('canvas');c.width=c.height=96;const g=c.getContext('2d');const r=rng(320);
   const col=()=>`rgb(${70+r()*80|0},${r()*9|0},${r()*6|0})`;
   for(let h=0;h<3;h++){const x=10+r()*60,y=8+r()*40,s=.8+r()*.5;g.fillStyle=col();g.fillRect(x,y+10*s,14*s,13*s);
