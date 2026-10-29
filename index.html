@@ -1748,8 +1748,8 @@ const HS=(function(){
     }
     else if(n===2){
       SFX.rattle();
-      voice('crylo', "Daddy... it's so cold...", 3.6, {vol: 2.2, lp: 5000, wet: .2});
-      voice('please', null, 3.2, {vol: 1.8, lp: 4200, wet: .2});
+      voice('crylo', '', 3.6, {vol: 2.2, lp: 5000, wet: .2, nosub: true});
+      voice('please', '', 3.2, {vol: 1.8, lp: 4200, wet: .2, nosub: true});
       await wait(1.2);
       SFX.glassShatter(1.6);
       SFX.thud();
