@@ -2876,7 +2876,7 @@ function fakeHang(){return new Promise(res=>{HANG=true;unlockQuiet();for(const k
 function unlockQuiet(){if(document.exitPointerLock&&locked()){selfUnlock=true;document.exitPointerLock();}}
 function gameOn(){return $('#start').hidden&&$('#end').hidden;}
 function setPause(p){
-  if(p===paused)return;if(p&&!gameOn())return;
+  if(p===paused||HANG)return;if(p&&!gameOn())return;
   paused=p;$('#pause').hidden=!p;
   if(p){const late=(HS.day>=4||stage===RD&&RD.d5);$('#pTitle').textContent=_t(late?'ALMOST THERE':'PAUSED');$('#pResume').textContent=_t(late?'KEEP DRIVING':'RESUME');
     if(late){pausedAt=performance.now();unlockQuiet();for(const k in keys)keys[k]=false;joy.x=joy.y=0;paused=true;$('#pause').hidden=false;$('#pMenu').textContent=_t('MAIN MENU');$('#pMenu').dataset.armed='';if(AU.master)AU.master.gain.setTargetAtTime(.18,AU.C.currentTime,.3);return;}
