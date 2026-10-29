@@ -503,7 +503,7 @@ function makeVoidD(){VOIDD.uTime=VOIDU.uTime;VOIDD.uAmp=VOIDU.uAmp;VOIDD.uFade=F
     void main(){vec3 p=position;vec4 w=modelMatrix*vec4(p,1.);
       float d=sin(w.x*47.+uTime*7.3)*sin(w.y*39.-uTime*5.1)*sin(w.z*43.+uTime*6.7)+.5*sin(w.y*91.+uTime*17.)*sin(w.x*83.-uTime*13.);
       p+=normal*uAmp*d;vec4 mv=modelViewMatrix*vec4(p,1.);vV=mv.xyz;vN=normalize(normalMatrix*normal);vec4 cp=projectionMatrix*mv;cp.xy=floor(cp.xy/cp.w*vec2(160.,90.)+.5)/vec2(160.,90.)*cp.w;vS=cp.xy/cp.w;gl_Position=cp;}`,
-  fragmentShader:`uniform sampler2D uDepth;uniform vec2 uCanvas;uniform float uTime,uFade,uWhite;varying vec3 vN;varying vec3 vV;
+  fragmentShader:`uniform sampler2D uDepth;uniform vec2 uCanvas;uniform float uTime,uFade,uWhite,uGaze;varying vec3 vN;varying vec3 vV;varying vec2 vS;
     float h(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
     void main(){
       float sd=texture2D(uDepth,gl_FragCoord.xy/uCanvas).x;
