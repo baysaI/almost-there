@@ -1013,7 +1013,6 @@ const RD=(function(){
   async function loopBack(){
     MEM.loops=(MEM.loops||0)+1;saveMem();
     S.force=true;S.auto=true;
-    // Violent acceleration into the rain
     S.speed = 36;
     SFX.tinnitus(4, .03);
     if(PW) { PW.head.rotation.set(.4, PI/2, 0); }
