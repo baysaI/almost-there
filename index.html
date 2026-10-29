@@ -478,7 +478,7 @@ TX.bloodHands=(()=>{const c=document.createElement('canvas');c.width=c.height=96
   for(let h=0;h<3;h++){const x=10+r()*60,y=8+r()*40,s=.8+r()*.5;g.fillStyle=col();g.fillRect(x,y+10*s,14*s,13*s);
     for(let f=0;f<4;f++)g.fillRect(x+f*3.6*s,y+(f===0||f===3?3:0),2.6*s,12*s);g.fillRect(x-4*s,y+13*s,5*s,3*s);
     for(let k=0;k<5;k++){if(r()<.7)g.fillRect(x+r()*14*s,y+22*s,1+(r()*2|0),8+r()*40);}}
-  const t=new THREE.CanvasTexture(c);t.magFilter=t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;return t;})();
+  const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.anisotropy=8;return t;})();
 TX.clock=tex(32,32,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#d8d2c0';g.beginPath();g.arc(16,16,15,0,7);g.fill();g.fillStyle='#2a2620';
   for(let i=0;i<12;i++){const a=i/12*PI*2;g.fillRect(16+Math.sin(a)*12.5-.5,16-Math.cos(a)*12.5-.5,1.5,1.5);}
   g.strokeStyle='#1a1610';g.lineWidth=2;const ha=(3+17/60)/12*PI*2,ma=17/60*PI*2;g.beginPath();g.moveTo(16,16);g.lineTo(16+Math.sin(ha)*7,16-Math.cos(ha)*7);g.stroke();
