@@ -2512,6 +2512,7 @@ const HS=(function(){
   function writeTimeNote(){const g=tc.getContext('2d');g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,99);g.fillStyle='#1d1a30';g.font=HF(23)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';
     const d=new Date(),hm=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');['it is '+hm+'.','you should','be asleep.'].forEach((l,i)=>g.fillText(_t(l),48,28+i*22));tt.needsUpdate=true;}
   const loopNote=note('you said\nthat\nyesterday',[.759,1.45,5.12],PI/2,false,2);D2.splice(D2.indexOf(loopNote),1);
+  function phoneGhost(){const b=G(1),src=new PSrc(b,new THREE.Vector3(4.07,1.0,3.95),11,1.3,.3);S.behindSrc=src;SFX.ring(b);setTimeout(()=>SFX.ring(b),3000);setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},5600);}
   function behind(){camera.getWorldDirection(tmpD);const x=camera.position.x-tmpD.x*2.2,z=camera.position.z-tmpD.z*2.2;const r=R0();
     if(r<.3)knockAt(x,1.1,z);
     else{const b=G(1);const src=new PSrc(b,new THREE.Vector3(x,.6,z),7,1.2,.3);S.behindSrc=src;const t=AU.C.currentTime;
