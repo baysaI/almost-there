@@ -2692,7 +2692,7 @@ const HS=(function(){
       const s=((keys.KeyD||keys.ArrowRight)?1:0)-((keys.KeyA||keys.ArrowLeft)?1:0)+joy.x;
       let vx=-Math.sin(S.yaw)*f+Math.cos(S.yaw)*s,vz=-Math.cos(S.yaw)*f-Math.sin(S.yaw)*s;
       const l=Math.hypot(vx,vz);
-      if(l>.05){const sp=1.65*Math.min(1,l)/l;vx*=sp*dt;vz*=sp*dt;
+      if(l>.05){const sp=1.55*Math.min(1,l)/l;vx*=sp*dt;vz*=sp*dt;
         if(!collide(S.pos.x+vx,S.pos.z,.2))S.pos.x+=vx;if(!collide(S.pos.x,S.pos.z+vz,.2))S.pos.z+=vz;
         S.bob+=dt*7.5;S.stepAcc+=Math.hypot(vx,vz);if(S.stepAcc>.62){S.stepAcc=0;SFX.step();if(S.onStep)S.onStep();if(S.day===3)SFX.crunch();}}
       else S.bob*=.9;
