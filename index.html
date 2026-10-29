@@ -1208,13 +1208,19 @@ const HS=(function(){
   for(const hz of[8.75,9.1,9.45])add(box(.07,.03,.03,null,0x9a9a9a,{seg:9,pos:[4.12,1.7,hz]}));
   add(box(.12,.85,.42,TX.fabric,0x34343c,{seg:9,pos:[4.15,1.25,9.45]}));
   add(box(.28,.1,.12,null,0x2a2420,{seg:9,pos:[4.35,.05,9.2]}));add(box(.28,.1,.12,null,0x2a2420,{seg:9,pos:[4.35,.05,9.38]}));
-  const fridgeM=solid(box(.7,1.8,.7,TX.fridge,0xffffff,{fit:true,pos:[.4,.9,4.95]}));
-  const fridgeIn=tex(48,128,()=>{},false);
-  const drawFridgeIn=n=>{const g=fridgeIn.image.getContext('2d'),w=48,h=128;g.fillStyle='#dfe2dc';g.fillRect(0,0,w,h);g.fillStyle='rgba(0,0,0,.16)';g.fillRect(0,h*.72,w,h*.28);
-    g.fillStyle='#9aa09a';for(const y of[34,66,98])g.fillRect(0,y,w,2);g.fillStyle='#b8c4a0';g.fillRect(6,16,7,18);g.fillStyle='#d8d0b0';g.fillRect(30,22,10,12);g.fillStyle='#7a2a20';g.fillRect(16,86,12,12);
-    g.fillStyle='#8a8070';g.fillRect(8,53,32,13);for(let i=0;i<6;i++){g.fillStyle=i<n?'#f2efe6':'#5e574e';g.beginPath();g.ellipse(13+(i%3)*11,i<3?57:62.5,3.5,2.8,0,0,7);g.fill();}fridgeIn.needsUpdate=true;};
-  drawFridgeIn(6);const fIn=add(plane(.64,1.7,fridgeIn,0xffffff,{fit:true,seg:9,em:.55,rotY:PI/2,pos:[.752,.9,4.95]}));
+  const fridgeM=solid(box(.7,1.8,.7,TX.fridge,0xffffff,{fit:true,pos:[.4,.9,4.95]}));fridgeM.material=new THREE.MeshBasicMaterial({visible:false});
+  const FW=0xd6d2c4,FL=0xe4e9e4;
+  for(const b of[[.7,1.8,.04,.4,.9,4.62],[.7,1.8,.04,.4,.9,5.28],[.7,.06,.62,.4,1.77,4.95],[.7,.06,.62,.4,.03,4.95],[.04,1.68,.62,.07,.9,4.95]])add(box(b[0],b[1],b[2],null,FW,{seg:9,pos:[b[3],b[4],b[5]]}));
+  for(const p of[[.62,1.68,.092,.9,4.95,PI/2],[.66,1.68,.42,.9,4.642,0],[.66,1.68,.42,.9,5.258,PI]])add(plane(p[0],p[1],null,FL,{seg:9,em:.5,rotY:p[5],pos:[p[2],p[3],p[4]]}));
+  add(plane(.66,.62,null,FL,{seg:9,em:.4,floor:true,pos:[.42,.062,4.95]}));
+  for(const y of[.5,.95,1.35])add(box(.62,.014,.6,null,0xc6cfcb,{seg:9,em:.25,pos:[.42,y,4.95]}));
+  add(box(.08,.22,.08,null,0xf0efe8,{seg:9,em:.2,pos:[.3,.617,4.78]}));add(box(.07,.2,.07,null,0xe0b840,{seg:9,em:.2,pos:[.3,1.057,5.12]}));
+  add(cyl(.04,.04,.1,8,null,0x7a2a20,{em:.15,pos:[.36,1.407,4.84]}));add(cyl(.03,.035,.26,8,null,0x4a6a44,{em:.15,pos:[.24,.637,5.14]}));
+  add(box(.2,.045,.13,null,0x8a8070,{seg:9,em:.15,pos:[.56,.98,4.95]}));
+  const fEggs=[];for(let i=0;i<6;i++){const e=add(new THREE.Mesh(new THREE.SphereGeometry(.024,8,6),mat(null,0xf2efe6,{em:.2})));e.scale.set(1,1.15,1);e.position.set(.5+(i%3)*.06,1.025,4.92+(i<3?0:.06));fEggs.push(e);}
+  const drawFridgeIn=n=>fEggs.forEach((e,i)=>{e.visible=i<n;});
   const fridgeDoor=new THREE.Group();fridgeDoor.position.set(.76,0,4.605);fridgeDoor.add(box(.04,1.76,.69,TX.fridge,0xffffff,{fit:true,seg:9,pos:[.02,.9,.345]}));scene.add(fridgeDoor);
+  for(const y of[.55,1.1])fridgeDoor.add(box(.05,.07,.6,null,0xd0d4d0,{seg:9,em:.2,pos:[-.03,y,.345]}));
   add(box(.03,.4,.04,null,0x9a9a9a,{seg:9,pos:[.77,1.2,5.22]}));
   const drawing=add(plane(.28,.32,TX.drawing,0xffffff,{fit:true,seg:9,rotY:PI/2,pos:[.757,1.25,4.85]}));
   {const mg=add(plane(.3,.22,TX.magnets,0xffffff,{fit:true,seg:9,rotY:PI/2,pos:[.756,1.6,5.12]}));inter(mg,'Look',()=>examine(TX.magnets),1.8);
@@ -2684,7 +2690,7 @@ const HS=(function(){
     a.breathBus=G(0);const bn=N(),bbp=F('bandpass',650,.8),bg=G(.5);chain(bn,bbp,bg,a.breathBus);a.breath=new PSrc(a.breathBus,new THREE.Vector3(41.3,.7,.75),6,.5,.1);{const nd=a.breath.p||a.breath.g;nd.disconnect();nd.connect(AU.muffle);}
     houseAu=a;S.au=a;
   }
-  const onDoor=[];scene.traverse(o=>{if(!o.isMesh||o===fIn)return;let p=o.parent,top=true;while(p&&p!==scene){if(p===fridgeDoor||p.position.lengthSq()>1e-6||p.rotation.y)top=false;p=p.parent;}
+  const onDoor=[];scene.traverse(o=>{if(!o.isMesh)return;let p=o.parent,top=true;while(p&&p!==scene){if(p===fridgeDoor||p.position.lengthSq()>1e-6||p.rotation.y)top=false;p=p.parent;}
     if(top&&o.position.x>.754&&o.position.x<.79&&o.position.z>4.6&&o.position.z<5.3&&o.position.y>.05&&o.position.y<1.8){o.position.x+=.05;onDoor.push({o,x:o.position.x,z:o.position.z,ry:o.rotation.y});}});
   const doorAt=a=>{fridgeDoor.rotation.y=a;const c=Math.cos(a),s=Math.sin(a);for(const d of onDoor){const dx=d.x-.76,dz=d.z-4.605;d.o.position.x=.76+dx*c+dz*s;d.o.position.z=4.605-dx*s+dz*c;d.o.rotation.y=d.ry+a;}};
   async function swingDoor(a,dur){const a0=fridgeDoor.rotation.y,t0=gameTime;while(gameTime-t0<dur){doorAt(lerp(a0,a,smooth((gameTime-t0)/dur)));await wait(.016);}doorAt(a);}
