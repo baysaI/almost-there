@@ -2003,8 +2003,7 @@ const HS=(function(){
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);
     SFX.tinnitus(7,.03);
     await wait(2.2);
-    await card('WEDNESDAY',3.2);
-    S.start(3);
+    {const d=S.next(3);await card(S.days[d],3.2);S.start(d);}
   }
   function muteHouse(){if(!houseAu)return;S.watching=0;houseAu.all.gain.value=0;[houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,houseAu.phone,houseAu.kid,houseAu.hum,houseAu.water].forEach(p=>{p.vol=0;p.g.gain.setTargetAtTime(0,AU.C.currentTime,.05);});if(S.whine)S.whine.gain.setTargetAtTime(0,AU.C.currentTime,.05);S.muted=true;}
   function restoreHouse(){if(!houseAu)return;houseAu.all.gain.value=1;houseAu.fridge.vol=.05;houseAu.tick.vol=.22;houseAu.tv.vol=.025;houseAu.outside.vol=0;houseAu.alarm.vol=.3;houseAu.closet.vol=.9;houseAu.breath.vol=.5;houseAu.phone.vol=1;houseAu.kid.vol=.9;houseAu.hum.vol=.9;houseAu.water.vol=.6;S.muted=false;}
