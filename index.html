@@ -2814,7 +2814,7 @@ const HS=(function(){
     }
     setPrompt(lbl);
     flick-=dt;if(flick<0){flick=rand(5,9);}
-    const tex317=flick<(S.day===2?.35:.14)&&S.phase!=='evening'&&S.step!=='alarm';
+    const tex317=NIGHT3||flick<(S.day===2?.35:.14)&&S.phase!=='evening'&&S.step!=='alarm';
     if(S.phase!=='evening')alarmFace.material.uniforms.map.value=(tex317||S.loopMon)?TX.alarm317:TX.alarm700;
     else alarmFace.material.uniforms.map.value=flick<.14?TX.alarm317:TX.alarm1148;
     ledT+=dt;led.material.uniforms.uEmissive.value=S.ledOn?(Math.floor(ledT*1.6)%2?1.2:.15):.1;
