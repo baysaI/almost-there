@@ -1943,8 +1943,7 @@ const HS=(function(){
     AU.master.gain.setValueAtTime(.85,AU.C.currentTime);SFX.tinnitus(7,.03);
     await wait(2.2);
     await aftermath(2);
-    await card('WEDNESDAY',3.2);
-    S.start(3);
+    {const d=S.next(3);await card(S.days[d],3.2);S.start(d);}
   }
   function fx2cut(){fx.fade=fx.fadeT=1;AU.master.gain.cancelScheduledValues(0);AU.master.gain.setValueAtTime(0,AU.C.currentTime);muteHouse();S.forceStat=null;S.statPunch=0;}
   S.jumpTo=function(sc){
