@@ -1919,12 +1919,10 @@ const HS=(function(){
   async function doorScare(){
     S.step='scare';S.busy=true;S.ending=true;setObjective('');setPrompt('');controls.look=false;controls.move=false;
     
-    // Player tries the exit door handle: it rattles and jams tight with a dead metallic thud
     SFX.rattle();
     await wait(.35);
     SFX.thud();
     
-    // Blood-red nightmare atmosphere: Deep crimson backlight bathes the walls behind the silhouette
     S.lampOff = false;
     S.lights = [
       [X0 + 1.8, 1.4, 2.0, 1.3, 0.08, 0.08, 7.0],
@@ -1938,11 +1936,9 @@ const HS=(function(){
     dupShade.material.uniforms.uColor.value.set(0xaa1515);
     tallyMat.uniforms.map.value = TX.bloodWall;
     
-    // Suffocating wet breathing right against player's neck
     burst(AU.C.currentTime, .9, 'lowpass', 240, .25, 1, .4);
     await wait(.6);
     
-    // Towering entity stands directly behind the player in the red-lit room
     const fwx = -Math.sin(S.yaw), fwz = -Math.cos(S.yaw);
     let bx = S.pos.x - fwx * 1.4, bz = S.pos.z - fwz * 1.4;
     bx = Math.max(X0 + 0.6, Math.min(X0 + 3.4, bx));
@@ -1955,34 +1951,27 @@ const HS=(function(){
     MT.shR.rotation.set(0, 0, 0);
     figScene.updateMatrixWorld(true);
     
-    // Camera is slowly, inescapably forced to look up directly into the towering horror's face
     const h = new THREE.Vector3(0, .14, 0);
     MT.head.localToWorld(h);
     const targetYaw = Math.atan2(-(h.x - S.pos.x), -(h.z - S.pos.z));
     const targetPitch = Math.atan2(h.y - S.eye, Math.hypot(h.x - S.pos.x, h.z - S.pos.z));
     await tween({x: S.pos.x, z: S.pos.z, eye: S.eye, yaw: targetYaw, pitch: targetPitch}, 1.7);
     
-    // 1. FIRST: THE SILHOUETTE STANDS TOWERING IN FULL GLORY
-    // The pitch-black void body is starkly silhouetted against the bloody walls
-    // Heavy agonizing heartbeat pulses through the speakers as its arm raises to point
     for(let beatCount = 0; beatCount < 4; beatCount++){
       heartbeat(1.4 + beatCount * .25);
       fx.red = 0.38 + beatCount * 0.12;
       VOIDU.uAmp.value = .016 + beatCount * .012;
       GLITCH = Math.min(.9, .25 + beatCount * .18);
-      // Arm slowly, terrifyingly lifts to point directly at player's heart
       MT.shR.rotation.x = -1.55 * ((beatCount + 1) / 4);
       MT.shR.rotation.z = .22 * ((beatCount + 1) / 4);
       figScene.updateMatrixWorld(true);
       await wait(.85 - beatCount * .08);
     }
     
-    // 2. THEN: SILENCE & CONDEMNATION TEXT BURNS ACROSS THE SCREEN
     await wait(.35);
     whisper(2.8, .35, 5);
     await intrude("YOU WERE DRIVING", 2.4, 2);
     
-    // 3. THE IMPACT: Blinding high-beam truck headlights, truck horn, explosive metal crash
     SFX.horn(3.4);
     fx.white = 1;
     punch(1.8);
