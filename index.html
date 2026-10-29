@@ -2741,6 +2741,7 @@ const HS=(function(){
     for(const s of steam){const m=s.userData.m;s.visible=S.mugsOnTable&&!m.userData.target&&!m.userData.tipped&&!S.noSteam&&S.phase!=='evening';if(!s.visible)continue;
       s.userData.ph=(s.userData.ph+dt*.4)%1;const p=s.userData.ph;s.position.set(m.position.x+Math.sin(p*9+m.userData.i)*.02,m.position.y+m.userData.h/2+.02+p*.28,m.position.z);s.scale.setScalar(1-p*.7);}
     if(!S.lastP)S.lastP=S.pos.clone();S.stillT=S.pos.distanceToSquared(S.lastP)>1e-6?0:(S.stillT||0)+dt;S.lastP.copy(S.pos);
+    $('#objective').classList.toggle('hush',S.day>=2&&S.day<=4&&S.stillT<(S.day===2?1.2:2.5));
     if(S.day===3&&bwFlip.length){camera.getWorldDirection(tmpD);for(const m of bwFlip){if(!m.visible)continue;tmpV.copy(m.position).sub(camera.position);const d=tmpV.length(),k=tmpV.normalize().dot(tmpD);
       if(k>.85&&d<7)m.userData.seen=true;else if(k<0&&m.userData.seen){m.userData.seen=false;if(Math.random()<.5){const u=m.material.uniforms.map;u.value=u.value===m.userData.t0?m.userData.t1:m.userData.t0;}}}}
     const inDup=S.pos.x>X0-1&&S.pos.x<X0+6;S.figOn=inDup;
