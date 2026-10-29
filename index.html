@@ -2839,7 +2839,7 @@ function frame(now){
   if(stage===HS&&HS.mirrorOn)HS.renderMirror(renderer);
   if(!(stage===HS&&HS.stutter&&frameN%5!==0)){renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);}
   renderer.setRenderTarget(null);renderer.render(postScene,postCam);
-  VOIDU.uTime.value=gameTime;
+  VOIDU.uTime.value=gameTime;VOIDD.uGaze.value+=((controls.look?1:0)-VOIDD.uGaze.value)*Math.min(1,dt*4);
   if(stage.figScene){FIGU.uFade.value=fx.fade;VOIDD.uWhite.value=fx.white;renderer.autoClear=false;renderer.clearDepth();renderer.render(stage.figScene,camera);renderer.autoClear=true;}
   requestAnimationFrame(frame);
 }
