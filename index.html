@@ -1776,6 +1776,9 @@ const HS=(function(){
       if(i === 7){
         breathe(ph, AU.C.currentTime, 1, .55);
       }
+      if(i === 11 && PNAME){
+        subtitle(_t('{n}... pick up.').replace('{n}', PNAME), 1.4, 'voice');
+      }
       if(i === 9){
         burst(AU.C.currentTime, .4, 'bandpass', 3200, .4, 3, .25);
         tapTo(AU.master, AU.C.currentTime, 75, .8, .5);
