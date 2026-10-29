@@ -1645,8 +1645,12 @@ const HS=(function(){
     S.busy=false;S.step='messages';setObjective('Check the messages.');
   });
   function startBreakfast(){S.step='eggs';S.bfast=true;setObjective('Take the eggs.');}
-  inter(fridgeM,()=>S.step==='eggs'?'Open the fridge':null,async()=>{S.step='fridge';setObjective('');const t=AU.C.currentTime;burst(t,.25,'lowpass',500,.35,1,.2);houseAu.fridge.vol=.2;
-    await wait(1.1);tapTo(AU.master,AU.C.currentTime,700,.25,.08);await wait(.6);burst(AU.C.currentTime,.2,'lowpass',380,.4,1,.2);houseAu.fridge.vol=.05;S.step='cook';setObjective('Cook the eggs.');},2.2);
+  inter(fridgeM,()=>S.step==='eggs'?'Open the fridge':null,async()=>{S.step='fridge';setObjective('');S.busy=true;
+    await tween({x:S.pos.x,z:S.pos.z,eye:1.55,yaw:Math.atan2(-(.8-S.pos.x),-(4.95-S.pos.z)),pitch:-.3},.7);
+    const t=AU.C.currentTime;burst(t,.25,'lowpass',500,.35,1,.2);houseAu.fridge.vol=.2;await swingDoor(1.9,.7);
+    VH.visible=true;hEgg.visible=false;hArm.position.set(.2,-.45,-.3);await handTo([.08,-.1,-.52],[-.1,0,0],.55);tapTo(AU.master,AU.C.currentTime,700,.25,.08);hEgg.visible=true;
+    await handTo([.16,-.17,-.38],[.15,.1,0],.5);await swingDoor(0,.55);burst(AU.C.currentTime,.2,'lowpass',380,.4,1,.2);houseAu.fridge.vol=.05;
+    await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.5);S.busy=false;S.step='cook';setObjective('Cook the eggs.');},2.2);
   inter(pan,()=>S.step==='cook'?'Cook the eggs':null,async()=>{S.step='cooking';setObjective('');S.busy=true;
     const dx=pan.position.x-S.pos.x,dz=pan.position.z-S.pos.z;await tween({x:S.pos.x,z:S.pos.z,eye:1.5,yaw:Math.atan2(-dx,-dz),pitch:-.95},.9);
     SFX.click();await wait(.6);
