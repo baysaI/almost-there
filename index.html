@@ -1071,7 +1071,7 @@ const RD=(function(){
     if(au){ramp(au.radio.gain,0,2);}
     await wait(2.5);stopAudio();S.rest=false;S.d5=false;
     MEM.stopped=1;saveMem();
-    showEnd('ALMOST THERE','The end.');
+    showEnd('ALMOST THERE',SEEN.size<4?'You never looked at them.':'The end.');
   }
   let dtR=0;
   S.showGhosts=function(){buildPassengers();belt.visible=false;};
