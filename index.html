@@ -1070,6 +1070,7 @@ const RD=(function(){
     await fadeTo(1,4);
     if(au){ramp(au.radio.gain,0,2);}
     await wait(2.5);stopAudio();S.rest=false;S.d5=false;
+    if(SEEN.size>=8){await wait(1.6);[()=>SFX.wiper(),()=>{SFX.beep();setTimeout(()=>SFX.beep(),900);},()=>pingTo(AU.master,AU.C.currentTime,2600,.15,.4),()=>SFX.thud()][EV]();await wait(2.4);}
     MEM.stopped=1;saveMem();
     showEnd('ALMOST THERE',SEEN.size<4?'You never looked at them.':'The end.');
   }
