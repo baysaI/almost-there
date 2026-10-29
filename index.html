@@ -2476,7 +2476,6 @@ const HS=(function(){
   function startHerLull(){if(S.lullH)S.lullH.stop();S.lullH=worldSnd('lull',new THREE.Vector3(5.85,1.25,1.45),12,1.1,{loop:true,lp:800,wet:.4,hum:true});}
   S.onStep=()=>{
     if(S.figOn && AU.C){
-      // Terrifying delayed footstep: someone steps right behind you
       setTimeout(()=>{
         if(S.figOn && AU.C){
           const t=AU.C.currentTime;
