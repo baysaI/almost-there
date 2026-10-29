@@ -2073,7 +2073,6 @@ const HS=(function(){
       S.step='cant';setObjective('');GLITCH=.35;stopWorld();
       bloodSplat();
       SFX.horn(.4);
-      subtitle("You died here.", 3.2, "thought");
       whisper(2.8, .3, 4);
       ramp(houseAu.drone.gain,.4,.1);await intrude("you can't.",3.2,1);ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
   }
