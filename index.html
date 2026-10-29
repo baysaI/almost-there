@@ -664,7 +664,8 @@ canvas.addEventListener('touchend',endTouch);canvas.addEventListener('touchcance
 $('#use').addEventListener('touchstart',e=>{e.preventDefault();if(examining){closeExamine();return;}if(stage&&stage.drowsyUI)stage.wake();else interact();},{passive:false});
 $('#use').addEventListener('click',()=>{if(stage&&stage.drowsyUI)stage.wake();else interact();});
 function interact(){if(stage&&stage.interact)stage.interact();}
-function examine(t){examining=true;$('#exImg').src=t.image.toDataURL();$('#examine').hidden=false;setPrompt('');}
+const SEEN=new Set();
+function examine(t){examining=true;SEEN.add(t.uuid);$('#exImg').src=t.image.toDataURL();$('#examine').hidden=false;setPrompt('');}
 function closeExamine(){examining=false;$('#examine').hidden=true;}
 $('#examine').addEventListener('click',closeExamine);
 let choiceRes=null;
