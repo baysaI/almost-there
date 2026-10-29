@@ -1051,7 +1051,7 @@ const RD=(function(){
     const kp=PK.root.position;kp.y=.62;const k0=kp.clone();
     t0=gameTime;while(gameTime-t0<1.4){const k=smooth((gameTime-t0)/1.4);kp.x=lerp(k0.x,k0.x+1.5,k);kp.z=lerp(k0.z,k0.z-.6,k);await wait(.02);}
     PW.root.rotation.y=PI;PK.root.rotation.y=PI;
-    t0=gameTime;let waved=false;
+    t0=gameTime;let waved=SEEN.size<4;
     while(true){const t=gameTime-t0;
       wp.z-=.9*dtR;wp.x=lerp(wp.x,2.9,.01);PW.root.position.y=.95+Math.abs(Math.sin(t*4.5))*.02;
       if(!waved){kp.z-=.9*dtR;kp.x=lerp(kp.x,2.4,.01);if(kp.z<-6.5){waved=true;S.waveT=gameTime;}}
