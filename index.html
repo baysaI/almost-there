@@ -1365,7 +1365,7 @@ const HS=(function(){
     const J=(par,x,y,z)=>{const g=new THREE.Group();g.position.set(x,y,z);par.add(g);return g;};
     const sph=r=>new THREE.SphereGeometry(r,7,5);
     const down=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r1,r2,len,6,2,false);g.translate(0,-len/2,0);return g;};
-    const up=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r2,r1,len,16,6,false);g.translate(0,len/2,0);return g;};
+    const up=(len,r1,r2)=>{const g=new THREE.CylinderGeometry(r2,r1,len,6,2,false);g.translate(0,len/2,0);return g;};
     M(sph(.17),0,.02,0,root,1,.62,.7);
     P.spine=J(root,0,.08,0);M(up(.27,.15,.16),0,0,0,P.spine,1,1,.62);
     P.chest=J(P.spine,0,.25,0);M(up(.3,.16,.2),0,0,0,P.chest,1,1,.58);M(sph(.2),0,.29,0,P.chest,1,.32,.58);
