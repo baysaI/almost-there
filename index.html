@@ -495,7 +495,7 @@ function updateTV(){const d=tvImg.data;for(let i=0;i<d.length;i+=4){const v=Math
 updateTV();
 const FIGU={uFade:{value:0}};
 const VOIDU={uTime:{value:0},uAmp:{value:.006}};
-const VOIDD={uTime:null,uAmp:null,uDepth:{value:null},uCanvas:{value:new THREE.Vector2(1,1)},uFade:null,uWhite:{value:0}};
+const VOIDD={uTime:null,uAmp:null,uDepth:{value:null},uCanvas:{value:new THREE.Vector2(1,1)},uFade:null,uWhite:{value:0},uGaze:{value:0}};
 let voidMatD=null;
 function makeVoidD(){VOIDD.uTime=VOIDU.uTime;VOIDD.uAmp=VOIDU.uAmp;VOIDD.uFade=FIGU.uFade;VOIDD.uDepth.value=rt.depthTexture;
   voidMatD=new THREE.ShaderMaterial({uniforms:VOIDD,side:THREE.FrontSide,
