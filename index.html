@@ -1425,9 +1425,6 @@ const HS=(function(){
   const ML=makeMan();ML.root.position.set(X0+1.3,.66,1.38);ML.root.rotation.x=-PI/2+.14;
   ML.shL.rotation.z=-.06;ML.shR.rotation.z=.06;ML.head.rotation.x=-.05;
   figLie.add(ML.root);figScene.add(figLie);
-  const dupSheet=new THREE.Group();dupSheet.position.set(X0+1.3,.8,0);dupSheet.add(box(.92,.07,1.9,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,0,1.79]}));dupSheet.add(box(.92,.3,.05,TX.blanket,0xd0c8bc,{seg:.3,pos:[0,-.15,2.74]}));
-  for(const q of[[1.25,.3,1.2,.22,1.5],[2.25,.16,1.3,.5,1]]){const lb=new THREE.Mesh(new THREE.SphereGeometry(q[1],8,6),mat(TX.blanket,0xd0c8bc));lb.scale.set(q[2],q[3],q[4]);lb.position.set(0,0,q[0]);dupSheet.add(lb);}
-  scene.add(dupSheet);
   const figSit=new THREE.Group();
   const MS=makeMan();MS.root.position.set(0,.5,0);
   MS.hipL.rotation.set(-PI/2,0,.06);MS.hipR.rotation.set(-PI/2,0,-.06);MS.knL.rotation.x=PI/2;MS.knR.rotation.x=PI/2;
@@ -2834,7 +2831,7 @@ const HS=(function(){
       s.userData.ph=(s.userData.ph+dt*.4)%1;const p=s.userData.ph;s.position.set(m.position.x+Math.sin(p*9+m.userData.i)*.02,m.position.y+m.userData.h/2+.02+p*.28,m.position.z);s.scale.setScalar(1-p*.7);}
     if(S.day===3&&bwFlip.length){camera.getWorldDirection(tmpD);for(const m of bwFlip){if(!m.visible)continue;tmpV.copy(m.position).sub(camera.position);const d=tmpV.length(),k=tmpV.normalize().dot(tmpD);
       if(k>.85&&d<7)m.userData.seen=true;else if(k<0&&m.userData.seen){m.userData.seen=false;if(Math.random()<.5){const u=m.material.uniforms.map;u.value=u.value===m.userData.t0?m.userData.t1:m.userData.t0;}}}}
-    const inDup=S.pos.x>X0-1&&S.pos.x<X0+6;S.figOn=inDup;dupSheet.scale.y=figLie.visible?1:.3;
+    const inDup=S.pos.x>X0-1&&S.pos.x<X0+6;S.figOn=inDup;
     if(inDup){
       figScene.updateMatrixWorld();camera.updateMatrixWorld();camera.getWorldDirection(tmpD);
       const hd=figStand.visible?MT.head:(S.swapped?MS.head:ML.head);hd.getWorldPosition(tmpV2);
