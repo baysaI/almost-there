@@ -2642,6 +2642,7 @@ const HS=(function(){
   }
   S.start=async function(day=1,scene=null){
     initAudio(); if(AU.C && AU.C.state==='suspended') AU.C.resume().catch(()=>{});
+    if(day===1&&!scene){SEEN.clear();S.reps={};}S.seen0=SEEN.size;S.jumped=!!scene;
     S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();S.statPunch=0;S.shakeH=0;S.shakeDecay=0;
     if(!houseAu)startAudio();else restoreHouse();
     resetDay();
