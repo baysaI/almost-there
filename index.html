@@ -2156,7 +2156,7 @@ const HS=(function(){
     else if(n===2)setObjective('CLEAN IT UP.');
     else{
       S.step='cant';setObjective('');GLITCH=.35;stopWorld();
-      bloodSplat();
+      bloodSplat();setTimeout(bloodFade,3500);
       SFX.horn(.4);
       whisper(2.8, .3, 4);
       ramp(houseAu.drone.gain,.4,.1);await intrude("you can't.",3.2,1);if(await fakeHang()){await intrude("you can't.",2.4,2);fadeTo(0,1.2);}ramp(houseAu.drone.gain,.12,2);setObjective("you can't.");await wait(3);S.busy=true;await fadeTo(1,2.5);setPhase('night3');await wait(1.5);fadeTo(0,2.5);S.busy=false;S.step='sleep';setObjective('Go to sleep.');}
