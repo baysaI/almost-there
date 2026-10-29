@@ -2494,7 +2494,7 @@ const HS=(function(){
     const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.LinearMipmapLinearFilter;
     const m=plane(.21,.27,t,0xffffff,{fit:true,seg:9,pos});if(rot.flat){m.rotation.x=-PI/2;m.rotation.z=rot.z||0;}else m.rotation.y=rot.y||0;
     group.add?group.add(m):scene.add(m);if(group.push){m.visible=false;group.push(m);scene.add(m);}
-    inter(m,'Read',()=>examine(t),1.8);return m;}
+    let reads=0;inter(m,'Read',()=>{const i=reads++;if(vn>1&&i){draw(pick(i));t.needsUpdate=true;}examine(t);},1.8);return m;}
   paper(['milk','bread','eggs','juice (the yellow one)','batteries for the','  music box','','call insurance back','call her mother back','','DO NOT drive at night'],[.759,1.06,5.12],{y:PI/2},G1,'');
   paper(['RE: CLAIM #0317','','Dear Sir,','','We are unable to process','your claim until the','second passenger has been','identified.','','Our records show only one','passenger was travelling.','Please advise.'],[10.43,.606,3.78],{flat:true,z:.15},D2,'NORTHWAY INSURANCE');
   paper(['INCIDENT REPORT','','Time: 03:17','Vehicle left lane.','No braking observed.','',['Driver: conscious at scene.','Driver: unresponsive.','Driver: alone in vehicle.','Driver: not located.'][EV],'Repeating "almost there".','','Occupants recovered: 1','Rear child seat: empty.','Belt fastened.','','Officer: ##########'],[.34,.946,7.62],{flat:true,z:-.1},D3,'HIGHWAY PATROL');
