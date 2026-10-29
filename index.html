@@ -2525,7 +2525,7 @@ const HS=(function(){
   const famPivot=new THREE.Group();famPivot.position.set(5.95,0,6.15);figScene.add(famPivot);famPivot.add(famG);famG.position.set(-5.95,0,-6.15);
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
-    if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);behind();}}
+    if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);ambient();}}
     if(S.behindSrc)S.behindSrc.update(camera.position,S.yaw);
     tickWorld();
     if(S.onSofa){S.sofaT+=dt;
