@@ -2483,11 +2483,14 @@ const HS=(function(){
   function flash(g,x,z,ry,frames=4,delay=0){setTimeout(()=>{g.position.set(x,0,z);g.rotation.y=ry;flashes.push({g,n:frames});g.visible=true;},delay*1000);}
   function tvFlash(){if(S.day===1)flash(fM,8.3,8.7,PI,4,2.6);}
   const G1=new THREE.Group();G1.visible=false;scene.add(G1);
-  function paper(lines,pos,rot,group,title){if(LANG==='tr'){const k=lines.join('|');if(TRP[k])lines=TRP[k];title=_t(title);}
+  function paper(lines,pos,rot,group,title){const vn=Math.max(1,...lines.map(l=>Array.isArray(l)?l.length:1));
+    const pick=i=>{let L=lines.map(l=>Array.isArray(l)?l[(i+EV)%l.length]:l);if(LANG==='tr'){const k=L.join('|');if(TRP[k])L=TRP[k];}return L;};
+    if(LANG==='tr')title=_t(title);
     const W=256,Hh=330,c=document.createElement('canvas');c.width=W;c.height=Hh;const g=c.getContext('2d');
-    g.fillStyle='#d8d3c2';g.fillRect(0,0,W,Hh);speckle(g,W,Hh,.06,lines.length*7);g.fillStyle='rgba(120,100,60,.12)';g.fillRect(0,Hh-40,W,40);
-    g.fillStyle='#24211c';g.font='bold 15px monospace';if(title)g.fillText(title,18,30);g.font='13px monospace';
-    lines.forEach((l,i)=>{if(l.startsWith('#')){g.fillStyle='#1a1a1a';g.fillRect(18,44+i*19-11,Math.min(220,l.length*8),13);g.fillStyle='#24211c';}else g.fillText(l,18,44+i*19);});
+    const draw=L=>{g.fillStyle='#d8d3c2';g.fillRect(0,0,W,Hh);speckle(g,W,Hh,.06,L.length*7);g.fillStyle='rgba(120,100,60,.12)';g.fillRect(0,Hh-40,W,40);
+      g.fillStyle='#24211c';g.font='bold 15px monospace';if(title)g.fillText(title,18,30);g.font='13px monospace';
+      L.forEach((l,i)=>{if(l.startsWith('#')){g.fillStyle='#1a1a1a';g.fillRect(18,44+i*19-11,Math.min(220,l.length*8),13);g.fillStyle='#24211c';}else g.fillText(l,18,44+i*19);});};
+    draw(pick(0));
     const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.LinearMipmapLinearFilter;
     const m=plane(.21,.27,t,0xffffff,{fit:true,seg:9,pos});if(rot.flat){m.rotation.x=-PI/2;m.rotation.z=rot.z||0;}else m.rotation.y=rot.y||0;
     group.add?group.add(m):scene.add(m);if(group.push){m.visible=false;group.push(m);scene.add(m);}
