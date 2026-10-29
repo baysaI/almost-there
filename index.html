@@ -1452,6 +1452,12 @@ const HS=(function(){
   const bw=[];
   const bwall=(lines,w,h,pos,ry,stage,ceil)=>{const m=plane(w,h,bloodText(lines,w,h,stage*97+bw.length*13),0xffffff,{fit:true,seg:9,em:.42,rotY:ceil?null:ry,pos});
     if(ceil){m.rotation.x=PI/2;m.rotation.z=ry;}m.visible=false;m.userData.stage=stage;G3.add(m);bw.push(m);return m;};
+  const WH=[
+    {s1:['YOU WERE','DRIVING'],s4:["WHY DIDN'T",'YOU STOP'],wide:'SHE ASKED YOU TO STOP',chant:['STOP','STOP','STOP'],small:'SHE ASKED'},
+    {s1:['ROOM','317'],s4:['CAN YOU','HEAR US'],wide:'THEY ARE STILL WAITING',chant:['WAKE UP','WAKE UP','WAKE UP'],small:'WAKE UP'},
+    {s1:['NOBODY','LIVES HERE'],s4:['WHO ARE','THEY'],wide:'THERE WERE NEVER THREE',chant:['ONE','ONE','ONE'],small:'NOBODY'},
+    {s1:["YOU WEREN'T",'IN THE CAR'],s4:['YOU WERE','ASLEEP'],wide:"YOU WEREN'T DRIVING",chant:['NOT YOU','NOT YOU','NOT YOU'],small:'NOT YOU'}];
+  const WL=WH[EV],WO=[1,2,3].map(i=>WH[(EV+i)%4]);
   bwall(['YOU WERE','DRIVING'],1.5,.85,[5.526,1.6,9.05],-PI/2,1);
   bwall(['SHE ASKED YOU TO STOP'],2.9,.45,[8.5,2.15,3.074],0,1);
   bwall(['WAKE UP','WAKE UP','WAKE UP'],1.85,1.55,[5.674,1.4,8.8],PI/2,1);
