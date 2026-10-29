@@ -1025,7 +1025,7 @@ const RD=(function(){
     return restStop(false);
   }
   async function loopBack(){
-    MEM.loops=(MEM.loops||0)+1;saveMem();
+    MEM.loops=(MEM.loops||0)+1;MEM.inGame=0;saveMem();
     S.force=true;S.auto=true;
     S.speed = 36;
     SFX.tinnitus(4, .03);
