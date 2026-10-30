@@ -622,7 +622,9 @@ function breathe(dest,t,cycles=3,vol=.1){const C=AU.C;for(let i=0;i<cycles;i++){
 function deadAir(build=7,hold=4){if(!AU.C)return;const C=AU.C,t=C.currentTime,g=G(0),o1=O('sine',38),o2=O('sine',41.5),n=N(),nf=F('lowpass',120);chain(n,nf,g);o1.connect(g);o2.connect(g);out(g,0);
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.32,t+build);const v=AU.vol.gain;v.setValueAtTime(SET.vol,t+build);v.setValueAtTime(0,t+build+.01);v.setValueAtTime(SET.vol,t+build+hold);
   setTimeout(()=>{[o1,o2,n].forEach(x=>{try{x.stop();}catch(_){}});},(build+.05)*1000);}
-function earBreath(cycles=3,side=-1){if(!AU.C)return;const C=AU.C,lp=F('lowpass',2600);let n=lp;if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=side*.95;lp.connect(p);n=p;}out(n,0);breathe(lp,C.currentTime+.05,cycles,.16);}
+function earBreath(cycles=3,side=-1){if(!AU.C)return;const C=AU.C,lp=F('lowpass',2600);let n=lp;if(C.createStereoPanner){const p=C.createStereoPanner();p.pan.value=side*.95;lp.connect(p);n=p;}out(n,0);
+  if(AU.voices.breath){const d=cycles*3.7,g=G(0),t=C.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.45,t+.4);g.gain.setValueAtTime(.45,t+d-.6);g.gain.linearRampToValueAtTime(0,t+d);g.connect(lp);smp('breath',g,{off:Math.random()<.5?.12:3.75,len:d+.1});return;}
+  breathe(lp,C.currentTime+.05,cycles,.16);}
 function punch(k=1){SFX.sting(k);HS.statPunch=.55*k;HS.shakeH=.9*k;HS.shakeDecay=2.2;}
 function bloodSplat(){const c=$('#blood');const W=200,H=Math.max(100,Math.round(200*innerHeight/innerWidth));c.width=W;c.height=H;const g=c.getContext('2d');g.clearRect(0,0,W,H);
   const r=Math.random,drips=[];const red=a=>`rgba(${62+r()*48|0},${r()*6|0},${r()*5|0},${a})`;const gs=()=>(r()+r()+r()-1.5)/1.5;
