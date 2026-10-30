@@ -1778,7 +1778,7 @@ const HS=(function(){
   inter(bedHit,()=>S.step==='bed'?'Sleep':null,goToSleep,2.2);
   inter(closetDoor,()=>S.step==='wake'?'Knock':(S.day===4&&(S.step==='herroom'||S.step==='heropen')?'Open':(S.day===2&&S.step!=='knocking'?'Open':null)),async()=>{
     if(S.day===4&&S.step==='herroom')return herLocked();if(S.day===4&&S.step==='heropen')return enterVoid();
-    if(S.step!=='wake'){SFX.rattle();return;}
+    if(S.step!=='wake'){SFX.rattle();ruleOpen();return;}
     S.step='knocking';setObjective('');S.busy=true;SFX.knock(.55,.2);
     await wait(1.3);if(S.closetBox){S.closetBox.on=false;S.closetBox=null;}
     await wait(2.6);SFX.knock(.2,.7,200);
@@ -2662,6 +2662,14 @@ const HS=(function(){
     const h=worldSnd(null,new THREE.Vector3(4.8,2.3,2.6),7,1,{lp:900,wet:.1});if(h){const o=O('sawtooth',100),o2=O('sine',50),g=G(.03),g2=G(.05);chain(o,F('bandpass',300,1.5),g,h.bus);chain(o2,g2,h.bus);h.osc=[o,o2];RL.hum=h;}}
   function humOff(){const h=RL.hum;RL.hum=null;if(!h)return;h.stop(.08);setTimeout(()=>h.osc.forEach(o=>{try{o.stop();}catch(_){}}),300);}
   function redOff(){RL.redT=0;humOff();SFX.click();}
+  function bulbPop(){RL.redT=0;RL.dead=true;humOff();const t=AU.C.currentTime;tapTo(AU.master,t,5200,.22,.03,'bandpass');tapTo(AU.master,t+.04,3100,.12,.06,'bandpass');burst(t,.18,'highpass',2600,.18,1,.2);burst(t+.02,.4,'bandpass',900,.05,2,.3);}
+  function thumpIn(n=1,v=1){const h=worldSnd(null,new THREE.Vector3(5.95,1.1,1.45),9,1.3,{lp:700,wet:.35});if(!h)return;const t=AU.C.currentTime+.02;
+    for(let i=0;i<n;i++){const ti=t+i*.34,o=AU.C.createOscillator();o.frequency.setValueAtTime(110,ti);o.frequency.exponentialRampToValueAtTime(48,ti+.16);const g=G(0);g.gain.setValueAtTime(v,ti);g.gain.exponentialRampToValueAtTime(.001,ti+.24);o.connect(g);g.connect(h.bus);o.start(ti);o.stop(ti+.26);
+      const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',380),ng=G(0);ng.gain.setValueAtTime(v*.9,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.14);chain(nb,nf,ng,h.bus);nb.start(ti,Math.random());nb.stop(ti+.16);}
+    setTimeout(()=>h.stop(),(n*.34+.6)*1000);}
+  function objLie(l,d){const el=$('#objective');if(!el.classList.contains('show'))return;const real=el.textContent;clearTimeout(objTimer);el.textContent=_t(l);objTimer=setTimeout(()=>{el.textContent=real;},d*1000);}
+  function ruleOpen(){if(!RL.on||RL.redT<=0||RL.broke||S.day!==2)return;RL.broke=1;
+    setTimeout(()=>thumpIn(1,1.8),450);setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you woke\nher");},1500);setTimeout(()=>objLie('Go to sleep.',1.8),2600);}
   function ruleLight(LL){if(!RL.on||!(RL.dead||RL.redT>0)||S.pos.x>12||!['grey','wet','sun4dim'].includes(S.phase))return LL;LL=LL.slice();
     if(RL.dead||(RL.flick>0&&R0()<.5)){LL[3]=null;return LL;}LL[3]=[4.8,2.3,2.6,.95,.05,.04,5.2];return LL;}
   function ruleTick(dt){if(!RL.on)return;const home=S.pos.x<12&&!S.inVoid&&!S.inCor&&!S.inBath;
