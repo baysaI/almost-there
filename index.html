@@ -1738,7 +1738,7 @@ const HS=(function(){
     hallMirror.visible=false;r.setRenderTarget(hmRT);r.render(scene,hmCam);hallMirror.visible=true;};
   const hmSheet=new THREE.Group();hmSheet.add(box(HMW+.18,HMH+.34,.02,TX.drape,0xffffff,{fit:true,seg:9,pos:[HMX,HMY-.08,.115]}));hmSheet.add(box(HMW+.18,.03,.09,TX.drape,0xffffff,{fit:true,seg:9,pos:[HMX,HMY+HMH/2+.08,.075]}));scene.add(hmSheet);
   const hmNot=note('not\nyet',[HMX+.1,HMY+.14,.13],0);D2.splice(D2.indexOf(hmNot),1);note('smile',[HMX,1.6,HMZ+.006],0);
-  function haleDay(){const d=S.day;hmSheet.visible=d===1;hmNot.visible=d===1;if(S.albumBk)S.albumBk.visible=d<4;hmAlb.visible=d===3||d===4;HL.forEach(m=>m.visible=d>=m.userData.d0);wal.visible=d>=2;hmFace.visible=d===3;if(hmAlb.visible)hmAlbP.material.uniforms.map.value=haleAlbum();}
+  function haleDay(){const d=S.day;hmSheet.visible=d===1;hmNot.visible=d===1;if(S.albumBk)S.albumBk.visible=d<4;hmAlb.visible=d===3||d===4;HL.forEach(m=>m.visible=d>=m.userData.d0);wal.visible=d>=2;walL.material.uniforms.map.value=d===4?TX.licVoid:TX.lic;hmFace.visible=d===3;if(hmAlb.visible)hmAlbP.material.uniforms.map.value=haleAlbum();}
   const hmAlb=new THREE.Group();hmAlb.add(box(.46,.02,.32,null,0x3a2a20,{seg:9,pos:[0,.01,0]}));const hmAlbP=plane(.44,.3,null,0xffffff,{fit:true,seg:9,unique:true,pos:[0,.022,0]});hmAlbP.rotation.x=-PI/2;hmAlb.add(hmAlbP);
   hmAlb.position.set(HMX-.06,0,.5);hmAlb.rotation.y=.16;scene.add(hmAlb);inter(hmAlb,'Look',()=>examine(haleAlbum()),2.2);
   const hmFace=plane(.12,.19,TX.tomCut,0xffffff,{fit:true,seg:9,em:.35,pos:[HMX,1.629,HMZ+.007]});hmFace.rotation.z=-.05;add(hmFace);inter(hmFace,'Look',()=>examine(TX.tomCut),2.2);
