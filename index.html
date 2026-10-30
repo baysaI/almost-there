@@ -1710,14 +1710,14 @@ const HS=(function(){
   };
   const X2=80;
   const seatG=new THREE.Group();seatG.position.set(X2,0,0);scene.add(seatG);
-  seatG.add(box(1.5,.16,.55,TX.fabric,0x58585e,{seg:9,pos:[0,.45,0]}));seatG.add(box(1.5,.72,.14,TX.fabric,0x58585e,{seg:9,pos:[0,.88,-.32],rot:[-.12,0,0]}));
-  seatG.add(box(.28,.18,.1,TX.fabric,0x58585e,{seg:9,pos:[-.45,1.32,-.38]}));seatG.add(box(.28,.18,.1,TX.fabric,0x58585e,{seg:9,pos:[.45,1.32,-.38]}));
+  seatG.add(box(1.5,.16,.55,TX.cord,0x58585e,{seg:9,ts:.5,pos:[0,.45,0]}));seatG.add(box(1.5,.72,.14,TX.cord,0x58585e,{seg:9,ts:.5,pos:[0,.88,-.32],rot:[-.12,0,0]}));
+  seatG.add(box(.28,.18,.1,TX.cord,0x58585e,{seg:9,ts:.5,pos:[-.45,1.32,-.38]}));seatG.add(box(.28,.18,.1,TX.cord,0x58585e,{seg:9,ts:.5,pos:[.45,1.32,-.38]}));
   seatG.add(box(1.6,.04,.9,TX.carpet,0x6a6a70,{seg:9,pos:[0,.12,.2]}));
   const blFold=box(.42,.08,.3,TX.blanket,0xffffff,{seg:9,pos:[X2+.38,.57,.02]});scene.add(blFold);
   const blDrape=new THREE.Group();blDrape.add(box(1.3,.04,.52,TX.blanket,0xffffff,{seg:.3,pos:[X2,.6,0]}));
   const lump=new THREE.Group();const lb=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),mat(TX.blanket,0xffffff));lb.scale.set(1.5,.42,.75);lb.position.set(X2+.12,.6,0);lump.add(lb);
   const lh=new THREE.Mesh(new THREE.SphereGeometry(.1,8,6),mat(TX.blanket,0xffffff));lh.scale.set(1,.75,1);lh.position.set(X2-.38,.63,0);lump.add(lh);blDrape.add(lump);blDrape.visible=false;scene.add(blDrape);
-  const mbox=new THREE.Group();mbox.add(box(.17,.09,.12,TX.wood,0xc0a080,{seg:9,pos:[0,0,0]}));const lid=box(.17,.012,.12,TX.wood,0xc0a080,{seg:9,pos:[0,.07,-.07],rot:[-1.2,0,0]});mbox.add(lid);
+  const mbox=new THREE.Group();mbox.add(box(.17,.09,.12,TX.kwood,0xc0a080,{seg:9,ts:.3,pos:[0,0,0]}));const lid=box(.17,.012,.12,TX.kwood,0xc0a080,{seg:9,ts:.3,pos:[0,.07,-.07],rot:[-1.2,0,0]});mbox.add(lid);
   mbox.add(box(.05,.03,.02,null,0xd0c090,{seg:9,pos:[.1,0,0]}));mbox.position.set(X2-.48,.58,.05);scene.add(mbox);
   const draw2=plane(.22,.22,TX.drawing2,0xffffff,{fit:true,seg:9,pos:[X2+.05,.535,.14]});draw2.rotation.x=-PI/2;draw2.rotation.z=-.15;scene.add(draw2);
   inter(draw2,'Look',()=>examine(TX.drawing2),2.4);
