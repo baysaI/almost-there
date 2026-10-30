@@ -1317,7 +1317,7 @@ const HS=(function(){
   function chair(x,z,ry){const g=new THREE.Group();g.add(box(.42,.05,.42,WD,0xa08870,{seg:9,pos:[0,.45,0]}));g.add(box(.42,.5,.05,WD,0xa08870,{seg:9,pos:[0,.72,-.2]}));
     for(const a of[-.18,.18])for(const b of[-.18,.18])g.add(box(.04,.45,.04,WD,0x8a7060,{seg:9,pos:[a,.22,b]}));g.position.set(x,0,z);g.rotation.y=ry;scene.add(g);g.updateMatrixWorld();
     const bb=new THREE.Box3().setFromObject(g);cols.push({x0:bb.min.x,x1:bb.max.x,z0:bb.min.z,z1:bb.max.z});return g;}
-  const chairA=chair(2.4,6.62,0);const chairB=chair(2.4,8.18,PI);chair(3.28,7.4,-PI/2);
+  const chairA=chair(2.4,6.62,0);const chairB=chair(2.4,8.18,PI);const chairC=chair(3.28,7.4,-PI/2);
   const mugDefs=[[0xd8d4c8,.045,.1,[2.4,7.08]],[0xa04a32,.045,.1,[2.85,7.4]],[0xe0b840,.036,.075,[2.4,7.72]]];
   const plates=mugDefs.map((d,i)=>{const g=new THREE.Group();g.add(cyl(.1,.085,.015,12,null,0xeeeae0,{pos:[0,0,0]}));const e=new THREE.Group();mkEgg(e,0,0,i===2?0x6a0808:0xe8a820);e.position.y=-.004;g.add(e);
     const tx=d[3][0],tz=d[3][1];g.position.set(tx+(2.4-tx)*.45,.768,tz+(7.4-tz)*.45);g.visible=false;scene.add(g);return g;});
@@ -2788,7 +2788,6 @@ const HS=(function(){
       btP.sub(camera.position);const d=btP.length();if(d<.05)return true;btR.set(camera.position,btP.divideScalar(d));btR.far=d;if(!btR.intersectObjects(btWalls,false).length)return true;}
     return false;}
   function btLook(b){b.getCenter(btP).sub(camera.position);const d=btP.length();if(d>6||d<.05||!btF.intersectsBox(b))return false;btR.set(camera.position,btP.divideScalar(d));btR.far=d;return !btR.intersectObjects(btWalls,false).length;}
-  const chairC=scene.children.find(g=>g.isGroup&&Math.abs(g.position.x-3.28)<.01&&Math.abs(g.position.z-7.4)<.01);
   const CH=[chairA,chairB,chairC].map(g=>{const b=new THREE.Box3().setFromObject(g),cx=(b.min.x+b.max.x)/2,cz=(b.min.z+b.max.z)/2;
     const col=cols.find(c=>Math.abs((c.x0+c.x1)/2-cx)<.02&&Math.abs((c.z0+c.z1)/2-cz)<.02);return {g,col,c0:{...col},p0:g.position.clone(),q0:g.quaternion.clone()};});
   const chBox=(c,m=.25)=>new THREE.Box3().setFromObject(c.g).expandByScalar(m);
