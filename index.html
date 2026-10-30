@@ -2647,7 +2647,7 @@ const HS=(function(){
       setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2600);}}
   [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG,herG,corMan,famSW,famSK].forEach(g=>{figScene.add(g);toVoidD(g);});
   const famPivot=new THREE.Group();famPivot.position.set(5.95,0,6.15);figScene.add(famPivot);famPivot.add(famG);famG.position.set(-5.95,0,-6.15);
-  Object.assign(TRD,{"if the light\nis red\ndon't open\nher door":"ışık\nkırmızıysa\nkapısını\naçma","you woke\nher":"onu\nuyandırdın","if the light\nis red\nstay away\nfrom her door":"ışık\nkırmızıysa\nkapısından\nuzak dur","if she\ncries\ngo to her":"ağlarsa\nyanına\ngit","you went\nto her\nagain":"yine\nyanına\ngittin"});
+  Object.assign(TRD,{"if the light\nis red\ndon't open\nher door":"ışık\nkırmızıysa\nkapısını\naçma","you woke\nher":"onu\nuyandırdın","if the light\nis red\nstay away\nfrom her door":"ışık\nkırmızıysa\nkapısından\nuzak dur","if she\ncries\ngo to her":"ağlarsa\nyanına\ngit","you went\nto her\nagain":"yine\nyanına\ngittin","you let\nher cry":"onu\nağlarken\nbıraktın","Go to her.":"Yanına git."});
   function ruleNote(pos,ry){let txt='';const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
     const draw=()=>{const g=c.getContext('2d'),L=_t(txt).replace(/'/g,'’').split('\n'),big=L.length<4;g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,47);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
       g.fillStyle='#1d1a30';g.font=HF(big?25:21)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';L.forEach((l,i)=>g.fillText(l,48,52+(i-(L.length-1)/2)*(big?23:20),90));t.needsUpdate=true;};
@@ -2671,15 +2671,18 @@ const HS=(function(){
   function objLie(l,d){const el=$('#objective');if(!el.classList.contains('show'))return;const real=el.textContent;clearTimeout(objTimer);el.textContent=_t(l);objTimer=setTimeout(()=>{el.textContent=real;},d*1000);}
   function ruleOpen(){if(!RL.on||RL.redT<=0||RL.broke||S.day!==2)return;RL.broke=1;
     setTimeout(()=>thumpIn(1,1.8),450);setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you woke\nher");},1500);setTimeout(()=>objLie('Go to sleep.',1.8),2600);}
+  function herBehind(){camera.getWorldDirection(tmpD);const h=worldSnd('cry',new THREE.Vector3(camera.position.x-tmpD.x*1.2,1.0,camera.position.z-tmpD.z*1.2),6,1.1,{lp:3000,wet:.12,offset:rand(1,8)});if(h)setTimeout(()=>h.stop(.6),3400);}
   function ruleLight(LL){if(!RL.on||!(RL.dead||RL.redT>0)||S.pos.x>12||!['grey','wet','sun4dim'].includes(S.phase))return LL;LL=LL.slice();
     if(RL.dead||(RL.flick>0&&R0()<.5)){LL[3]=null;return LL;}LL[3]=[4.8,2.3,2.6,.95,.05,.04,5.2];return LL;}
   function ruleTick(dt){if(!RL.on)return;const home=S.pos.x<12&&!S.inVoid&&!S.inCor&&!S.inBath;
     if(RL.cool>0)RL.cool-=dt;if(RL.flick>0)RL.flick-=dt;
-    if(RL.redT>0){RL.redT-=dt;if(!home){RL.redT=0;humOff();}else if(RL.redT<=0)redOff();}
+    if(RL.redT>0){RL.redT-=dt;if(!home){RL.redT=0;humOff();}else if(RL.redT<=0){redOff();if(S.day===3&&!RL.broke){RL.broke=2;RL.pend=1;if(S.cryH){S.cryH.stop(.3);S.cryH=null;}}}}
     if(S.day===2&&!RL.dead&&RL.redT<=0&&!S.busy&&home&&S.pos.x>3.6&&S.pos.x<5.65&&S.pos.z<5.2&&['eggs','cook','stove','coffee','take','sit','messages','outside','bed2'].includes(S.step)){
       if(RL.n===0){RL.wait+=dt;if(RL.wait>.9)redOn(11);}else if(RL.cool<=0){redOn(9);RL.cool=rand(45,70);}}
     if(S.day===3&&RL.n===0&&S.step==='phone'&&S.cryH&&!S.cryH.dead&&!S.busy&&home){RL.wait+=dt;if(RL.wait>.6)redOn(15);}
-    if(S.day===3&&RL.redT>0&&!RL.broke&&Math.hypot(S.pos.x-5.6,S.pos.z-1.45)<1.75){RL.broke=1;humOff();setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you went\nto her\nagain");},2700);}}
+    if(S.day===3&&RL.redT>0&&!RL.broke&&Math.hypot(S.pos.x-5.6,S.pos.z-1.45)<1.75){RL.broke=1;humOff();setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you went\nto her\nagain");},2700);}
+    if(S.day===3&&RL.redT>0&&!RL.broke&&!(S.cryH&&!S.cryH.dead)){RL.broke=2;redOff();RL.pend=1;}
+    if(RL.pend&&!S.busy&&home){RL.pend=0;herBehind();rulePhoneN.userData.set("you let\nher cry");setTimeout(()=>objLie('Go to her.',2.4),3800);}}
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
     if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);ambient();}}
