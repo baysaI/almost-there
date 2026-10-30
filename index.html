@@ -2252,7 +2252,7 @@ const HS=(function(){
   async function kidLead(){
     if(!houseAu)return;const k=houseAu.kid,from=new THREE.Vector3(4.6,.3,5.4),to=new THREE.Vector3(8.8,.3,7.4);k.pos.copy(from);S.kidLead=false;
     await wait(1.4);
-    const t0=gameTime;let n=0;while(gameTime-t0<1.9){const u=(gameTime-t0)/1.9;k.pos.lerpVectors(from,to,u);if(gameTime-t0>n){n+=.15;tapTo(houseAu.kidBus,AU.C.currentTime,650+R0()*120,.5,.06);}await wait(.016);}
+    const t0=gameTime;let n=0;while(gameTime-t0<1.9){const u=(gameTime-t0)/1.9;k.pos.lerpVectors(from,to,u);if(gameTime-t0>n){n+=.22;if(!SFX.kstep(houseAu.kidBus,.14))tapTo(houseAu.kidBus,AU.C.currentTime,650+R0()*120,.5,.06);}await wait(.016);}
     S.kidBT=1.5;S.kidLead=true;
   }
   async function rollBall(){
