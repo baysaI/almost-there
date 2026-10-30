@@ -575,8 +575,8 @@ let gameTime=0;const timers=[];
 function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
 async function until(fn){while(!fn())await wait(.1);}
 function fadeTo(v,s){fx.fadeT=v;fx.fadeRate=1/Math.max(s,.01);return wait(s);}
-let objTimer,OBJ_LIE=false;
-function setObjective(t){const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{
+let objTimer,OBJ_LIE=false,OBJ_NOW='';
+function setObjective(t){OBJ_NOW=t;const el=$('#objective');el.classList.remove('show');clearTimeout(objTimer);objTimer=setTimeout(()=>{
   const lies=['Leave.','Go to sleep.','Wake her up.','Sit down.','Find them.'].filter(x=>x!==t);
   if(OBJ_LIE&&t&&Math.random()<.35){el.textContent=_t(lies[Math.random()*lies.length|0]);el.classList.add('show');objTimer=setTimeout(()=>{el.textContent=_t(t);},1400);return;}
   el.textContent=_t(t)||'';if(t){el.classList.add('show');el.classList.remove('new');void el.offsetWidth;el.classList.add('new');}},500);}
@@ -2668,7 +2668,7 @@ const HS=(function(){
     for(let i=0;i<n;i++){const ti=t+i*.34,o=AU.C.createOscillator();o.frequency.setValueAtTime(110,ti);o.frequency.exponentialRampToValueAtTime(48,ti+.16);const g=G(0);g.gain.setValueAtTime(v,ti);g.gain.exponentialRampToValueAtTime(.001,ti+.24);o.connect(g);g.connect(h.bus);o.start(ti);o.stop(ti+.26);
       const nb=AU.C.createBufferSource();nb.buffer=AU.noise;const nf=F('lowpass',380),ng=G(0);ng.gain.setValueAtTime(v*.9,ti);ng.gain.exponentialRampToValueAtTime(.001,ti+.14);chain(nb,nf,ng,h.bus);nb.start(ti,Math.random());nb.stop(ti+.16);}
     setTimeout(()=>h.stop(),(n*.34+.6)*1000);}
-  function objLie(l,d){const el=$('#objective');if(!el.classList.contains('show'))return;const real=el.textContent;clearTimeout(objTimer);el.textContent=_t(l);objTimer=setTimeout(()=>{el.textContent=real;},d*1000);}
+  function objLie(l,d){const el=$('#objective');if(!OBJ_NOW||!el.classList.contains('show'))return;clearTimeout(objTimer);el.textContent=_t(l);objTimer=setTimeout(()=>{el.textContent=_t(OBJ_NOW);},d*1000);}
   function ruleOpen(){if(!RL.on||RL.redT<=0||RL.broke||S.day!==2)return;RL.broke=1;
     setTimeout(()=>thumpIn(1,1.8),450);setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you woke\nher");},1500);setTimeout(()=>objLie('Go to sleep.',1.8),2600);}
   function herBehind(){camera.getWorldDirection(tmpD);const h=worldSnd('cry',new THREE.Vector3(camera.position.x-tmpD.x*1.2,1.0,camera.position.z-tmpD.z*1.2),6,1.1,{lp:3000,wet:.12,offset:rand(1,8)});if(h)setTimeout(()=>h.stop(.6),3400);}
