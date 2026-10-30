@@ -1296,8 +1296,9 @@ const HS=(function(){
    g.add(box(1.1,2.0,.03,WD,WDc,{seg:9,pos:[0,1.0,-.145]}));g.add(box(.03,2.0,.32,WD,WDc,{seg:9,pos:[-.535,1.0,0]}));g.add(box(.03,2.0,.32,WD,WDc,{seg:9,pos:[.535,1.0,0]}));
    for(let sh=0;sh<5;sh++)g.add(box(1.04,.03,.3,WD,0x4e3626,{seg:9,pos:[0,.03+sh*.48,0]}));
    const COL=['#5a2420','#24384e','#3e4a30','#7a6a4a','#2e2e32','#6a4a20','#4a2a3a','#2e3e3a'];
-   const SP=['THE BACK SEAT','3:17','SHE IS SLEEPING','ALMOST THERE  vol. IV','COUNTING HEADLIGHTS','THE ROAD IS LONGER AT NIGHT',"don't",'LULLABIES FOR LONG DRIVES',"A FATHER'S GUIDE TO FORGETTING",'HOW MANY BEDS','YOUR SIDE OF THE CAR','WAKE UP','SHE ASKED YOU TO STOP','THE SECOND PASSENGER','ROOM 317','NOBODY WAS DRIVING'];
-   const COVERS=[['THERE WERE NEVER THREE','fig'],['HOW TO KEEP YOUR EYES OPEN','eye'],['WHAT THE CHILD SAW','car'],['ONE PASSENGER','seat']];
+   const SP=['SUNDAY SUPPERS','ROAD ATLAS','JANE EYRE','THE SLEEPY BEAR','FIX IT YOURSELF','BIRDS OF THE NORTHWEST','A TALE OF TWO CITIES','CROSSWORDS 2','THE GARDEN YEAR','ALMOST THERE  vol. IV','THE SECRET GARDEN','FAMILY HEALTH GUIDE',"don't",'BABY\'S FIRST YEAR','TWELVE SHORT WALKS','WHERE IS LITTLE OWL?','COLLECTED POEMS','KNITTING FOR BEGINNERS','THE WEATHER BOOK','MOBY DICK','LITTLE WOMEN','PRIDE AND PREJUDICE','WINTER SOUPS','THE TRAIN BOOK','HOUSEPLANTS','DRAWING ANIMALS','A CHILD\'S ATLAS','THE LONG WINTER'];
+   const COVERS=[['WHERE IS LITTLE OWL?','owl'],['SUNDAY SUPPERS','bowl'],['THE HALES  2016','album'],['TWELVE SHORT WALKS','path']];
+   const PUB=['HARTWELL BOOKS','NORTHGATE PRESS','PENWICK & SONS','LITTLE ACORN'];
    const spineTex=(t,c)=>tex(32,192,(q,w,h)=>{q.fillStyle=c;q.fillRect(0,0,w,h);q.fillStyle='rgba(0,0,0,.3)';q.fillRect(w-3,0,3,h);q.fillStyle='rgba(220,196,140,.6)';q.fillRect(0,10,w,2);q.fillRect(0,h-14,w,2);
      q.save();q.translate(w/2+5,h/2);q.rotate(-PI/2);q.textAlign='center';const tt=_t(t);let fs=15;q.font='bold '+fs+'px Georgia, serif';while(q.measureText(tt).width>h-34&&fs>8){fs--;q.font='bold '+fs+'px Georgia, serif';}
      if(t==="don't"){q.font='19px '+(LANG==='tr'?'"Caveat"':'"Reenie Beanie"')+', cursive';q.fillStyle='#e0d0b0';}else q.fillStyle='#ecdfbe';q.fillText(tt,0,0);q.restore();},false);
