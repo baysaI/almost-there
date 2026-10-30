@@ -1692,10 +1692,11 @@ const HS=(function(){
     await wait(1.2);
     await tween({x:S.pos.x,z:S.pos.z,eye:1.6,yaw:S.yaw,pitch:0},.8);
     S.busy=false;setObjective('Turn off the stove.');},2.2);
-  const smoke=[];for(let k=0;k<10;k++){const s=box(.05,.05,.05,null,0x4a4846,{seg:9,em:.15});s.visible=false;s.userData.ph=k/10;scene.add(s);smoke.push(s);}
+  const smokeT=(()=>{const c=document.createElement('canvas');c.width=c.height=32;const g=c.getContext('2d'),gr=g.createRadialGradient(16,16,2,16,16,16);gr.addColorStop(0,'rgba(255,255,255,.9)');gr.addColorStop(1,'rgba(255,255,255,0)');g.fillStyle=gr;g.fillRect(0,0,32,32);return new THREE.CanvasTexture(c);})();
+  const smoke=[];for(let k=0;k<14;k++){const s=new THREE.Sprite(new THREE.SpriteMaterial({map:smokeT,color:0x36332f,transparent:true,depthWrite:false,opacity:0}));s.visible=false;s.userData.ph=k/14;scene.add(s);smoke.push(s);}
   function stoveTick(dt){
     for(const s of smoke){s.visible=S.burnt&&(S.step==='stove'||S.smokeT>0);if(!s.visible)continue;const p=s.userData.ph=(s.userData.ph+dt*.35)%1;
-      s.position.set(pan.position.x+Math.sin(p*7+s.id)*.06,pan.position.y+.05+p*.9,pan.position.z+Math.cos(p*5+s.id)*.06);s.scale.setScalar(1+p*3);}
+      s.position.set(pan.position.x+Math.sin(p*7+s.id)*.08*(1+p),pan.position.y+.05+p*.9,pan.position.z+Math.cos(p*5+s.id)*.08*(1+p));s.scale.setScalar(.14+p*.7);s.material.opacity=Math.sin(p*PI)*.72;}
     if(S.smokeT>0)S.smokeT-=dt;
     const on=S.step==='stove';if(!on&&S.step!=='stoveoff')return;const burnAt=S.day===4?7:14;
     if(on){S.cookT+=dt;
