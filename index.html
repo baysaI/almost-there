@@ -1353,7 +1353,10 @@ const HS=(function(){
   const mugDefs=[[0xd8d4c8,.045,.1,[2.4,7.08]],[0xa04a32,.045,.1,[2.85,7.4]],[0xe0b840,.036,.075,[2.4,7.72]]];
   const plates=mugDefs.map((d,i)=>{const g=new THREE.Group();g.add(cyl(.1,.085,.015,12,null,0xeeeae0,{pos:[0,0,0]}));const e=new THREE.Group();mkEgg(e,0,0,i===2?0x6a0808:0xe8a820);e.position.y=-.004;g.add(e);
     const tx=d[3][0],tz=d[3][1];g.position.set(tx+(2.4-tx)*.45,.768,tz+(7.4-tz)*.45);g.visible=false;scene.add(g);return g;});
-  const mugs=mugDefs.map((d,i)=>{const g=new THREE.Group();g.add(cyl(d[1],d[1]*.88,d[2],6,TX.fabric,d[0],{pos:[0,0,0]}));g.add(box(.015,d[2]*.6,.04,null,d[0],{seg:9,pos:[d[1]+.01,0,0]}));
+  const mugs=mugDefs.map((d,i)=>{const g=new THREE.Group(),r=d[1],hh=d[2]/2,V=THREE.Vector2;
+    g.add(new THREE.Mesh(new THREE.LatheGeometry([new V(0,-hh),new V(r*.9,-hh),new V(r,-hh+.01),new V(r,hh),new V(r*.84,hh),new V(r*.84,-hh+.012),new V(0,-hh+.012)],8),mat(null,d[0],{side:2})));
+    const hd=new THREE.Mesh(new THREE.TorusGeometry(d[2]*.24,.007,4,6,PI),mat(null,d[0]));hd.rotation.z=-PI/2;hd.position.x=r;g.add(hd);
+    if(i<2){const c=new THREE.Mesh(new THREE.CircleGeometry(r*.84,8),mat(null,0x24160e));c.rotation.x=-PI/2;c.position.y=hh-.014;g.add(c);}
     g.position.set(.32,-10,6.25+i*.2);g.userData={h:d[2],table:d[3],target:null,shake:0,i};scene.add(g);return g;});
   const steam=[];for(const m of mugs){for(let k=0;k<3;k++){const s=box(.014,.014,.014,null,0xd8d8d8,{seg:9,em:.5});s.visible=false;s.userData={m,ph:k/3};scene.add(s);steam.push(s);}}
   const LIV=[];const liv=(m,sol)=>{if(sol){const n=cols.length;solid(m);if(cols.length>n)m.userData.col=cols[cols.length-1];}else add(m);LIV.push(m);return m;};
