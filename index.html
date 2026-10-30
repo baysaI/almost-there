@@ -2647,7 +2647,7 @@ const HS=(function(){
       setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2600);}}
   [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG,herG,corMan,famSW,famSK].forEach(g=>{figScene.add(g);toVoidD(g);});
   const famPivot=new THREE.Group();famPivot.position.set(5.95,0,6.15);figScene.add(famPivot);famPivot.add(famG);famG.position.set(-5.95,0,-6.15);
-  Object.assign(TRD,{"if the light\nis red\ndon't open\nher door":"ışık\nkırmızıysa\nkapısını\naçma","you woke\nher":"onu\nuyandırdın","if the light\nis red\nstay away\nfrom her door":"ışık\nkırmızıysa\nkapısından\nuzak dur","if she\ncries\ngo to her":"ağlarsa\nyanına\ngit","you went\nto her\nagain":"yine\nyanına\ngittin","you let\nher cry":"onu\nağlarken\nbıraktın","Go to her.":"Yanına git."});
+  Object.assign(TRD,{"if the light\nis red\ndon't open\nher door":"ışık\nkırmızıysa\nkapısını\naçma","you woke\nher":"onu\nuyandırdın","if the light\nis red\nstay away\nfrom her door":"ışık\nkırmızıysa\nkapısından\nuzak dur","if she\ncries\ngo to her":"ağlarsa\nyanına\ngit","you went\nto her\nagain":"yine\nyanına\ngittin","you let\nher cry":"onu\nağlarken\nbıraktın","Go to her.":"Yanına git.","you did\nit again":"yine\nyaptın","Don't open it.":"Açma onu."});
   function ruleNote(pos,ry){let txt='';const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
     const draw=()=>{const g=c.getContext('2d'),L=_t(txt).replace(/'/g,'’').split('\n'),big=L.length<4;g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,47);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
       g.fillStyle='#1d1a30';g.font=HF(big?25:21)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';L.forEach((l,i)=>g.fillText(l,48,52+(i-(L.length-1)/2)*(big?23:20),90));t.needsUpdate=true;};
@@ -2656,7 +2656,7 @@ const HS=(function(){
     add(m);m.visible=false;inter(m,'Read',()=>examine(t),1.9);m.userData.set=s=>{if(s!==txt){txt=s;draw();}};return m;}
   const ruleDoorN=ruleNote([5.563,1.64,1.63],-PI/2),rulePhoneN=ruleNote([4.068,1.48,3.72],PI/2);
   const RL={on:false,redT:0,flick:0,n:0,cool:0,wait:0,dead:false,hum:null,broke:0};
-  function ruleReset(){RL.on=S.day===2||S.day===3;RL.redT=RL.flick=RL.n=RL.cool=RL.wait=RL.broke=0;RL.dead=false;humOff();
+  function ruleReset(){RL.on=S.day>=2&&S.day<=4;RL.redT=RL.flick=RL.n=RL.cool=RL.wait=RL.broke=0;RL.dead=false;humOff();
     ruleDoorN.visible=RL.on;rulePhoneN.visible=S.day===3;rulePhoneN.userData.set("if she\ncries\ngo to her");
     ruleDoorN.userData.set(S.day===3?"if the light\nis red\nstay away\nfrom her door":"if the light\nis red\ndon't open\nher door");}
   function redOn(d){RL.redT=d;RL.flick=.45;RL.n++;SFX.click();
@@ -2682,7 +2682,10 @@ const HS=(function(){
     if(S.day===3&&RL.n===0&&S.step==='phone'&&S.cryH&&!S.cryH.dead&&!S.busy&&home){RL.wait+=dt;if(RL.wait>.6)redOn(15);}
     if(S.day===3&&RL.redT>0&&!RL.broke&&Math.hypot(S.pos.x-5.6,S.pos.z-1.45)<1.75){RL.broke=1;humOff();setTimeout(()=>{bulbPop();ruleDoorN.userData.set("you went\nto her\nagain");},2700);}
     if(S.day===3&&RL.redT>0&&!RL.broke&&!(S.cryH&&!S.cryH.dead)){RL.broke=2;redOff();RL.pend=1;}
-    if(RL.pend&&!S.busy&&home){RL.pend=0;herBehind();rulePhoneN.userData.set("you let\nher cry");setTimeout(()=>objLie('Go to her.',2.4),3800);}}
+    if(RL.pend&&!S.busy&&home){RL.pend=0;herBehind();rulePhoneN.userData.set("you let\nher cry");setTimeout(()=>objLie('Go to her.',2.4),3800);}
+    if(S.day===4&&S.step==='heropen'&&RL.n===0){redOn(600);RL.lie=.8;}
+    if(S.day===4&&RL.redT>0&&!RL.broke){if(S.step==='heropen'){RL.lie-=dt;if(RL.lie<=0){RL.lie=3+R0()*1.5;objLie("Don't open it.",.9);}}
+      else{RL.broke=1;thumpIn(1,1.8);bulbPop();ruleDoorN.userData.set("you did\nit again");}}}
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
     if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);ambient();}}
