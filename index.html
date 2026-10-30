@@ -432,8 +432,13 @@ TX.hole=tex(64,64,(g)=>{const r=rng(70);const blob=(rad,v,col)=>{g.fillStyle=col
   blob(17,7,'#8a8670');blob(12,5,'#d6d0b8');blob(7,5,'#0a0806');
   g.strokeStyle='#3a342a';g.lineWidth=1;for(let i=0;i<8;i++){const a=r()*PI*2;g.beginPath();g.moveTo(32+Math.cos(a)*13,32+Math.sin(a)*13);g.lineTo(32+Math.cos(a)*(25+r()*7),32+Math.sin(a)*(25+r()*7));g.stroke();}
   g.fillStyle='#5a120e';for(let i=0;i<4;i++)g.fillRect(39+i*3,42+(i%2)*2,2,3+(r()*5|0));g.fillStyle='#3e0c0a';g.fillRect(41,50,1,6);},false);
-TX.crack=tex(64,64,(g)=>{const r=rng(71);g.strokeStyle='#dfe6ea';g.lineWidth=1;for(let i=0;i<15;i++){let x=32,y=30;const a=i/15*PI*2+r()*.3;g.beginPath();g.moveTo(x,y);for(let k=0;k<6;k++){x+=Math.cos(a+(r()-.5)*.7)*6;y+=Math.sin(a+(r()-.5)*.7)*6;g.lineTo(x,y);}g.stroke();}
-  for(let ring=1;ring<4;ring++){g.beginPath();for(let i=0;i<=22;i++){const a=i/22*PI*2,rr=ring*7+r()*2.5;g.lineTo(32+Math.cos(a)*rr,30+Math.sin(a)*rr);}g.stroke();}},false);
+TX.crack=tex(256,112,(g,w,h)=>{const r=rng(71),cx=150,cy=46;const ln=(a)=>{g.strokeStyle=`rgba(223,230,234,${a})`;};g.lineWidth=1;
+  for(let i=0;i<90;i++){const a=r()*7,d=r()*7;ln(.5+r()*.5);g.beginPath();g.moveTo(cx+Math.cos(a)*d,cy+Math.sin(a)*d);g.lineTo(cx+Math.cos(a)*(d+1+r()*3),cy+Math.sin(a)*(d+1+r()*3));g.stroke();}
+  const crack=(x,y,a,len,alpha,depth)=>{ln(alpha);g.beginPath();g.moveTo(x,y);for(let s=0;s<len;s++){a+=(r()-.5)*.35;x+=Math.cos(a)*(2.5+r()*2);y+=Math.sin(a)*(2.5+r()*2)*.9;g.lineTo(x,y);
+    if(depth<2&&r()<.07){g.stroke();crack(x,y,a+(r()<.5?-1:1)*(.4+r()*.5),len*.35|0,alpha*.8,depth+1);ln(alpha);g.beginPath();g.moveTo(x,y);}if(x<0||x>w||y<0||y>h)break;}g.stroke();};
+  for(let i=0;i<11;i++){const a=i/11*PI*2+(r()-.5)*.5;crack(cx+Math.cos(a)*5,cy+Math.sin(a)*5,a,18+r()*40|0,.6+r()*.35,0);}
+  for(let k=0;k<5;k++){const rr=9+r()*12,a0=r()*7,sp=.4+r()*.9;ln(.45+r()*.3);g.beginPath();for(let s=0;s<=8;s++){const a=a0+sp*s/8,j=rr+(r()-.5)*1.5;g.lineTo(cx+Math.cos(a)*j,cy+Math.sin(a)*j*.9);}g.stroke();}
+  crack(4,100,-.35,40,.35,1);crack(250,8,2.6,30,.3,1);},false);
 TX.smear=tex(64,16,(g)=>{const r=rng(74);for(let i=0;i<9;i++){g.fillStyle=`rgb(${60+r()*30|0},${10+r()*6|0},${8+r()*5|0})`;const y=2+r()*12|0;let x=r()*6|0;while(x<64){const l=4+r()*14|0;g.fillRect(x,y,l,1+(r()<.3?1:0));x+=l+(r()*5|0);}}},false);
 TX.stain=tex(64,64,(g)=>{const r=rng(72);for(let i=0;i<28;i++){g.fillStyle=`rgb(${55+r()*35|0},${9+r()*8|0},${7+r()*6|0})`;g.beginPath();g.arc(32+(r()-.5)*30,32+(r()-.5)*30,3+r()*9,0,7);g.fill();}},false);
 TX.photoX3=tex(32,40,(g)=>{g.drawImage(TX.photo.image,0,0);g.strokeStyle='rgba(8,6,5,.95)';const r=rng(73);for(let i=0;i<16;i++){g.beginPath();g.moveTo(6+r()*7,11+r()*3);g.lineTo(6+r()*7,18+r()*4);g.stroke();}
