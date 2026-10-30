@@ -1688,6 +1688,18 @@ const HS=(function(){
     mirror.visible=false;bathWest.forEach(m=>m.visible=false);selfG.visible=!S.selfGone;r.setRenderTarget(mirRT1);r.render(scene,mirCam);mirror.visible=true;bathWest.forEach(m=>m.visible=true);
   };
   const ALB={};function haleAlbum(){const d=clamp(S.day|0,1,4);return ALB[d]||(ALB[d]=haleAlbumTex(d));}
+  const HMX=4.8,HMY=1.5,HMZ=.095,HMW=.6,HMH=.8,hmRT=new THREE.WebGLRenderTarget(128,160,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});
+  const hmCam=new THREE.PerspectiveCamera();hmCam.layers.enable(2);const hmFr=new THREE.Frustum(),hmM=new THREE.Matrix4();
+  const hmGeo=new THREE.PlaneGeometry(HMW,HMH);{const uv=hmGeo.attributes.uv;for(let i=0;i<uv.count;i++)uv.setX(i,1-uv.getX(i));}
+  const hallMirror=new THREE.Mesh(hmGeo,new THREE.MeshBasicMaterial({map:hmRT.texture,color:0xb4bcc0}));hallMirror.position.set(HMX,HMY,HMZ);scene.add(hallMirror);
+  add(box(HMW+.08,HMH+.08,.03,WD,0x4a3424,{seg:9,pos:[HMX,HMY,.075]}));
+  const HSELF=makeMan();HSELF.root.scale.setScalar(.83);HSELF.root.position.y=.85;const hSelfG=new THREE.Group();hSelfG.add(HSELF.root);hSelfG.traverse(o=>o.layers.set(2));scene.add(hSelfG);
+  S.hallMirror=function(r){const c=camera.position,d=c.z-HMZ;if(S.day<2||S.day>4||S.inBath||d<.1||Math.abs(c.x-HMX)>1.6||c.z>10.2)return;
+    camera.updateMatrixWorld();hmM.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);hmFr.setFromProjectionMatrix(hmM);if(!hmFr.intersectsObject(hallMirror))return;
+    hSelfG.position.set(S.pos.x,0,S.pos.z);hSelfG.rotation.y=S.yaw+PI;HSELF.head.rotation.x=-S.pitch*.6;
+    hmCam.position.set(c.x,c.y,HMZ-d);hmCam.rotation.set(0,PI,0);hmCam.updateMatrixWorld();
+    hmCam.projectionMatrix.makePerspective(c.x-HMX-HMW/2,c.x-HMX+HMW/2,HMY+HMH/2-c.y,HMY-HMH/2-c.y,d,30);hmCam.projectionMatrixInverse.copy(hmCam.projectionMatrix).invert();
+    hallMirror.visible=false;r.setRenderTarget(hmRT);r.render(scene,hmCam);hallMirror.visible=true;};
   const X2=80;
   const seatG=new THREE.Group();seatG.position.set(X2,0,0);scene.add(seatG);
   seatG.add(box(1.5,.16,.55,TX.fabric,0x58585e,{seg:9,pos:[0,.45,0]}));seatG.add(box(1.5,.72,.14,TX.fabric,0x58585e,{seg:9,pos:[0,.88,-.32],rot:[-.12,0,0]}));
@@ -3013,6 +3025,7 @@ function frame(now){
   const u=postMat.uniforms;u.uFade.value=fx.fade;u.uWhite.value=fx.white;u.uGlitch.value=GLITCH;fx.red=Math.max(0,fx.red-dt*.9);u.uRed.value=fx.red;u.uBlink.value=fx.blink;u.uStatic.value=fx.stat;u.uTime.value=gameTime;
   frameN++;
   if(stage===HS&&HS.mirrorOn)HS.renderMirror(renderer);
+  if(stage===HS&&HS.hallMirror)HS.hallMirror(renderer);
   renderer.setRenderTarget(rt);renderer.render(stage.scene,camera);
   renderer.setRenderTarget(null);renderer.render(postScene,postCam);
   VOIDU.uTime.value=gameTime;
