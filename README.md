@@ -72,6 +72,7 @@ Pushing a tag such as `v1.0.0` builds the Windows executables on GitHub Actions 
 - Special thanks to **Umut Eren** and **Raşit**.
 - Voices and sound effects generated with ElevenLabs
 - [three.js](https://threejs.org) (MIT)
+- Surface textures from [Poly Haven](https://polyhaven.com) and furniture models from the [Kenney Furniture Kit](https://kenney.nl/assets/furniture-kit) (both CC0), shrunk to PS1-size textures and low-poly meshes
 - Fonts: VT323, Reenie Beanie, Caveat, Cormorant Garamond (SIL Open Font License, via Google Fonts)
 
 ## License
