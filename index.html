@@ -2647,6 +2647,28 @@ const HS=(function(){
       setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2600);}}
   [figLie,figSit,figStand,famG,fW,fK,fM,fL,wifeG,kidG,herG,corMan,famSW,famSK].forEach(g=>{figScene.add(g);toVoidD(g);});
   const famPivot=new THREE.Group();famPivot.position.set(5.95,0,6.15);figScene.add(famPivot);famPivot.add(famG);famG.position.set(-5.95,0,-6.15);
+  Object.assign(TRD,{"if the light\nis red\ndon't open\nher door":"ışık\nkırmızıysa\nkapısını\naçma","you woke\nher":"onu\nuyandırdın"});
+  function ruleNote(pos,ry){let txt='';const c=document.createElement('canvas');c.width=c.height=96;const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.generateMipmaps=true;
+    const draw=()=>{const g=c.getContext('2d'),L=_t(txt).replace(/'/g,'’').split('\n'),big=L.length<4;g.fillStyle='#d6c65a';g.fillRect(0,0,96,96);speckle(g,96,96,.1,47);g.fillStyle='rgba(0,0,0,.1)';g.fillRect(0,0,96,9);
+      g.fillStyle='#1d1a30';g.font=HF(big?25:21)+', "Comic Sans MS", cursive';g.textAlign='center';g.textBaseline='middle';L.forEach((l,i)=>g.fillText(l,48,52+(i-(L.length-1)/2)*(big?23:20),90));t.needsUpdate=true;};
+    noteDraws.push(draw);const m=plane(.15,.15,t,0xffffff,{fit:true,seg:9,pos});m.rotation.y=ry;m.rotation.z=(R0()-.5)*.25;
+    const hz=new THREE.Mesh(new THREE.PlaneGeometry(.3,.3),new THREE.MeshBasicMaterial({visible:false}));hz.position.z=.006;m.add(hz);
+    add(m);m.visible=false;inter(m,'Read',()=>examine(t),1.9);m.userData.set=s=>{if(s!==txt){txt=s;draw();}};return m;}
+  const ruleDoorN=ruleNote([5.563,1.64,1.63],-PI/2);
+  const RL={on:false,redT:0,flick:0,n:0,cool:0,wait:0,dead:false,hum:null,broke:0};
+  function ruleReset(){RL.on=S.day===2;RL.redT=RL.flick=RL.n=RL.cool=RL.wait=RL.broke=0;RL.dead=false;humOff();
+    ruleDoorN.visible=RL.on;ruleDoorN.userData.set("if the light\nis red\ndon't open\nher door");}
+  function redOn(d){RL.redT=d;RL.flick=.45;RL.n++;SFX.click();
+    const h=worldSnd(null,new THREE.Vector3(4.8,2.3,2.6),7,1,{lp:900,wet:.1});if(h){const o=O('sawtooth',100),o2=O('sine',50),g=G(.03),g2=G(.05);chain(o,F('bandpass',300,1.5),g,h.bus);chain(o2,g2,h.bus);h.osc=[o,o2];RL.hum=h;}}
+  function humOff(){const h=RL.hum;RL.hum=null;if(!h)return;h.stop(.08);setTimeout(()=>h.osc.forEach(o=>{try{o.stop();}catch(_){}}),300);}
+  function redOff(){RL.redT=0;humOff();SFX.click();}
+  function ruleLight(LL){if(!RL.on||!(RL.dead||RL.redT>0)||S.pos.x>12||!['grey','wet','sun4dim'].includes(S.phase))return LL;LL=LL.slice();
+    if(RL.dead||(RL.flick>0&&R0()<.5)){LL[3]=null;return LL;}LL[3]=[4.8,2.3,2.6,.95,.05,.04,5.2];return LL;}
+  function ruleTick(dt){if(!RL.on)return;const home=S.pos.x<12&&!S.inVoid&&!S.inCor&&!S.inBath;
+    if(RL.cool>0)RL.cool-=dt;if(RL.flick>0)RL.flick-=dt;
+    if(RL.redT>0){RL.redT-=dt;if(!home){RL.redT=0;humOff();}else if(RL.redT<=0)redOff();}
+    if(S.day===2&&!RL.dead&&RL.redT<=0&&!S.busy&&home&&S.pos.x>3.6&&S.pos.x<5.65&&S.pos.z<5.2&&['eggs','cook','stove','coffee','take','sit','messages','outside','bed2'].includes(S.step)){
+      if(RL.n===0){RL.wait+=dt;if(RL.wait>.9)redOn(11);}else if(RL.cool<=0){redOn(9);RL.cool=rand(45,70);}}}
   function escalationUpdate(dt){
     for(let i=flashes.length-1;i>=0;i--){if(--flashes[i].n<=0){flashes[i].g.visible=false;flashes.splice(i,1);}}
     if(S.day>=2&&S.day<=4&&stage===S&&!S.busy&&!S.inVoid&&!S.inCor&&!S.inBath&&!S.drowsy&&S.pos.x<12&&houseAu&&!S.muted){S.ambT=(S.ambT==null?rand(25,45):S.ambT)-dt;if(S.ambT<=0){S.ambT=rand(35,75);ambient();}}
@@ -2786,7 +2808,7 @@ const HS=(function(){
     if(day===1&&!scene){SEEN.clear();S.reps={};}S.seen0=SEEN.size;S.jumped=!!scene;
     S.day=day;stage=S;camera.fov=70;camera.updateProjectionMatrix();S.statPunch=0;S.shakeH=0;S.shakeDecay=0;
     if(!houseAu)startAudio();else restoreHouse();
-    resetDay();
+    resetDay();ruleReset();
     if(day>=1){try{await document.fonts.load(HF(25));}catch(_){}noteDraws.forEach(f=>f());if(day===2)writeTimeNote();}
     if(S.loopMon){tally.visible=true;photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;}
     if(S.again&&!scene){photo1.material.uniforms.map.value=TX.photoX;S.photoTex=TX.photoX;OBJ_LIE=true;GLITCH=Math.max(GLITCH,.25);}
@@ -2861,9 +2883,11 @@ const HS=(function(){
     let LL=S.lights;
     if(S.flash3>0){S.flash3=Math.max(0,S.flash3-dt*.45);const k=Math.sin(S.flash3*PI);LL=LL.slice();LL[3]=[.6,1.4,9.4-(1-S.flash3)*4,1.2*k,1.1*k,.9*k,5.5];}
     if(S.phase==='night3'){S.sweepT=(S.sweepT||0)+dt;const k=(S.sweepT%9)/9;LL=LL.slice();if(k<.32){const u=k/.32,a=Math.sin(u*PI);LL[3]=[10.5,1.2,9.5-u*6,1.1*a,1.0*a,.85*a,6];}}
+    LL=ruleLight(LL);
     if(S.drowsy&&!S.blinking){S.grace-=dt;if(S.grace<=0)S.b+=(.15+S.dn*.09)*dt*(.5+R0());S.blinkT=S.b;S.blinkRate=20;if(S.b>=1)blink3();}
     S.drowsyUI=S.drowsy;
     escalationUpdate(dt);
+    ruleTick(dt);
     day4Update(dt);
     if(rainH.visible){for(let i=0;i<RNH;i++){const d=dropsH[i];d.y-=6.5*dt;if(d.y<0){d.y=2.45;d.x=rand(.2,10.8);d.z=rand(.2,9.8);}const j=i*6;rph[j]=d.x;rph[j+1]=d.y;rph[j+2]=d.z;rph[j+3]=d.x;rph[j+4]=d.y+.28;rph[j+5]=d.z;}rgH.attributes.position.needsUpdate=true;}
     if(S.wiperOn){S.w3=(S.w3||0)+dt*1.25*(S.w3d||1);if(S.w3>=1){S.w3=1;S.w3d=-1;SFX.wiper();}if(S.w3<=0){S.w3=0;S.w3d=1;SFX.wiper();}for(const w of w3)w.rotation.z=smooth(S.w3)*1.55;}
