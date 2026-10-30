@@ -2277,7 +2277,7 @@ const HS=(function(){
   function ballBounce(v){const t=AU.C.currentTime,k=Math.min(.6,v*.12);tapTo(AU.master,t,320,k,.09);pingTo(AU.master,t,170,k*.4,.12);}
   async function rollBack(){
     const from=ball.position.clone(),dir=new THREE.Vector3(from.x-S.pos.x,0,from.z-S.pos.z).normalize(),to=new THREE.Vector3(S.pos.x+dir.x*.5,.13,S.pos.z+dir.z*.5);
-    {const t=AU.C.currentTime;for(let i=0;i<4;i++)tapTo(AU.master,t+i*.14,650+R0()*100,.25,.06);}
+    {const t=AU.C.currentTime,kh=worldSnd(null,from.clone(),10,1,{wet:.2});for(let i=0;i<4;i++){const at=t+i*.2;if(!(kh&&SFX.kstep(kh.bus,.12,at)))tapTo(AU.master,at,650+R0()*100,.25,.06);}if(kh)setTimeout(()=>kh.stop(.2),1500);}
     await wait(.9);const roll=worldSnd(null,from.clone(),9,.8,{noise:true,lp:260,wet:.15});const t0=gameTime,dur=Math.max(1.5,from.distanceTo(to)/2.2);let last=from.clone();
     while(gameTime-t0<dur){if(S.ballHeld||S.ballMoving)break;const u=(gameTime-t0)/dur,k=1-Math.pow(1-u,2);ball.position.lerpVectors(from,to,k);const st=ball.position.distanceTo(last);last.copy(ball.position);ball.rotateOnWorldAxis(new THREE.Vector3(dir.z,0,-dir.x),-st/.13);if(roll)roll.src.pos.copy(ball.position);await wait(.016);}
     if(roll)roll.stop(.2);tapTo(AU.master,AU.C.currentTime,240,.3,.12);S.ballRest=gameTime;
