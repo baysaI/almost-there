@@ -622,8 +622,8 @@ function kitMesh(key,bb,skin,o={}){const parts=glb(KIT[key]),mb=new THREE.Box3()
 function reskin(m,key,skin,o){m.geometry.computeBoundingBox();m.add(kitMesh(key,m.geometry.boundingBox,skin,o));m.material=GHOST;return m;}
 // a group built at the origin draws a model filling the same bounds instead; the group, its transform, collision and inter() target stay
 function kit(g,key,skin,o){g.updateMatrixWorld(true);const bb=new THREE.Box3().setFromObject(g);g.clear();const k=kitMesh(key,bb,skin,o);while(k.children.length)g.add(k.children[0]);return g;}
-// for a box whose look a model has taken over: it keeps its collision and ray blocking but draws nothing
-const GHOST=new THREE.MeshBasicMaterial({colorWrite:false,depthWrite:false});
+// for a box whose look a model has taken over: it keeps its collision and ray blocking but is never drawn (like the fridge body)
+const GHOST=new THREE.MeshBasicMaterial({visible:false});
 const fx={fade:1,fadeT:1,fadeRate:.5,blink:0,white:0,stat:0,red:0};
 let gameTime=0;const timers=[];
 function wait(s){return new Promise(r=>timers.push({t:gameTime+s,r}));}
