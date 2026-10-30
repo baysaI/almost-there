@@ -2809,6 +2809,9 @@ const HS=(function(){
     boxes:()=>CH.map(c=>chBox(c)).concat([new THREE.Box3(new THREE.Vector3(1.6,0,6.7),new THREE.Vector3(3.2,1.9,8.1))]),
     apply(){plates.forEach(p=>{p.visible=false;});mugs.forEach(m=>{m.position.y=-10;});btTable.on=true;
       btPut(CH[0],2.08,1.235,7.17,PI,true);btPut(CH[2],2.6,1.235,7.17,PI,true);btPut(CH[1],2.34,1.235,7.63,0,true);}});
+  const BED=[[1.3,2.75,PI],[2.85,1.25,-PI/2],[2.55,2.55,Math.atan2(1.3-2.55,.5-2.55)]];
+  BT.push({day:4,when:()=>['find1','rolling','ball','holding','find2'].includes(S.step),near:()=>BED.some(p=>btNear(p[0],p[1])),
+    boxes:()=>CH.map(c=>chBox(c)).concat(BED.map(p=>btBox(p[0],p[1]))),apply(){CH.forEach((c,i)=>btPut(c,BED[i][0],0,BED[i][1],BED[i][2]));}});
   function betrayReset(){for(const c of BT){c.done=false;c.seenT=0;c.away=0;}sampBack.visible=false;samp.position.z=3.075;btTable.on=false;
     for(const c of CH){Object.assign(c.col,c.c0);c.col.on=true;if(c.g!==chairB){c.g.position.copy(c.p0);c.g.quaternion.copy(c.q0);}}}
   function betrayUpdate(dt){if(stage!==S)return;
