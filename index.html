@@ -500,7 +500,7 @@ function haleAlbumTex(day){const SP={1:[['lake','n'],['beach','n']],2:[['bday','
   SP[day].forEach(([k,v],i)=>{const x=i?155:11,y=14;g.fillStyle='rgba(30,20,10,.35)';g.fillRect(x+2,y+3,122,96);g.fillStyle='#f2eee4';g.fillRect(x-3,y-3,128,102);g.imageSmoothingEnabled=false;g.drawImage(halePic(k,v),x,y,128,96);
     g.fillStyle='#3a2a1c';for(const [cx,cy,sx,sy] of [[x-4,y-4,1,1],[x+126,y-4,-1,1],[x-4,y+100,1,-1],[x+126,y+100,-1,-1]]){g.beginPath();g.moveTo(cx,cy);g.lineTo(cx+sx*14,cy);g.lineTo(cx,cy+sy*14);g.fill();}});
   const ink='#2a3a78',cap=(t,x,y,c=ink,f=24)=>{g.fillStyle=c;g.font=HF(f)+', cursive';g.textAlign='left';g.fillText(t,x,y,124);};
-  if(day===1){cap(_t('Lake Arden, July'),14,148);cap(_t('my two'),160,148);g.font=HF(24)+', cursive';const hx=168+g.measureText(_t('my two')).width;g.fillStyle=ink;g.beginPath();g.moveTo(hx,140);g.bezierCurveTo(hx-6,132,hx-14,140,hx,150);g.bezierCurveTo(hx+14,140,hx+6,132,hx,140);g.fill();}
+  if(day===1){cap(_t('Lake Arden, July'),14,148);cap(_t('my two'),160,148);g.font=HF(24)+', cursive';const hx=176+g.measureText(_t('my two')).width;g.fillStyle=ink;g.beginPath();g.moveTo(hx,140);g.bezierCurveTo(hx-6,132,hx-14,140,hx,150);g.bezierCurveTo(hx+14,140,hx+6,132,hx,140);g.fill();}
   if(day>1){const nm=_t("Tom's"),rest=_t('40th!');g.font=HF(24)+', cursive';const nw=g.measureText(nm).width;cap(nm,14,148);cap(rest,14+nw+6,148);cap(_t('(he cried)'),20,174,ink,20);
     if(day===4){g.strokeStyle='#1d1a30';g.lineWidth=2;g.beginPath();for(let i=0;i<5;i++){g.moveTo(12,142-i*2);g.lineTo(16+nw,136+i*2);}g.stroke();cap(_t("Daddy's"),10,128,'#1d1a30',22);}}
   if(day===2||day===4)cap(_t('our house!'),160,148);
