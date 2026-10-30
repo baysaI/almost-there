@@ -1301,7 +1301,7 @@ const HS=(function(){
    const PUB=['HARTWELL BOOKS','NORTHGATE PRESS','PENWICK & SONS','LITTLE ACORN'];
    const spineTex=(t,c)=>tex(32,192,(q,w,h)=>{q.fillStyle=c;q.fillRect(0,0,w,h);q.fillStyle='rgba(0,0,0,.3)';q.fillRect(w-3,0,3,h);q.fillStyle='rgba(220,196,140,.6)';q.fillRect(0,10,w,2);q.fillRect(0,h-14,w,2);
      q.save();q.translate(w/2+5,h/2);q.rotate(-PI/2);q.textAlign='center';const tt=_t(t);let fs=15;q.font='bold '+fs+'px Georgia, serif';while(q.measureText(tt).width>h-34&&fs>8){fs--;q.font='bold '+fs+'px Georgia, serif';}
-     if(t==="don't"){q.font='19px '+(LANG==='tr'?'"Caveat"':'"Reenie Beanie"')+', cursive';q.fillStyle='#e0d0b0';}else q.fillStyle='#ecdfbe';q.fillText(tt,0,0);q.restore();},false);
+     if(t==="don't"){q.font='19px '+(LANG==='tr'?'"Caveat"':'"Reenie Beanie"')+', cursive';q.fillStyle='#e0d0b0';}else q.fillStyle='#ecdfbe';q.fillText(tt.replace(/'/g,'’'),0,0,h-30);q.restore();},false);
    const covers={};
    const coverTex=(t,c,motif)=>covers[t]||(covers[t]=tex(240,340,(q,w,h)=>{q.fillStyle=c;q.fillRect(0,0,w,h);q.strokeStyle='rgba(225,200,150,.7)';q.lineWidth=3;q.strokeRect(12,12,w-24,h-24);q.lineWidth=1;q.strokeRect(18,18,w-36,h-36);
      q.fillStyle='#efe2c0';q.textAlign='center';const words=_t(t).split(' ');const lines=[];let cur='';q.font='bold 30px Georgia, serif';
