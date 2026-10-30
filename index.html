@@ -2159,6 +2159,7 @@ const HS=(function(){
     if(houseAu){houseAu.rainIn.gain.value=on3?.12:0;houseAu.engine3.gain.value=0;}
     setPhase(on4?'sun4':(on3?'wet':(on2?'grey':'morning')));
     if(houseAu)houseAu.drone.gain.value=on2?.1:.06;
+    betrayReset();
   }
   async function sit3(){
     S.step='sitting';setObjective('');S.busy=true;S.cryH=worldSnd('cry',new THREE.Vector3(5.9,1.0,1.4),11,1.0,{loop:true,lp:1300,wet:.4});
@@ -2777,6 +2778,32 @@ const HS=(function(){
     if(top&&o.position.x>.754&&o.position.x<.79&&o.position.z>4.6&&o.position.z<5.3&&o.position.y>.05&&o.position.y<1.8){o.position.x+=.05;onDoor.push({o,x:o.position.x,z:o.position.z,ry:o.rotation.y});}});
   const doorAt=a=>{fridgeDoor.rotation.y=a;const c=Math.cos(a),s=Math.sin(a);for(const d of onDoor){const dx=d.x-.76,dz=d.z-4.605;d.o.position.x=.76+dx*c+dz*s;d.o.position.z=4.605-dx*s+dz*c;d.o.rotation.y=d.ry+a;}};
   async function swingDoor(a,dur){const a0=fridgeDoor.rotation.y,t0=gameTime;while(gameTime-t0<dur){doorAt(lerp(a0,a,smooth((gameTime-t0)/dur)));await wait(.016);}doorAt(a);}
+  // the house moves things only while you are not looking: you must have seen it, and both its old and new place must stay off screen or behind walls
+  const BT=[],btF=new THREE.Frustum(),btM=new THREE.Matrix4(),btR=new THREE.Raycaster(),btP=new THREE.Vector3(),btE=new THREE.Euler(0,0,0,'YXZ');
+  const btWalls=blockers.filter(m=>m.material===mat(TX.paper,0xffffff));
+  const btBox=(x,z,r=.4,h=1.2)=>new THREE.Box3(new THREE.Vector3(x-r,0,z-r),new THREE.Vector3(x+r,h,z+r));
+  const btNear=(x,z,r=.8)=>Math.hypot(S.pos.x-x,S.pos.z-z)<r;
+  function btVis(b){if(stage!==S||S.pos.x>12||!btF.intersectsBox(b))return false;
+    for(let i=0;i<9;i++){if(i<8)btP.set(i&1?b.max.x:b.min.x,i&2?b.max.y:b.min.y,i&4?b.max.z:b.min.z);else b.getCenter(btP);
+      btP.sub(camera.position);const d=btP.length();if(d<.05)return true;btR.set(camera.position,btP.divideScalar(d));btR.far=d;if(!btR.intersectObjects(btWalls,false).length)return true;}
+    return false;}
+  function btLook(b){b.getCenter(btP).sub(camera.position);const d=btP.length();if(d>6||d<.05||!btF.intersectsBox(b))return false;btR.set(camera.position,btP.divideScalar(d));btR.far=d;return !btR.intersectObjects(btWalls,false).length;}
+  const chairC=scene.children.find(g=>g.isGroup&&Math.abs(g.position.x-3.28)<.01&&Math.abs(g.position.z-7.4)<.01);
+  const CH=[chairA,chairB,chairC].map(g=>{const b=new THREE.Box3().setFromObject(g),cx=(b.min.x+b.max.x)/2,cz=(b.min.z+b.max.z)/2;
+    const col=cols.find(c=>Math.abs((c.x0+c.x1)/2-cx)<.02&&Math.abs((c.z0+c.z1)/2-cz)<.02);return {g,col,c0:{...col},p0:g.position.clone(),q0:g.quaternion.clone()};});
+  const chBox=(c,m=.25)=>new THREE.Box3().setFromObject(c.g).expandByScalar(m);
+  function btPut(c,x,y,z,ry,flip){btE.set(flip?PI:0,ry,0);c.g.position.set(x,y,z);c.g.quaternion.setFromEuler(btE);c.g.updateMatrixWorld(true);
+    const b=new THREE.Box3().setFromObject(c.g);Object.assign(c.col,{x0:b.min.x,x1:b.max.x,z0:b.min.z,z1:b.max.z,on:!flip});}
+  BT.push({day:2,see:()=>chBox(CH[2],0),when:()=>['messages','playing','outside','bed2'].includes(S.step),boxes:()=>[chBox(CH[2]),btBox(3.6,7.55)],near:()=>btNear(3.6,7.55),
+    apply(){btPut(CH[2],3.6,0,7.55,-PI/2+.8);}});
+  function betrayReset(){for(const c of BT){c.done=false;c.seenT=0;c.away=0;}
+    for(const c of CH){Object.assign(c.col,c.c0);c.col.on=true;if(c.g!==chairB){c.g.position.copy(c.p0);c.g.quaternion.copy(c.q0);}}}
+  function betrayUpdate(dt){if(stage!==S)return;
+    camera.updateMatrixWorld();btM.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);btF.setFromProjectionMatrix(btM);
+    for(const c of BT){if(c.done||c.day!==S.day)continue;
+      if(c.see&&c.seenT<1){if(btLook(c.see()))c.seenT+=dt;continue;}
+      if(!c.when()||(c.near&&c.near())||c.boxes().some(b=>btVis(b))){c.away=0;continue;}
+      c.away+=dt;if(c.away>=(c.wait||2)){c.done=true;c.apply();}}}
   S.days=['','MONDAY','TUESDAY','WEDNESDAY','THURSDAY'];
   S.next=d=>{const p=d-1,r=S.reps=S.reps||{};if(p>=2&&!S.jumped&&!r[p]&&SEEN.size-S.seen0<1){r[p]=1;S.again=true;return p;}S.again=false;return d;};
   S.start=async function(day=1,scene=null){MEM.inGame=day;saveMem();
@@ -2863,6 +2890,7 @@ const HS=(function(){
     S.drowsyUI=S.drowsy;
     escalationUpdate(dt);
     day4Update(dt);
+    betrayUpdate(dt);
     if(rainH.visible){for(let i=0;i<RNH;i++){const d=dropsH[i];d.y-=6.5*dt;if(d.y<0){d.y=2.45;d.x=rand(.2,10.8);d.z=rand(.2,9.8);}const j=i*6;rph[j]=d.x;rph[j+1]=d.y;rph[j+2]=d.z;rph[j+3]=d.x;rph[j+4]=d.y+.28;rph[j+5]=d.z;}rgH.attributes.position.needsUpdate=true;}
     if(S.wiperOn){S.w3=(S.w3||0)+dt*1.25*(S.w3d||1);if(S.w3>=1){S.w3=1;S.w3d=-1;SFX.wiper();}if(S.w3<=0){S.w3=0;S.w3d=1;SFX.wiper();}for(const w of w3)w.rotation.z=smooth(S.w3)*1.55;}
     if(S.step==='phone'&&houseAu){S.ringT=(S.ringT||0)-dt;if(S.ringT<=0){S.ringT=3;SFX.ring(houseAu.phoneIn);}}
