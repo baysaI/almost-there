@@ -2796,7 +2796,15 @@ const HS=(function(){
     const b=new THREE.Box3().setFromObject(c.g);Object.assign(c.col,{x0:b.min.x,x1:b.max.x,z0:b.min.z,z1:b.max.z,on:!flip});}
   BT.push({day:2,see:()=>chBox(CH[2],0),when:()=>['messages','playing','outside','bed2'].includes(S.step),boxes:()=>[chBox(CH[2]),btBox(3.6,7.55)],near:()=>btNear(3.6,7.55),
     apply(){btPut(CH[2],3.6,0,7.55,-PI/2+.8);}});
-  function betrayReset(){for(const c of BT){c.done=false;c.seenT=0;c.away=0;}
+  const samp=LIV.find(m=>m.material&&m.material.uniforms&&m.material.uniforms.map.value===TX.sampler);
+  const sampBackT=tex(96,72,(g,w,h)=>{base(g,w,h,'#3a2a1c');g.fillStyle='#7a5c3a';g.fillRect(5,5,w-10,h-10);speckle(g,w,h,.12,67);
+    g.fillStyle='rgba(176,148,100,.55)';g.fillRect(6,6,w-12,4);g.fillRect(6,h-10,w-12,4);g.fillRect(6,6,4,h-12);g.fillRect(w-10,6,4,h-12);
+    g.fillStyle='#2a2622';for(const [x,y] of [[11,24],[w-13,24],[11,h-26],[w-13,h-26],[w/2-1,11],[w/2-1,h-13]])g.fillRect(x,y,2,2);
+    g.fillStyle='#5a5a60';g.fillRect(w/2-8,13,16,3);g.fillStyle='#3e3e44';for(let x=w/2-8;x<w/2+8;x+=3)g.fillRect(x,16,2,1);},false);
+  const sampBack=add(plane(.45,.34,sampBackT,0xffffff,{fit:true,seg:9,pos:[6.45,1.55,3.075]}));sampBack.visible=false;inter(sampBack,'Look',()=>examine(sampBackT),2.2);
+  BT.push({day:2,see:()=>new THREE.Box3().setFromObject(samp),when:()=>true,boxes:()=>[new THREE.Box3().setFromObject(samp).expandByScalar(.3)],wait:2.5,
+    apply(){samp.position.z=3.045;sampBack.visible=true;}});
+  function betrayReset(){for(const c of BT){c.done=false;c.seenT=0;c.away=0;}sampBack.visible=false;samp.position.z=3.075;
     for(const c of CH){Object.assign(c.col,c.c0);c.col.on=true;if(c.g!==chairB){c.g.position.copy(c.p0);c.g.quaternion.copy(c.q0);}}}
   function betrayUpdate(dt){if(stage!==S)return;
     camera.updateMatrixWorld();btM.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);btF.setFromProjectionMatrix(btM);
