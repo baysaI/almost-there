@@ -506,6 +506,8 @@ function haleAlbumTex(day){const SP={1:[['lake','n'],['beach','n']],2:[['bday','
   if(day===3){cap(_t('the park, Sept.'),160,148);g.strokeStyle='#b0201a';g.lineWidth=2;g.beginPath();g.ellipse(259,38,14,26,.12,0,7);g.stroke();cap(_t('who is that?'),178,184,'#b0201a',22);g.beginPath();g.moveTo(236,168);g.lineTo(254,66);g.stroke();}
   },false);}
 TX.drape=tex(32,48,(g,w,h)=>{base(g,w,h,'#d8d2c4');const r=rng(320);for(let x=0;x<w;x++){const v=Math.sin(x*.55+r()*.4)*.5+.5;g.fillStyle='rgba(60,50,40,'+(.04+v*.18)+')';g.fillRect(x,0,1,h);}g.fillStyle='rgba(60,50,40,.2)';for(let x=0;x<w;x+=3)g.fillRect(x,h-3-(r()*3|0),3,3);speckle(g,w,h,.06,321);},false);
+TX.tomCut=tex(22,34,(g,w,h)=>{g.drawImage(halePic('bday','n'),-10,0);g.globalCompositeOperation='destination-in';g.beginPath();const r=rng(304);[[12,4],[22,1],[30,5],[31,14],[29,30],[24,33],[15,32],[11,24],[13,12]].forEach(([x,y],i)=>{const px=x+(r()-.5)*2-10,py=y+(r()-.5)*2;i?g.lineTo(px,py):g.moveTo(px,py);});g.closePath();g.fill();
+  g.globalCompositeOperation='source-over';g.fillStyle='rgba(235,230,215,.8)';g.fillRect(0,3,7,3);g.fillRect(15,2,7,3);},false);
 TX.drawing2=tex(64,64,(g,w,h)=>{base(g,w,h,'#e3dcc8');speckle(g,w,h,.08,83);g.globalAlpha=.65;g.lineWidth=2;
   g.fillStyle='#3a70b0';g.fillRect(6,34,30,12);g.fillRect(12,27,18,8);g.fillStyle='#222';g.fillRect(9,45,6,4);g.fillRect(27,45,6,4);g.fillStyle='#9ac0e0';g.fillRect(15,29,5,5);g.fillRect(22,29,5,5);
   g.strokeStyle='#3a5ab8';g.beginPath();g.arc(17,31,1.6,0,7);g.stroke();
@@ -1712,9 +1714,10 @@ const HS=(function(){
     hallMirror.visible=false;r.setRenderTarget(hmRT);r.render(scene,hmCam);hallMirror.visible=true;};
   const hmSheet=new THREE.Group();hmSheet.add(box(HMW+.18,HMH+.34,.02,TX.drape,0xffffff,{fit:true,seg:9,pos:[HMX,HMY-.08,.115]}));hmSheet.add(box(HMW+.18,.03,.09,TX.drape,0xffffff,{fit:true,seg:9,pos:[HMX,HMY+HMH/2+.08,.075]}));scene.add(hmSheet);
   const hmNot=note('not\nyet',[HMX+.1,HMY+.14,.13],0);D2.splice(D2.indexOf(hmNot),1);note('smile',[HMX,1.6,HMZ+.006],0);
-  function haleDay(){const d=S.day;hmSheet.visible=d===1;hmNot.visible=d===1;hmAlb.visible=d===3;if(hmAlb.visible)hmAlbP.material.uniforms.map.value=haleAlbum();}
+  function haleDay(){const d=S.day;hmSheet.visible=d===1;hmNot.visible=d===1;hmAlb.visible=d===3;hmFace.visible=d===3;if(hmAlb.visible)hmAlbP.material.uniforms.map.value=haleAlbum();}
   const hmAlb=new THREE.Group();hmAlb.add(box(.46,.02,.32,null,0x3a2a20,{seg:9,pos:[0,.01,0]}));const hmAlbP=plane(.44,.3,null,0xffffff,{fit:true,seg:9,unique:true,pos:[0,.022,0]});hmAlbP.rotation.x=-PI/2;hmAlb.add(hmAlbP);
   hmAlb.position.set(HMX-.06,0,.5);hmAlb.rotation.y=.16;scene.add(hmAlb);inter(hmAlb,'Look',()=>examine(haleAlbum()),2.2);
+  const hmFace=plane(.12,.19,TX.tomCut,0xffffff,{fit:true,seg:9,em:.35,pos:[HMX,1.629,HMZ+.007]});hmFace.rotation.z=-.05;add(hmFace);inter(hmFace,'Look',()=>examine(TX.tomCut),2.2);
   const X2=80;
   const seatG=new THREE.Group();seatG.position.set(X2,0,0);scene.add(seatG);
   seatG.add(box(1.5,.16,.55,TX.fabric,0x58585e,{seg:9,pos:[0,.45,0]}));seatG.add(box(1.5,.72,.14,TX.fabric,0x58585e,{seg:9,pos:[0,.88,-.32],rot:[-.12,0,0]}));
