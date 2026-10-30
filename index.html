@@ -2630,6 +2630,7 @@ const HS=(function(){
   brk.add(cyl(.08,.068,.012,10,null,0xeeeae0,{pos:[2.7,.766,7.16]}));brk.add(box(.075,.012,.02,null,0xa8743c,{seg:9,pos:[2.69,.778,7.15],rot:[0,.5,0]}));brk.add(box(.045,.012,.018,null,0xa8743c,{seg:9,pos:[2.73,.778,7.19],rot:[0,-.7,0]}));
   brk.add(box(.08,.014,.06,null,0xe2ddd0,{seg:9,pos:[2.82,.767,7.08],rot:[0,.35,0]}));
   {const cg=new THREE.Group();cg.position.set(3.4,0,7.32);cg.rotation.y=-PI/2-.4;brk.add(cg);cg.add(box(.44,.2,.085,TX.fabric,0xa86a7e,{seg:9,pos:[0,.89,-.2]}));cg.add(box(.09,.34,.05,TX.fabric,0xa86a7e,{seg:9,pos:[.17,.63,-.25]}));}
+  brk.add(box(.3,.08,.28,TX.fabric,0x5a8ab8,{seg:9,pos:[2.4,.515,8.16]}));brk.add(box(.3,.14,.04,TX.fabric,0x5a8ab8,{seg:9,pos:[2.4,.625,8.31]}));
   function paper(lines,pos,rot,group,title){const vn=Math.max(1,...lines.map(l=>Array.isArray(l)?l.length:1));
     const pick=i=>{let L=lines.map(l=>Array.isArray(l)?l[(i+EV)%l.length]:l);if(LANG==='tr'){const k=L.join('|');if(TRP[k])L=TRP[k];}return L;};
     if(LANG==='tr')title=_t(title);
