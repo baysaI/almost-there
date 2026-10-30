@@ -2294,6 +2294,7 @@ const HS=(function(){
     setPhase(on4?'sun4':(on3?'wet':(on2?'grey':'morning')));
     if(houseAu)houseAu.drone.gain.value=on2?.1:.06;
     haleDay();
+    betrayReset();
   }
   async function sit3(){
     S.step='sitting';setObjective('');S.busy=true;S.cryH=worldSnd('cry',new THREE.Vector3(5.9,1.0,1.4),11,1.0,{loop:true,lp:1300,wet:.4});
@@ -2934,6 +2935,50 @@ const HS=(function(){
     if(top&&o.position.x>.754&&o.position.x<.79&&o.position.z>4.6&&o.position.z<5.3&&o.position.y>.05&&o.position.y<1.8){o.position.x+=.05;onDoor.push({o,x:o.position.x,z:o.position.z,ry:o.rotation.y});}});
   const doorAt=a=>{fridgeDoor.rotation.y=a;const c=Math.cos(a),s=Math.sin(a);for(const d of onDoor){const dx=d.x-.76,dz=d.z-4.605;d.o.position.x=.76+dx*c+dz*s;d.o.position.z=4.605-dx*s+dz*c;d.o.rotation.y=d.ry+a;}};
   async function swingDoor(a,dur){const a0=fridgeDoor.rotation.y,t0=gameTime;while(gameTime-t0<dur){doorAt(lerp(a0,a,smooth((gameTime-t0)/dur)));await wait(.016);}doorAt(a);}
+  // the house moves things only while you are not looking: you must have seen it, and both its old and new place must stay off screen or behind walls
+  const BT=[],btF=new THREE.Frustum(),btM=new THREE.Matrix4(),btR=new THREE.Raycaster(),btP=new THREE.Vector3(),btE=new THREE.Euler(0,0,0,'YXZ');
+  const btWalls=blockers.filter(m=>m.material===mat(TX.paper,0xffffff));
+  const btBox=(x,z,r=.4,h=1.2)=>new THREE.Box3(new THREE.Vector3(x-r,0,z-r),new THREE.Vector3(x+r,h,z+r));
+  const btNear=(x,z,r=.8)=>Math.hypot(S.pos.x-x,S.pos.z-z)<r;
+  function btVis(b){if(stage!==S||S.pos.x>12||!btF.intersectsBox(b))return false;
+    for(let i=0;i<9;i++){if(i<8)btP.set(i&1?b.max.x:b.min.x,i&2?b.max.y:b.min.y,i&4?b.max.z:b.min.z);else b.getCenter(btP);
+      btP.sub(camera.position);const d=btP.length();if(d<.05)return true;btR.set(camera.position,btP.divideScalar(d));btR.far=d;if(!btR.intersectObjects(btWalls,false).length)return true;}
+    return false;}
+  function btLook(b){b.getCenter(btP).sub(camera.position);const d=btP.length();if(d>6||d<.05||!btF.intersectsBox(b))return false;btR.set(camera.position,btP.divideScalar(d));btR.far=d;return !btR.intersectObjects(btWalls,false).length;}
+  const CH=[chairA,chairB,chairC].map(g=>{const b=new THREE.Box3().setFromObject(g),cx=(b.min.x+b.max.x)/2,cz=(b.min.z+b.max.z)/2;
+    const col=cols.find(c=>Math.abs((c.x0+c.x1)/2-cx)<.02&&Math.abs((c.z0+c.z1)/2-cz)<.02);return {g,col,c0:{...col},p0:g.position.clone(),q0:g.quaternion.clone()};});
+  const chBox=(c,m=.25)=>new THREE.Box3().setFromObject(c.g).expandByScalar(m);
+  function btPut(c,x,y,z,ry,flip){btE.set(flip?PI:0,ry,0);c.g.position.set(x,y,z);c.g.quaternion.setFromEuler(btE);c.g.updateMatrixWorld(true);
+    const b=new THREE.Box3().setFromObject(c.g);Object.assign(c.col,{x0:b.min.x,x1:b.max.x,z0:b.min.z,z1:b.max.z,on:!flip});}
+  BT.push({day:2,see:()=>chBox(CH[2],0),when:()=>['messages','playing','outside','bed2'].includes(S.step),boxes:()=>[chBox(CH[2]),btBox(3.6,7.55)],near:()=>btNear(3.6,7.55),
+    apply(){btPut(CH[2],3.6,0,7.55,-PI/2+.8);}});
+  const samp=LIV.find(m=>m.material&&m.material.uniforms&&m.material.uniforms.map.value===TX.sampler);
+  const sampBackT=tex(96,72,(g,w,h)=>{base(g,w,h,'#3a2a1c');g.fillStyle='#7a5c3a';g.fillRect(5,5,w-10,h-10);speckle(g,w,h,.12,67);
+    g.fillStyle='rgba(176,148,100,.55)';g.fillRect(6,6,w-12,4);g.fillRect(6,h-10,w-12,4);g.fillRect(6,6,4,h-12);g.fillRect(w-10,6,4,h-12);
+    g.fillStyle='#2a2622';for(const [x,y] of [[11,24],[w-13,24],[11,h-26],[w-13,h-26],[w/2-1,11],[w/2-1,h-13]])g.fillRect(x,y,2,2);
+    g.fillStyle='#5a5a60';g.fillRect(w/2-8,13,16,3);g.fillStyle='#3e3e44';for(let x=w/2-8;x<w/2+8;x+=3)g.fillRect(x,16,2,1);},false);
+  const sampBack=add(plane(.45,.34,sampBackT,0xffffff,{fit:true,seg:9,pos:[6.45,1.55,3.075]}));sampBack.visible=false;inter(sampBack,'Look',()=>examine(sampBackT),2.2);
+  BT.push({day:2,see:()=>new THREE.Box3().setFromObject(samp),when:()=>true,boxes:()=>[new THREE.Box3().setFromObject(samp).expandByScalar(.3)],wait:2.5,
+    apply(){samp.position.z=3.045;sampBack.visible=true;}});
+  const btTable={x0:1.8,x1:3.0,z0:6.93,z1:7.87,on:false};cols.push(btTable);
+  BT.push({day:3,when:()=>['phone','call','clean','cant','sleep'].includes(S.step),near:()=>S.pos.x>1.5&&S.pos.x<3.3&&S.pos.z>6.6&&S.pos.z<8.2,
+    boxes:()=>CH.map(c=>chBox(c)).concat([new THREE.Box3(new THREE.Vector3(1.6,0,6.7),new THREE.Vector3(3.2,1.9,8.1))]),
+    apply(){plates.forEach(p=>{p.visible=false;});mugs.forEach(m=>{m.position.y=-10;});btTable.on=true;
+      btPut(CH[0],2.08,1.235,7.17,PI,true);btPut(CH[2],2.6,1.235,7.17,PI,true);btPut(CH[1],2.34,1.235,7.63,0,true);}});
+  const BED=[[1.3,2.75,PI],[2.85,1.25,-PI/2],[2.55,2.55,Math.atan2(1.3-2.55,.5-2.55)]];
+  BT.push({day:4,when:()=>['find1','rolling','ball','holding','find2'].includes(S.step),near:()=>BED.some(p=>btNear(p[0],p[1])),
+    boxes:()=>CH.map(c=>chBox(c)).concat(BED.map(p=>btBox(p[0],p[1]))),apply(){CH.forEach((c,i)=>btPut(c,BED[i][0],0,BED[i][1],BED[i][2]));}});
+  const HDOOR=[[4.95,.42],[4.37,.88],[4.37,1.6]].map(p=>[p[0],p[1],Math.atan2(5.6-p[0],1.45-p[1])]);
+  BT.push({day:4,when:()=>S.inBath,boxes:()=>CH.map(c=>chBox(c)).concat(HDOOR.map(p=>btBox(p[0],p[1]))),wait:.5,
+    apply(){CH.forEach((c,i)=>btPut(c,HDOOR[i][0],0,HDOOR[i][1],HDOOR[i][2]));}});
+  function betrayReset(){for(const c of BT){c.done=false;c.seenT=0;c.away=0;}sampBack.visible=false;samp.position.z=3.075;btTable.on=false;
+    for(const c of CH){Object.assign(c.col,c.c0);c.col.on=true;if(c.g===chairA){c.g.position.copy(c.p0);c.g.quaternion.copy(c.q0);}}}
+  function betrayUpdate(dt){if(stage!==S)return;
+    camera.updateMatrixWorld();btM.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse);btF.setFromProjectionMatrix(btM);
+    for(const c of BT){if(c.done||c.day!==S.day)continue;
+      if(c.see&&c.seenT<1){if(btLook(c.see()))c.seenT+=dt;continue;}
+      if(!c.when()||(c.near&&c.near())||c.boxes().some(b=>btVis(b))){c.away=0;continue;}
+      c.away+=dt;if(c.away>=(c.wait||2)){c.done=true;c.apply();}}}
   S.days=['','MONDAY','TUESDAY','WEDNESDAY','THURSDAY'];
   S.next=d=>{const p=d-1,r=S.reps=S.reps||{};if(p>=2&&!S.jumped&&!r[p]&&SEEN.size-S.seen0<1){r[p]=1;S.again=true;return p;}S.again=false;return d;};
   const sceneRoot=scene;
@@ -3021,6 +3066,7 @@ const HS=(function(){
     S.drowsyUI=S.drowsy;
     escalationUpdate(dt);
     day4Update(dt);
+    betrayUpdate(dt);
     if(rainH.visible){for(let i=0;i<RNH;i++){const d=dropsH[i];d.y-=6.5*dt;if(d.y<0){d.y=2.45;d.x=rand(.2,10.8);d.z=rand(.2,9.8);}const j=i*6;rph[j]=d.x;rph[j+1]=d.y;rph[j+2]=d.z;rph[j+3]=d.x;rph[j+4]=d.y+.28;rph[j+5]=d.z;}rgH.attributes.position.needsUpdate=true;}
     if(S.wiperOn){S.w3=(S.w3||0)+dt*1.25*(S.w3d||1);if(S.w3>=1){S.w3=1;S.w3d=-1;SFX.wiper();}if(S.w3<=0){S.w3=0;S.w3d=1;SFX.wiper();}for(const w of w3)w.rotation.z=smooth(S.w3)*1.55;}
     if(S.step==='phone'&&houseAu){S.ringT=(S.ringT||0)-dt;if(S.ringT<=0){S.ringT=3;SFX.ring(houseAu.phoneIn);}}
