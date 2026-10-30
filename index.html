@@ -1726,9 +1726,6 @@ const HS=(function(){
     h.wg=wg;h.t=0;h.fl=1;h.nearT=0;S.showerH=h;}
   function showerOff(){const h=S.showerH;S.showerH=null;if(!h||h.dead)return;const t=AU.C.currentTime;ramp(h.wg.gain,0,.08);tapTo(h.bus,t+.3,170,.4,.18);setTimeout(()=>h.stop(.2),1200);}
   const KRUN=[[6.5,1.5],[5.6,1.45],[4.95,1.9],[4.95,4.1],[5.1,5.25],[5.75,5.75],[6.7,5.15],[7.7,4.35]];
-  const HWALL=[[0,4,0,4.5,[[1,1.9]]],[0,4,4.5,10,[[6,8]]],[0,5.6,0,3,[]],[0,5.6,3,10,[[5.5,7.5]]],[1,4.5,0,4,[]],[1,3,5.6,11,[]]];
-  function wallHid(px,pz,x,z){for(const [ax,c,a,b,gp] of HWALL){const p0=ax?pz:px,p1=ax?z:x;if((p0-c)*(p1-c)>=0)continue;const k=(c-p0)/(p1-p0),q=ax?px+(x-px)*k:pz+(z-pz)*k;if(q<a||q>b)continue;if(!gp.some(g=>q>g[0]&&q<g[1]))return true;}return false;}
-  function kidHid(){for(let i=1;i<KRUN.length;i++)for(let k=0;k<=4;k++){const a=KRUN[i-1],b=KRUN[i];if(!wallHid(S.pos.x,S.pos.z,lerp(a[0],b[0],k/4),lerp(a[1],b[1],k/4)))return false;}return true;}
   async function kidRun(){S.kidRan=true;const C=AU.C;
     const dh=worldSnd(null,new THREE.Vector3(5.62,1.1,1.45),12,1,{lp:3200,wet:.35});if(dh){if(!smp('dooropen',dh.bus,{vol:.45}))tapTo(dh.bus,C.currentTime,900,.3,.08,'bandpass');smp('doorclose',dh.bus,{vol:.36,at:C.currentTime+1.25});setTimeout(()=>dh.stop(.3),3200);}
     const h=worldSnd(null,new THREE.Vector3(KRUN[0][0],.2,KRUN[0][1]),12,1,{lp:3000,wet:.3});if(!h)return;await wait(.3);
@@ -1741,7 +1738,7 @@ const HS=(function(){
     h.src.pos.set(7.85,.45,3.75);const t=C.currentTime+.05;tapTo(h.bus,t,420,.35,.45);tapTo(h.bus,t+.12,900,.05,.35,'bandpass');
     await wait(1);h.stop(.3);}
   function monFamily(dt){
-    if(!S.kidRan&&['coffee','brewing','take'].includes(S.step)){S.kidArm=(S.kidArm||0)+dt;if(S.kidArm>12&&inRoom('kitchen')&&kidHid())kidRun();}
+    if(!S.kidRan&&['coffee','brewing','take'].includes(S.step)){S.kidArm=(S.kidArm||0)+dt;if(S.kidArm>12&&(inRoom('kitchen')||inRoom('bed')))kidRun();}
     const h=S.showerH;if(!h||h.dead)return;h.t+=dt;
     if(S.phase==='evening'){S.showerH=null;h.stop(1.5);return;}
     h.fl-=dt;if(h.fl<=0){h.fl=.25+Math.random()*.65;ramp(h.wg.gain,.6+Math.random()*.4,.12);}
