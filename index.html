@@ -1328,7 +1328,7 @@ const HS=(function(){
          bk.position.set(x+.11,y,.02);bk.rotation.x=-.12;g.add(bk);inter(bk,'Look',()=>examine(coverTex(cv[0],c,cv[1])),2.4);x+=.24;placed++;continue;}
        const t=SP[si%SP.length];si++;const c=COL[(si*5)%COL.length];const bw=.05+r()*.03,bh=.26+r()*.1,bd=.2;
        const bk=new THREE.Group();bk.add(box(bw,bh,bd,null,parseInt(c.slice(1),16),{seg:9,pos:[0,bh/2,0]}));bk.add(plane(bw,bh,spineTex(t,c),0xffffff,{fit:true,seg:9,em:.1,pos:[0,bh/2,bd/2+.002]}));
-       const lean=r()<.1?(r()<.5?-.18:.18):0;bk.rotation.z=lean;bk.position.set(x+bw/2,y,.01);g.add(bk);inter(bk,'Look',()=>examine(coverTex(t,c,['fig','eye','car','seat'][si%4])),2.4);
+       const lean=r()<.1?(r()<.5?-.18:.18):0;bk.rotation.z=lean;bk.position.set(x+bw/2,y,.01);g.add(bk);inter(bk,'Look',()=>examine(coverTex(t,c,'plain')),2.4);
        x+=bw+.004+(lean?.03:0);}}
    g.position.set(10.25,0,9.8);g.rotation.y=PI;liv(g,true);}
   {const sp=liv(plane(.45,.34,TX.sampler,0xffffff,{fit:true,seg:9,pos:[6.45,1.55,3.075]}));inter(sp,'Look',()=>examine(TX.sampler),2.2);}
