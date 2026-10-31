@@ -12,3 +12,8 @@
 - **Every day ends differently.** Tuesday cuts to silence, Wednesday crashes, Thursday goes white and Friday comes up out of the white.
 - **Scares no longer take the camera.** They wait behind you until you turn around.
 - **No buttons at the end.** She asks once and the exit comes up on the right. Pull over, or keep driving.
+- **The blood is written with a finger.** Every letter is drawn stroke by stroke; the finger runs dry and breaks into ridges, is dipped again, and drips fall where it pooled. It no longer glows in the dark, and the mirror writes it in the order a hand would.
+- **Hand prints** are a palm and five fingers dragged down the wall, not rectangles.
+- **Contact shadows** under the furniture and under every figure that stands in the house.
+- **Sunlight on the floor** through the windows on sunny mornings, gone when the curtains close. Thursday's rooms have a bright side and a dim side.
+- **You can tell Lily from her shadow**: a short dress and two bunches of hair, as in the photos. The long neck and the tilted head are kept for one moment only.

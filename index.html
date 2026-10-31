@@ -207,7 +207,7 @@ function saveMem(){try{localStorage.setItem('almostthere_mem',JSON.stringify(MEM
 const EV=Math.random()*4|0,NIGHT3=new Date().getHours()===3,PNAME=String(window.AT&&window.AT.name||'').slice(0,12);
 let GLITCH=0;
 const LANG=SET.lang==='tr'?'tr':'en';
-const TRD={"THE LONG WINTER": "UZUN KIŞ", "A CHILD'S ATLAS": "ÇOCUK ATLASI", "DRAWING ANIMALS": "HAYVAN ÇİZİMİ", "HOUSEPLANTS": "SALON BİTKİLERİ", "THE TRAIN BOOK": "TRENLER KİTABI", "WINTER SOUPS": "KIŞ ÇORBALARI", "PRIDE AND PREJUDICE": "AŞK VE GURUR", "LITTLE WOMEN": "KÜÇÜK KADINLAR", "MOBY DICK": "MOBY DICK", "THE WEATHER BOOK": "HAVA DURUMU KİTABI", "KNITTING FOR BEGINNERS": "YENİ BAŞLAYANLARA ÖRGÜ", "COLLECTED POEMS": "TOPLU ŞİİRLER", "LITTLE ACORN": "KÜÇÜK PALAMUT", "PENWICK & SONS": "PENWICK VE OĞULLARI", "NORTHGATE PRESS": "NORTHGATE YAYINLARI", "HARTWELL BOOKS": "HARTWELL KİTAP", "THE HALES  2016": "HALE AİLESİ  2016", "WHERE IS LITTLE OWL?": "KÜÇÜK BAYKUŞ NEREDE?", "TWELVE SHORT WALKS": "ON İKİ KISA YÜRÜYÜŞ", "BABY'S FIRST YEAR": "BEBEĞİN İLK YILI", "FAMILY HEALTH GUIDE": "AİLE SAĞLIK REHBERİ", "THE SECRET GARDEN": "GİZLİ BAHÇE", "THE GARDEN YEAR": "BAHÇE TAKVİMİ", "CROSSWORDS 2": "BULMACALAR 2", "A TALE OF TWO CITIES": "İKİ ŞEHRİN HİKÂYESİ", "BIRDS OF THE NORTHWEST": "KUZEYBATININ KUŞLARI", "FIX IT YOURSELF": "KENDİN TAMİR ET", "THE SLEEPY BEAR": "UYKUCU AYI", "ROAD ATLAS": "YOL ATLASI", "SUNDAY SUPPERS": "PAZAR SOFRALARI", "you left them, {n}.": "onları bıraktın, {n}.", "{n}... pick up.": "{n}... aç telefonu.", "A GAME FOR MEHMET BAYSAL": "MEHMET BAYSAL İÇİN BİR OYUN", "you should be asleep.": "uyuyor olman gerekiyordu.", "Wait": "Bekle", "Close the program": "Programı kapat", "If you close it now, they will be alone.": "Şimdi kapatırsan yalnız kalacaklar.", "Almost There is not responding.": "Almost There yanıt vermiyor.", "you left them.": "onları bıraktın.", "Turn off the stove.": "Ocağı kapat.", "Turn off the stove": "Ocağı kapat", "You never looked at them.": "Onlara hiç bakmadın.", "she had\nthe keys": "anahtarlar\nondaydı", "who are the\nplates for": "tabaklar\nkimin için", "visiting hours\nend at five": "ziyaret saati\nbeşte biter", "ASLEEP": "UYUYORDUN", "NOT YOU": "SEN DEĞİL", "YOU WEREN'T DRIVING": "SEN SÜRMÜYORDUN", "IN THE CAR": "ARABADA DEĞİLDİN", "YOU WEREN'T": "SEN", "THEY": "KİM", "WHO ARE": "ONLAR", "LIVES HERE": "YAŞAMIYOR BURADA", "NOBODY": "KİMSE", "HEAR US": "DUYUYOR MUSUN", "CAN YOU": "BİZİ", "THEY ARE STILL WAITING": "HÂLÂ BEKLİYORLAR", "ROOM": "ODA", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "You are already inside.": "Zaten içeridesin.", "Make coffee.": "Kahve yap.", "Babe? ...You up?": "Canım? ...Uyandın mı?", "Stop it! ...Stop it.": "Yapma! ...Yapma ama.", "Love you.": "Seni seviyorum.", "Can you get her up? She'll be late again.": "Onu kaldırır mısın? Yine geç kalacak.", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "THE SECOND PASSENGER": "İKİNCİ YOLCU", "ROOM 317": "ODA 317", "NOBODY WAS DRIVING": "KİMSE SÜRMÜYORDU", "belt fastened.": "kemer takılı.", "ST. ANNE PRESS": "ST. ANNE YAYINLARI", "HOW TO KEEP YOUR EYES OPEN": "GÖZLERİ AÇIK TUTMAK", "THE BACK SEAT": "ARKA KOLTUK", "SHE IS SLEEPING": "O UYUYOR", "ALMOST THERE  vol. IV": "AZ KALDI  cilt IV", "WHAT THE CHILD SAW": "ÇOCUĞUN GÖRDÜĞÜ", "COUNTING HEADLIGHTS": "FARLARI SAYMAK", "THE ROAD IS LONGER AT NIGHT": "YOL GECE DAHA UZUN", "don't": "yapma", "THERE WERE NEVER THREE": "HİÇ ÜÇ KİŞİ OLMADINIZ", "ONE PASSENGER": "TEK YOLCU", "LULLABIES FOR LONG DRIVES": "UZUN YOLLAR İÇİN NİNNİLER", "A FATHER'S GUIDE TO FORGETTING": "BİR BABANIN UNUTMA REHBERİ", "HOW MANY BEDS": "KAÇ YATAK", "YOUR SIDE OF THE CAR": "ARABADA SENİN TARAFIN", "DADDY": "BABA", "STOP": "DUR", "OCTOBER": "EKİM", "they come home friday": "cuma eve geliyorlar", "HOME SWEET HOME": "YUVA TATLI YUVA", "LOOK BEHIND": "ARKANA BAK", "ONE": "BİR", "Sit on the couch": "Koltuğa otur", "Throw": "Fırlat", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "CONTINUE": "DEVAM ET", "you didn't\nlook.": "bakmadın.", "visiting hours\nend at nine": "ziyaret saati\ndokuzda biter", "S  pull over": "S  kenara çek", "Pull back to pull over": "Kenara çekmek için geri çek", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ", "Lake Arden, July": "Arden Gölü, Temmuz", "my two": "iki tanem", "Tom's": "Tom", "40th!": "40 yaşında!", "(he cried)": "(ağladı)", "our house!": "evimiz!", "not\nyet": "henüz\ndeğil", "smile": "gülümse", "the park, Sept.": "park, Eylül", "who is that?": "bu kim?", "Daddy's": "Babam", "MILLBROOK ELEMENTARY": "MILLBROOK İLKOKULU", "FINAL NOTICE": "SON UYARI", "please call me.": "lütfen beni ara.", "- Mom": "- Annen", "MISSING": "KAYIP", "HAVE YOU SEEN THIS FAMILY?": "BU AİLEYİ GÖRDÜNÜZ MÜ?", "Last seen October 16": "En son 16 Ekim'de görüldüler", "If you know anything, call 555-0143": "Bir şey biliyorsanız 555-0143'ü arayın", "DRIVER LICENSE": "SÜRÜCÜ BELGESİ"};
+const TRD={"THE LONG WINTER": "UZUN KIŞ", "A CHILD'S ATLAS": "ÇOCUK ATLASI", "DRAWING ANIMALS": "HAYVAN ÇİZİMİ", "HOUSEPLANTS": "SALON BİTKİLERİ", "THE TRAIN BOOK": "TRENLER KİTABI", "WINTER SOUPS": "KIŞ ÇORBALARI", "PRIDE AND PREJUDICE": "AŞK VE GURUR", "LITTLE WOMEN": "KÜÇÜK KADINLAR", "MOBY DICK": "MOBY DICK", "THE WEATHER BOOK": "HAVA DURUMU KİTABI", "KNITTING FOR BEGINNERS": "YENİ BAŞLAYANLARA ÖRGÜ", "COLLECTED POEMS": "TOPLU ŞİİRLER", "LITTLE ACORN": "KÜÇÜK PALAMUT", "PENWICK & SONS": "PENWICK VE OĞULLARI", "NORTHGATE PRESS": "NORTHGATE YAYINLARI", "HARTWELL BOOKS": "HARTWELL KİTAP", "THE HALES  2016": "HALE AİLESİ  2016", "WHERE IS LITTLE OWL?": "KÜÇÜK BAYKUŞ NEREDE?", "TWELVE SHORT WALKS": "ON İKİ KISA YÜRÜYÜŞ", "BABY'S FIRST YEAR": "BEBEĞİN İLK YILI", "FAMILY HEALTH GUIDE": "AİLE SAĞLIK REHBERİ", "THE SECRET GARDEN": "GİZLİ BAHÇE", "THE GARDEN YEAR": "BAHÇE TAKVİMİ", "CROSSWORDS 2": "BULMACALAR 2", "A TALE OF TWO CITIES": "İKİ ŞEHRİN HİKÂYESİ", "BIRDS OF THE NORTHWEST": "KUZEYBATININ KUŞLARI", "FIX IT YOURSELF": "KENDİN TAMİR ET", "THE SLEEPY BEAR": "UYKUCU AYI", "ROAD ATLAS": "YOL ATLASI", "SUNDAY SUPPERS": "PAZAR SOFRALARI", "you left them, {n}.": "onları bıraktın, {n}.", "{n}... pick up.": "{n}... aç telefonu.", "A GAME FOR MEHMET BAYSAL": "MEHMET BAYSAL İÇİN BİR OYUN", "you should be asleep.": "uyuyor olman gerekiyordu.", "Wait": "Bekle", "Close the program": "Programı kapat", "If you close it now, they will be alone.": "Şimdi kapatırsan yalnız kalacaklar.", "Almost There is not responding.": "Almost There yanıt vermiyor.", "you left them.": "onları bıraktın.", "Turn off the stove.": "Ocağı kapat.", "Turn off the stove": "Ocağı kapat", "You never looked at them.": "Onlara hiç bakmadın.", "she had\nthe keys": "anahtarlar\nondaydı", "who are the\nplates for": "tabaklar\nkimin için", "visiting hours\nend at five": "ziyaret saati\nbeşte biter", "ASLEEP": "UYUYORDUN", "NOT YOU": "SEN DEĞİL", "YOU WEREN'T DRIVING": "SEN SÜRMÜYORDUN", "IN THE CAR": "ARABADA DEĞİLDİN", "YOU WEREN'T": "SEN", "THEY": "KİM", "WHO ARE": "ONLAR", "LIVES HERE": "YAŞAMIYOR BURADA", "NOBODY": "KİMSE", "HEAR US": "DUYUYOR MUSUN", "CAN YOU": "BİZİ", "THEY ARE STILL WAITING": "HÂLÂ BEKLİYORLAR", "ROOM": "ODA", "A GAME BY MEHMET BAYSAL": "BİR MEHMET BAYSAL OYUNU", "You are already inside.": "Zaten içeridesin.", "Make coffee.": "Kahve yap.", "Babe? ...You up?": "Canım? ...Uyandın mı?", "Stop it! ...Stop it.": "Yapma! ...Yapma ama.", "Love you.": "Seni seviyorum.", "Can you get her up? She'll be late again.": "Onu kaldırır mısın? Yine geç kalacak.", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "THE SECOND PASSENGER": "İKİNCİ YOLCU", "ROOM 317": "ODA 317", "NOBODY WAS DRIVING": "KİMSE SÜRMÜYORDU", "belt fastened.": "kemer takılı.", "ST. ANNE PRESS": "ST. ANNE YAYINLARI", "HOW TO KEEP YOUR EYES OPEN": "GÖZLERİ AÇIK TUTMAK", "THE BACK SEAT": "ARKA KOLTUK", "SHE IS SLEEPING": "O UYUYOR", "ALMOST THERE  vol. IV": "AZ KALDI  cilt IV", "WHAT THE CHILD SAW": "ÇOCUĞUN GÖRDÜĞÜ", "COUNTING HEADLIGHTS": "FARLARI SAYMAK", "THE ROAD IS LONGER AT NIGHT": "YOL GECE DAHA UZUN", "don't": "yapma", "THERE WERE NEVER THREE": "HİÇ ÜÇ KİŞİ OLMADINIZ", "ONE PASSENGER": "TEK YOLCU", "LULLABIES FOR LONG DRIVES": "UZUN YOLLAR İÇİN NİNNİLER", "A FATHER'S GUIDE TO FORGETTING": "BİR BABANIN UNUTMA REHBERİ", "HOW MANY BEDS": "KAÇ YATAK", "YOUR SIDE OF THE CAR": "ARABADA SENİN TARAFIN", "DADDY": "BABA", "STOP": "DUR", "OCTOBER": "EKİM", "they come home friday": "cuma eve geliyorlar", "HOME SWEET HOME": "YUVA TATLI YUVA", "LOOK BEHIND": "ARKANA BAK", "ONE": "BİR", "Sit on the couch": "Koltuğa otur", "Throw": "Fırlat", "Pick up the ball": "Topu al", "Open the curtains": "Perdeyi aç", "Close the curtains": "Perdeyi kapat", "Take the eggs.": "Yumurtaları al.", "Open the fridge": "Buzdolabını aç", "Cook the eggs.": "Yumurtaları pişir.", "Cook the eggs": "Yumurtaları pişir", "Make coffee": "Kahve yap", "Set the table.": "Masayı hazırla.", "Take the mugs": "Kupaları al", "Put one away": "Birini kaldır", "Sit down.": "Otur.", "Sit down": "Otur", "Check the messages.": "Mesajları dinle.", "Play messages": "Mesajları oynat", "Watch": "İzle", "Knock": "Kapıyı çal", "Make breakfast.": "Kahvaltı hazırla.", "Wake him": "Onu uyandır", "Answer her": "Ona cevap ver", "Go outside.": "Dışarı çık.", "Go to bed.": "Yatağa git.", "Leave.": "Çık.", "Answer the phone.": "Telefonu aç.", "Answer": "Aç", "Clean it up.": "Temizle şunu.", "clean it up": "temizle şunu", "CLEAN IT UP": "TEMİZLE ŞUNU", "CLEAN IT UP.": "TEMİZLE ŞUNU.", "Clean it": "Temizle", "Go to sleep.": "Uyu.", "Sleep": "Uyu", "Find them.": "Onları bul.", "Cut her out.": "Onu kesip çıkar.", "Cut her out": "Onu kesip çıkar", "Go to her room.": "Onun odasına git.", "you can't.": "yapamazsın.", "Wait for them.": "Onları bekle.", "Turn off the water.": "Suyu kapat.", "Turn off the water": "Suyu kapat", "Listen.": "Dinle.", "Open it.": "Aç onu.", "Open": "Aç", "Tuck her in.": "Üstünü ört.", "Tuck her in": "Üstünü ört", "Wind it.": "Kur onu.", "Wind it": "Kur", "Keep winding.": "Kurmaya devam et.", "Stand up": "Kalk", "Get out.": "İn.", "Get out": "İn", "Unbuckle": "Kemerini çöz", "Turn off the alarm.": "Alarmı kapat.", "Turn off the alarm": "Alarmı kapat", "Wake her up.": "Onu uyandır.", "Read": "Oku", "Look": "Bak", "Tap WAKE to stay awake": "Uyanık kalmak için UYAN’a dokun", "SPACE  stay awake": "SPACE  uyanık kal", "WAKE": "UYAN", "USE": "KULLAN", "Should we stop?": "Duralım mı?", "YOU WEREN'T|DRIVING": "SEN|SÜRMÜYORDUN", "CONTINUE": "DEVAM ET", "you didn't\nlook.": "bakmadın.", "visiting hours\nend at nine": "ziyaret saati\ndokuzda biter", "S  pull over": "S  kenara çek", "Pull back to pull over": "Kenara çekmek için geri çek", "almost there.": "az kaldı.", "Almost there.": "Az kaldı.", "Let's stop.": "Duralım.", "You should rest.": "Dinlenmelisin.", "Please.": "Lütfen.", "please.": "lütfen.", "good girl.": "aferin kızıma.", "eat something.": "bir şeyler ye.", "you have to eat something.": "bir şeyler yemen lazım.", "that's not how she sounds.": "onun sesi böyle değil.", "FOURTEEN NEW MESSAGES": "ON DÖRT YENİ MESAJ", "ONE NEW MESSAGE": "BİR YENİ MESAJ", "END OF MESSAGES": "MESAJLARIN SONU", "MONDAY": "PAZARTESİ", "TUESDAY": "SALI", "WEDNESDAY": "ÇARŞAMBA", "THURSDAY": "PERŞEMBE", "FRIDAY": "CUMA", "ALMOST THERE": "AZ KALDI", "The end.": "Son.", "PAUSED": "DURAKLATILDI", "RESUME": "DEVAM", "KEEP DRIVING": "SÜRMEYE DEVAM ET", "MAIN MENU": "ANA MENÜ", "CLICK AGAIN TO QUIT": "ÇIKMAK İÇİN TEKRAR TIKLA", "Left side to walk · right side to look · USE to interact<br>Headphones recommended.": "Sol taraf yürür · sağ taraf bakar · KULLAN etkileşir<br>Kulaklık önerilir.", "REST AREA": "MOLA YERİ", "the yellow\none\nis hers": "sarı olan\nonun", "DON'T OPEN\nshe's\nsleeping": "AÇMA\nuyuyor", "don't\nplay them": "onları\ndinleme", "you already\ncame home": "zaten\neve\ngeldin", "go back\nto sleep": "yatağına\ndön", "call\nher back": "onu\ngeri ara", "don't\ncall her": "onu\narama", "she isn't\ncoming": "o\ngelmiyor", "you were\ndriving": "sen\nsürüyordun", "you weren't\ndriving": "sen\nsürmüyordun", "she's already\nhere": "o zaten\nburada", "you said\nthat\nyesterday": "bunu\ndün de\ndedin", "you should": "uyuman", "be asleep.": "gerekirdi.", "YOU WERE": "SEN", "DRIVING": "SÜRÜYORDUN", "SHE ASKED YOU TO STOP": "DURMANI İSTEDİ", "WAKE UP": "UYAN", "WHY DIDN'T": "NEDEN", "YOU STOP": "DURMADIN", "LOOK AT WHAT": "BAK NE", "YOU DID": "YAPTIN", "SHE WAS AWAKE": "O UYANIKTI", "YOU CLOSED": "GÖZLERİNİ", "YOUR EYES": "KAPATTIN", "IT WON'T": "ÇIKMAYACAK", "COME OFF": "ASLA", "YOU CAN'T": "YAPAMAZSIN", "STOP STOP STOP": "DUR DUR DUR", "ALMOST THERE  ALMOST THERE": "AZ KALDI  AZ KALDI", "SHE ASKED": "O İSTEDİ", "ALMOST": "AZ", "THERE": "KALDI", "WHO WAS": "KİM", "DRIVING?": "SÜRÜYORDU?", "LET THEM": "BIRAK", "GO": "GİTSİNLER", "NORTHWAY INSURANCE": "NORTHWAY SİGORTA", "HIGHWAY PATROL": "TRAFİK POLİSİ", "ST. ANNE GENERAL": "ST. ANNE HASTANESİ", "Lake Arden, July": "Arden Gölü, Temmuz", "my two": "iki tanem", "Tom's": "Tom", "40th!": "40 yaşında!", "(he cried)": "(ağladı)", "our house!": "evimiz!", "not\nyet": "henüz\ndeğil", "smile": "gülümse", "the park, Sept.": "park, Eylül", "who is that?": "bu kim?", "Daddy's": "Babam", "MILLBROOK ELEMENTARY": "MILLBROOK İLKOKULU", "FINAL NOTICE": "SON UYARI", "please call me.": "lütfen beni ara.", "- Mom": "- Annen", "MISSING": "KAYIP", "HAVE YOU SEEN THIS FAMILY?": "BU AİLEYİ GÖRDÜNÜZ MÜ?", "Last seen October 16": "En son 16 Ekim'de görüldüler", "If you know anything, call 555-0143": "Bir şey biliyorsanız 555-0143'ü arayın", "DRIVER LICENSE": "SÜRÜCÜ BELGESİ"};
 const TRP={"INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: not located.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI","","Saat: 03:17","Araç şeridinden çıktı.","Fren izi yok.","","Sürücü: bulunamadı.","\"az kaldı\" diye tekrarlıyor.","","Kurtarılan yolcu: 1","Arka çocuk koltuğu: boş.","Kemer takılı.","","Memur: ##########"], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: alone in vehicle.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI","","Saat: 03:17","Araç şeridinden çıktı.","Fren izi yok.","","Sürücü: araçta yalnız.","\"az kaldı\" diye tekrarlıyor.","","Kurtarılan yolcu: 1","Arka çocuk koltuğu: boş.","Kemer takılı.","","Memur: ##########"], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: unresponsive.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI","","Saat: 03:17","Araç şeridinden çıktı.","Fren izi yok.","","Sürücü: tepkisiz.","\"az kaldı\" diye tekrarlıyor.","","Kurtarılan yolcu: 1","Arka çocuk koltuğu: boş.","Kemer takılı.","","Memur: ##########"], "milk|bread|eggs|juice (the yellow one)|batteries for the|  music box||call insurance back|call her mother back||DO NOT drive at night": ["süt", "ekmek", "yumurta", "meyve suyu (sarı olan)", "müzik kutusu için", "  pil", "", "sigortayı geri ara", "annesini geri ara", "", "GECE araba KULLANMA"], "RE: CLAIM #0317||Dear Sir,||We are unable to process|your claim until the|second passenger has been|identified.||Our records show only one|passenger was travelling.|Please advise.": ["KONU: HASAR #0317", "", "Sayın Bay,", "", "İkinci yolcunun kimliği", "belirlenene kadar", "talebinizi işleme", "alamıyoruz.", "", "Kayıtlarımıza göre araçta", "yalnızca bir yolcu vardı.", "Lütfen bilgi veriniz."], "INCIDENT REPORT||Time: 03:17|Vehicle left lane.|No braking observed.||Driver: conscious at scene.|Repeating \"almost there\".||Occupants recovered: 1|Rear child seat: empty.|Belt fastened.||Officer: ##########": ["OLAY TUTANAĞI", "", "Saat: 03:17", "Araç şeridinden çıktı.", "Fren izi yok.", "", "Sürücü: bilinci açık.", "\"az kaldı\" diye tekrarlıyor.", "", "Kurtarılan yolcu: 1", "Arka çocuk koltuğu: boş.", "Kemer takılı.", "", "Memur: ##########"], "I'm taking her to my|mother's tonight.||Don't follow us.|Don't call.||You haven't slept in|four days.||Please. Just rest.||": ["Onu bu gece annemin", "yanına götürüyorum.", "", "Peşimizden gelme.", "Arama.", "", "Dört gündür", "uyumadın.", "", "Lütfen. Sadece dinlen.", "", ""], "ROOM 317||Visiting hours ended|at 21:00.||Family may stay.||#########|#####": ["ODA 317", "", "Ziyaret saati", "21:00'de bitti.", "", "Aile kalabilir.", "", "#########", "#####"], "|Dear Mr. and Mrs. Hale,||Lily has not been in class|since October 16.||We have tried to call|the house many times.||If Lily is unwell, please|let us know.||Please call the office.||Mrs. Dunn, Grade 1": ["", "Sayın Bay ve Bayan Hale,", "", "Lily 16 Ekim'den beri", "derse gelmiyor.", "", "Evinizi defalarca", "aramayı denedik.", "", "Lily hastaysa lütfen", "bize haber verin.", "", "Lütfen okulu arayın.", "", "Bayan Dunn, 1. sınıf"]};
 function _t(t){if(LANG!=='tr'||t==null||t==='')return t;if(TRD[t]!=null)return TRD[t];let m;if((m=/^MESSAGE (\d+)$/.exec(t)))return 'MESAJ '+m[1];if((m=/^it is (.+)\.$/.exec(t)))return 'saat '+m[1]+'.';return t;}
 {const sb=document.getElementById('setBtn'),sc=document.getElementById('settings');
@@ -599,38 +599,79 @@ TX.bloodWall=tex(128,128,(g,w,h)=>{const r=rng(90);const red=()=>`rgb(${65+r()*5
     for(let k=0;k<8;k++){const a=r()*7,d=rr+r()*12;g.beginPath();g.arc(x+Math.cos(a)*d,y+Math.sin(a)*d,1+r()*2,0,7);g.fill();}
     for(let k=0;k<2;k++){g.fillRect(x-rr*.4+r()*rr*.8,y,1+r()*2|0,10+r()*35);}}
   speckle(g,w,h,.14,92);},false);
-function bloodText(lines,wm,hm,seed){lines=lines.map(_t);
-  const W=Math.round(clamp(wm*260,200,900)),Hh=Math.round(W*hm/wm);const r=rng(seed);
-  const mc=document.createElement('canvas');mc.width=W;mc.height=Hh;const m=mc.getContext('2d');m.fillStyle='#000';m.fillRect(0,0,W,Hh);m.fillStyle='#fff';m.strokeStyle='#fff';m.lineJoin='round';m.lineCap='round';
-  const lh=Hh/lines.length;let size=lh*.78;m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;
-  const widest=Math.max(...lines.map(l=>m.measureText(l).width));size=Math.min(size,size*W*.9/widest);
-  lines.forEach((ln,li)=>{m.font=`bold ${size}px "Arial Black", Impact, sans-serif`;const tw=m.measureText(ln).width;let x=(W-tw)/2+(r()-.5)*W*.03;const y=lh*li+lh*.5+size*.36;
-    for(const ch of ln){const cw=m.measureText(ch).width;m.save();m.translate(x+cw/2,y);m.rotate((r()-.5)*.1);m.scale(1+(r()-.5)*.06,1+(r()-.5)*.1);m.lineWidth=size*.11;
-      const jy=(r()-.5)*size*.05;m.fillText(ch,-cw/2,jy);m.strokeText(ch,-cw/2,jy);m.restore();x+=cw*(1.02+r()*.05);}});
-  const md=m.getImageData(0,0,W,Hh).data;const out=m.createImageData(W,Hh),o=out.data;
-  const put=(x,y,cr,cg,cb)=>{if(x<0||y<0||x>=W||y>=Hh)return;const i=(y*W+x)*4;o[i]=cr;o[i+1]=cg;o[i+2]=cb;o[i+3]=255;};
-  const blood=(x,y,k=1)=>{const v=.78+r()*.22;put(x,y,(185*v)*k|0,(14*v)|0,(10*v)|0);};
-  const isM=(x,y)=>x>=0&&y>=0&&x<W&&y<Hh&&md[(y*W+x)*4]>110;
-  for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){if(!isM(x,y))continue;
-    const edge=!isM(x-2,y)||!isM(x+2,y)||!isM(x,y-2)||!isM(x,y+2);
-    blood(x,y,edge?.8:1);
-    if(r()<.003){const dir=r()<.5?-1:1,L=4+r()*28;for(let k=1;k<L;k++){if(r()<1-k/L)blood(x+dir*k,y+(r()<.2?1:0),.8);}}}
-  for(let x=0;x<W;x++){let inRun=false;for(let y=0;y<Hh;y++){const mm=isM(x,y);if(mm)inRun=true;else if(inRun){inRun=false;
-    if(r()<.035){const L=4+r()*Hh/lines.length*.32,wd=1+(r()*2|0);for(let k=0;k<L&&y+k<Hh;k++)for(let q=0;q<wd;q++)blood(x+q,y+k,.85);const by=Math.min(Hh-2,y+L|0);for(let a=-2;a<=2;a++)for(let b2=-1;b2<=2;b2++)if(a*a+b2*b2<5)blood(x+a,by+b2,.8);}}}}
-  for(let i=0;i<W*.05;i++){const x=r()*W|0,y=r()*Hh|0,rr=r()<.85?1:2+(r()*2|0);for(let a=-rr;a<=rr;a++)for(let b2=-rr;b2<=rr;b2++)if(a*a+b2*b2<=rr*rr)blood(x+a,y+b2,.9);}
-  for(let i=0;i<W*Hh*.004;i++){const x=r()*W|0,y=r()*Hh|0;if(isM(x,y))put(x,y,190,40,32);}
-  {const rim=Math.max(2,Math.round(W/260)),M=new Uint8Array(W*Hh),T=new Uint8Array(W*Hh);for(let i=0;i<W*Hh;i++)M[i]=md[i*4]>110?1:0;
-    for(let y=0;y<Hh;y++){let run=-1e9;for(let x=0;x<W;x++){if(M[y*W+x])run=x;if(x-run<=rim)T[y*W+x]=1;}run=1e9;for(let x=W-1;x>=0;x--){if(M[y*W+x])run=x;if(run-x<=rim)T[y*W+x]=1;}}
-    for(let x=0;x<W;x++){let run=-1e9;for(let y=0;y<Hh;y++){if(T[y*W+x]&&!(y>0&&T[(y-1)*W+x]&&run===y-1))run=T[y*W+x]?y:run;}}
-    const V=new Uint8Array(W*Hh);for(let x=0;x<W;x++){let last=-1e9;for(let y=0;y<Hh;y++){if(T[y*W+x])last=y;if(y-last<=rim)V[y*W+x]=1;}last=1e9;for(let y=Hh-1;y>=0;y--){if(T[y*W+x])last=y;if(last-y<=rim)V[y*W+x]=1;}}
-    for(let i=0;i<W*Hh;i++){if(V[i]&&!M[i]&&o[i*4+3]===0){o[i*4]=38;o[i*4+1]=2;o[i*4+2]=2;o[i*4+3]=255;}}}
-  m.putImageData(out,0,0);
-  const t=new THREE.CanvasTexture(mc);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.anisotropy=8;return t;}
-TX.bloodHands=(()=>{const c=document.createElement('canvas');c.width=c.height=96;const g=c.getContext('2d');const r=rng(320);
-  const col=()=>`rgb(${70+r()*80|0},${r()*9|0},${r()*6|0})`;
-  for(let h=0;h<3;h++){const x=10+r()*60,y=8+r()*40,s=.8+r()*.5;g.fillStyle=col();g.fillRect(x,y+10*s,14*s,13*s);
-    for(let f=0;f<4;f++)g.fillRect(x+f*3.6*s,y+(f===0||f===3?3:0),2.6*s,12*s);g.fillRect(x-4*s,y+13*s,5*s,3*s);
-    for(let k=0;k<5;k++){if(r()<.7)g.fillRect(x+r()*14*s,y+22*s,1+(r()*2|0),8+r()*40);}}
+// blood is written with a finger. every letter is one to three strokes in the order a hand makes them, on a 0-6 by 0-8 grid
+const GLY={A:'083068 1555',B:'08004051534404 045465675808',C:'6150100107185867',D:'08004062664808',E:'60000868 0444',F:'600008 0444',
+  G:'61501001071858676434',H:'0008 6068 0464',I:'1018',J:'5056381806',K:'0008 6005 2368',L:'000868',M:'0800356068',N:'08006860',
+  O:'100107185867615010',P:'08005061635404',Q:'100107185867615010 4668',R:'08005061635404 3468',S:'615010010314546567581807',T:'0060 3038',
+  U:'000718586760',V:'003860',W:'0018335860',X:'0068 6008',Y:'003460 3438',Z:'00600868',
+  '0':'100107185867615010','1':'113038','2':'01105061630868','3':'01105061635424 546567581807','4':'58500666','5':'6000045465675808',
+  '6':'50100107185867655404','7':'006028','8':'14030110506163541405071858676554','9':'64140301105061675818',
+  ':':'1212 1616','?':'01105061633536 3838',"'":'1012','.':'1818'};
+const GMARK={'İ':['I','dot'],'Ö':['O','dia'],'Ü':['U','dia'],'Ğ':['G','breve'],'Ç':['C','ced'],'Ş':['S','ced'],'Â':['A','circ']};
+function glyph(ch){let b=ch,mk=null;if(GMARK[ch])[b,mk]=GMARK[ch];const s=GLY[b];if(s==null)return null;
+  const st=s.split(' ').map(t=>{const p=[];for(let i=0;i+1<t.length;i+=2)p.push([+t[i],+t[i+1]]);return p;});
+  const w=Math.max(...st.flat().map(p=>p[0])),c=w/2;
+  if(mk==='dot')st.push([[c,-1.7],[c,-1.4]]);else if(mk==='dia')st.push([[c-1.4,-1.7],[c-1.4,-1.4]],[[c+1.4,-1.7],[c+1.4,-1.4]]);
+  else if(mk==='breve')st.push([[c-1.6,-2.2],[c,-1.1],[c+1.6,-2.2]]);else if(mk==='circ')st.push([[c-1.6,-1],[c,-2.3],[c+1.6,-1]]);
+  else if(mk==='ced')st.push([[c,8],[c+.9,9],[c-.5,9.7]]);
+  return {st,w};}
+// how much blood sits on each texel becomes colour: pooled is darkest, thin is dried brown, and thin blood is dithered so the wall shows through
+function bloodPaint(A,W,H,o,seed){for(let y=0;y<H;y++)for(let x=0;x<W;x++){const i=y*W+x,d=A[i],j=i*4,hs=((Math.imul(x,374761393)+Math.imul(y,668265263)^seed)>>>0)%997/997;
+  if(d<.22+hs*.55){o[j+3]=0;continue;}
+  const n=.88+(hs*7.31%1)*.24;
+  const c=d>1.6?[72,5,5]:d>1?[104,9,7]:d>.6?[98,20,12]:[78,26,16];o[j]=c[0]*n;o[j+1]=c[1]*n;o[j+2]=c[2]*n;o[j+3]=255;}}
+// drips run down from wherever blood pooled, and end in a bead
+function bloodDrips(A,W,H,r,maxLen){for(let x=0;x<W;x++)for(let y=H-2;y>=0;y--){const i=y*W+x;if(!(A[i]>1.5&&A[i+W]<.6&&r()<.16))continue;
+  const v=Math.min(1.4,(A[i]-1.2)*1.5+.6),L=(4+r()*maxLen)*Math.min(1.5,v);let xx=x,yy=y+1;
+  for(let k=0;k<L&&yy<H;k++,yy++){if(r()<.06)xx+=r()<.5?-1:1;if(xx<0||xx>=W)break;const q=yy*W+xx;A[q]=Math.max(A[q],v*(1-k/L*.5));}
+  for(let a=-1;a<=1;a++)for(let b=0;b<=1;b++){const px=xx+a,py=yy-1+b;if(px>=0&&py>=0&&px<W&&py<H)A[py*W+px]=Math.max(A[py*W+px],v);}}}
+// about 96 texels a metre, like the house. t.userData.reveal(p) redraws the first p of the strokes, in writing order
+function bloodText(lines,wm,hm,seed,opt={}){
+  {const k=lines.join('|');lines=LANG==='tr'&&TRD[k]!=null?TRD[k].split('|'):lines.map(_t);}
+  const W=Math.max(40,Math.round(wm*96)),Hh=Math.max(24,Math.round(hm*96)),r=rng(seed),lh=Hh/lines.length,strokes=[];
+  // one hand writes every line at about the same size, so a short word does not balloon
+  const LN=lines.map(ln=>{const gs=[...ln].map(ch=>ch===' '?null:glyph(ch)),adv=gs.map(g=>g?g.w+2.4:4),tot=adv.reduce((a,b)=>a+b,0)-2.4;return {gs,adv,tot,u:Math.min(lh*.74/8,W*.9/tot)};});
+  const u0=Math.min(...LN.map(l=>l.u));
+  // a baseline that sags, letters that drift in size and tilt, gaps that are never even; the finger is dipped again every few letters
+  LN.forEach(({gs,adv,tot,u:uf},li)=>{
+    const u=Math.min(uf,u0*1.35),slope=(r()*.6-.15)*.06,x0=(W-tot*u)/2+(r()-.5)*W*.04,y0=lh*li+(lh-8*u)/2+lh*.06;
+    let x=x0;gs.forEach((g,gi)=>{if(g){const s=u*(1+(r()-.5)*.14),jy=(r()-.5)*u*.6,rot=(r()-.5)*.08,cx=x+g.w*u/2,cy=y0+4*u+jy+(cx-x0)*slope,first=strokes.length;
+      for(const st of g.st){const pts=st.map(([px,py])=>{const lx=(px-g.w/2+(r()-.5)*.55)*s,ly=(py-4+(r()-.5)*.55)*s;return [cx+lx*Math.cos(rot)-ly*Math.sin(rot),cy+lx*Math.sin(rot)+ly*Math.cos(rot)];});
+        // a hand overshoots where a stroke ends
+        if(pts.length>1&&r()<.5){const a=pts[pts.length-2],b=pts[pts.length-1],l=Math.hypot(b[0]-a[0],b[1]-a[1])||1,k=u*.5/l;pts.push([b[0]+(b[0]-a[0])*k,b[1]+(b[1]-a[1])*k]);}
+        strokes.push({pts});}
+      strokes[first].letter=true;if(gi===0||r()<.3)strokes[first].dip=true;}
+      x+=adv[gi]*u*(1+(r()-.5)*.1);});});
+  const rr=clamp(u0*.8,1.4,4),fade=u0*80,smear=opt.smear!==false&&r()<.45;
+  const total=strokes.reduce((a,s)=>{for(let i=1;i<s.pts.length;i++)a+=Math.hypot(s.pts[i][0]-s.pts[i-1][0],s.pts[i][1]-s.pts[i-1][1]);return a;},0);
+  const c=document.createElement('canvas');c.width=W;c.height=Hh;const g=c.getContext('2d'),img=g.createImageData(W,Hh),A=new Float32Array(W*Hh);
+  const dep=(x,y,v)=>{x=Math.round(x);y=Math.round(y);if(x>=0&&y>=0&&x<W&&y<Hh)A[y*W+x]+=v;};
+  const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.anisotropy=8;
+  function render(p){A.fill(0);const r2=rng(seed*7+1),limit=p*total;let load=0,done=0;
+    // an earlier attempt to wipe it off: a few rag streaks dragged sideways under the words, thick in the middle and gone at the ends
+    if(smear){const cy=Hh*(.35+r2()*.3),cx=W*(.3+r2()*.4),rw=W*(.25+r2()*.2),rh=Hh*(.18+r2()*.14);
+      for(let y=Math.max(0,cy-rh|0);y<Math.min(Hh,cy+rh);y++){const row=r2()<.45?.25+r2()*.55:r2()*.15;
+        for(let x=Math.max(0,cx-rw|0);x<Math.min(W,cx+rw);x++){const e=1-((x-cx)/rw)**2-((y-cy)/rh)**2;if(e>0)A[y*W+x]+=row*e*1.3;}}}
+    for(const s of strokes){if(done>=limit)break;if(s.dip||s.letter&&load<.45)load=1.25+r2()*.35;const rid=[0,0,0,0,0].map(()=>.5+r2()*.5),p0=s.pts[0];
+      // the finger lands and leaves a blob
+      {const R=Math.ceil(rr*1.25);for(let y=-R;y<=R;y++)for(let x=-R;x<=R;x++){const d=Math.hypot(x,y)/(rr*1.25);if(d<=1)dep(p0[0]+x,p0[1]+y,load*.9*(1-d*.6));}}
+      for(let i=1;i<s.pts.length;i++){const a=s.pts[i-1],b=s.pts[i],L=Math.hypot(b[0]-a[0],b[1]-a[1])||.001,n=Math.max(1,Math.ceil(L/.5)),nx=-(b[1]-a[1])/L,ny=(b[0]-a[0])/L;
+        for(let k=0;k<n&&done<limit;k++){const px=a[0]+(b[0]-a[0])*k/n,py=a[1]+(b[1]-a[1])*k/n;done+=L/n;load*=Math.exp(-(L/n)/fade);
+          // as the finger runs dry the stroke breaks into the ridges of the finger
+          for(let q=-rr;q<=rr;q+=.5){const ri=rid[Math.min(4,((q+rr)/(2*rr)*5)|0)];dep(px+nx*q,py+ny*q,load*(1-Math.abs(q)/rr*.6)*(load>.55?1:ri)*.42);}}}}
+    if(p>=1)bloodDrips(A,W,Hh,r2,lh*.45);
+    bloodPaint(A,W,Hh,img.data,seed);g.putImageData(img,0,0);t.needsUpdate=true;}
+  render(1);(t.userData=t.userData||{}).reveal=render;return t;}
+// hand prints from the same blood: palm, four fingers and a thumb, then the hand drags down and the fingers streak
+TX.bloodHands=(()=>{const N=48,c=document.createElement('canvas');c.width=c.height=N;const g=c.getContext('2d'),img=g.createImageData(N,N),r=rng(320),A=new Float32Array(N*N);
+  const dep=(x,y,v)=>{x=Math.round(x);y=Math.round(y);if(x>=0&&y>=0&&x<N&&y<N)A[y*N+x]+=v;};
+  const disc=(cx,cy,rx,ry,v)=>{for(let y=-ry;y<=ry;y++)for(let x=-rx;x<=rx;x++){const d=x*x/(rx*rx)+y*y/(ry*ry);if(d<=1)dep(cx+x,cy+y,v*(1.1-d*.6));}};
+  for(let h=0;h<2;h++){const cx=13+h*21+(r()-.5)*4,cy=11+r()*10,s=1.3+r()*.3,a=(r()-.5)*.6,ca=Math.cos(a),sa=Math.sin(a),P=(x,y)=>[cx+(x*ca-y*sa)*s,cy+(x*sa+y*ca)*s];
+    {const [px,py]=P(0,5);disc(px,py,Math.round(3.6*s),Math.round(4.2*s),1.3);}
+    for(let f=0;f<4;f++){const fx=-3+f*2,len=f===0||f===3?4:5.2;for(let k=0;k<=10;k++){const [x,y]=P(fx,1.6-len*k/10);disc(x,y,1,1,.8);}}
+    for(let k=0;k<=10;k++){const [x,y]=P(-3.8-2.6*k/10,5-1.6*k/10);disc(x,y,1,1,.75);}
+    const drag=6+r()*14;for(let f=0;f<4;f++){const [x0,y0]=P(-3+f*2,8.6);for(let k=0;k<drag;k++){const v=.9*(1-k/drag)*(.5+r()*.5);dep(x0,y0+k,v);dep(x0+1,y0+k,v*.5);}}}
+  bloodDrips(A,N,N,r,10);bloodPaint(A,N,N,img.data,320);g.putImageData(img,0,0);
   const t=new THREE.CanvasTexture(c);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestMipmapLinearFilter;t.anisotropy=8;return t;})();
 TX.clock=tex(32,32,(g,w,h)=>{g.clearRect(0,0,w,h);g.fillStyle='#d8d2c0';g.beginPath();g.arc(16,16,15,0,7);g.fill();g.fillStyle='#2a2620';
   for(let i=0;i<12;i++){const a=i/12*PI*2;g.fillRect(16+Math.sin(a)*12.5-.5,16-Math.cos(a)*12.5-.5,1.5,1.5);}
@@ -1202,7 +1243,7 @@ const RD=(function(){
   let PW=null,PK=null,crack5=null;
   function buildPassengers(){
     if(!PW){PW=HS.makeMan();PW.root.scale.set(.9,.96,.88);const hm=new THREE.Mesh(new THREE.SphereGeometry(.12,14,10),voidMat);hm.position.set(0,.02,-.045);hm.scale.set(1.08,1.75,.85);PW.head.add(hm);
-      PK=HS.makeMan();PK.root.scale.setScalar(.62);PK.head.scale.setScalar(1.25);
+      PK=HS.lily(HS.makeMan());PK.root.scale.setScalar(.62);PK.head.scale.setScalar(1.25);
       crack5=plane(1.5,.66,TX.crack,0xd0d8dc,{fit:true,seg:9,em:.45,pos:[0,1.29,-.76]});crack5.rotation.x=.73;car.add(crack5);}
     car.add(PW.root);car.add(PK.root);
     seatPose(PW);PW.root.position.set(.37,.56,.18);PW.root.rotation.set(0,PI,0);PW.head.rotation.set(-.05,0,0);PW.root.visible=true;
@@ -1402,7 +1443,7 @@ const HS=(function(){
   const cols=[],blockers=[],targets=[];
   function toggleSolid(m){solid(m);const c=cols[cols.length-1];c.on=false;m.visible=false;m.userData.col=c;return m;}
   function setOn(m,v){m.visible=v;if(m.userData.col)m.userData.col.on=v;}
-  function solid(m,add=true){scene.add(m);m.updateMatrixWorld();const b=new THREE.Box3().setFromObject(m);if(b.min.y<.5)cols.push({x0:b.min.x,x1:b.max.x,z0:b.min.z,z1:b.max.z});blockers.push(m);return m;}
+  function solid(m,add=true){scene.add(m);m.updateMatrixWorld();const b=new THREE.Box3().setFromObject(m);if(b.min.y<.5)cols.push({x0:b.min.x,x1:b.max.x,z0:b.min.z,z1:b.max.z,m});blockers.push(m);return m;}
   function add(m){scene.add(m);return m;}
   const WP=TX.paper;
   function wallZ(x,z1,z2,gaps=[]){let c=z1;const seg=(a,b,y0,y1)=>{if(b-a<.01)return;solid(box(T,y1-y0,b-a,WP,0xffffff,{ts:.8,pos:[x,(y0+y1)/2,(a+b)/2]}));};
@@ -1429,6 +1470,17 @@ const HS=(function(){
     for(const p of c.halves)inter(p,c.lbl,c.act,2.4);inter(win,c.lbl,c.act,2.6);CUR.push(c);return c;}
   curtains(mkWin(1,.9,[3.0,1.5,.07],0),1,.9,[3.0,1.5,.07],0);curtains(mkWin(.9,1.0,[.07,1.6,7.6],PI/2),.9,1.0,[.07,1.6,7.6],PI/2);
   curtains(mkWin(1.2,1.1,[10.93,1.5,6.5],-PI/2,livWinMat),1.2,1.1,[10.93,1.5,6.5],-PI/2);
+  // sunlight on the floor: each window throws its four panes onto the boards, only on the mornings that have sun, and never through closed curtains
+  TX.sunPatch=tex(32,32,(g,w,h)=>{const B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];g.clearRect(0,0,w,h);g.fillStyle='#fff';
+    // the panes are solid light, only their edges break up, as light does through old glass
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const e=Math.min(x,y,w-1-x,h-1-y,Math.abs(x-15.5)-1,Math.abs(y-15.5)-1);if(e>2.5||e>0&&B[(y&3)*4+(x&3)]<e*5)g.fillRect(x,y,1,1);}},false);
+  const sunM=mat(TX.sunPatch,0xffffff,{em:1.2,side:2,unique:true});sunM.depthWrite=false;sunM.polygonOffset=true;sunM.polygonOffsetFactor=-1;sunM.polygonOffsetUnits=-2;
+  const SUN=[[1,.9,[3.0,1.5,.07],0],[.9,1.0,[.07,1.6,7.6],PI/2],[1.2,1.1,[10.93,1.5,6.5],-PI/2]].map(([w,h,c,ry],i)=>{
+    const nx=Math.sin(ry),nz=Math.cos(ry),tx=Math.cos(ry),tz=-Math.sin(ry),sk=.35,tanE=1.1,d0=(c[1]-h/2)/tanE,d1=(c[1]+h/2)/tanE;
+    const P=(s,d)=>[c[0]+tx*(s*w/2+d*sk)+nx*d,.014,c[2]+tz*(s*w/2+d*sk)+nz*d];
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([...P(-1,d0),...P(1,d0),...P(1,d1),...P(-1,d0),...P(1,d1),...P(-1,d1)],3));
+    g.setAttribute('uv',new THREE.Float32BufferAttribute([0,0,1,0,1,1,0,0,1,1,0,1],2));g.setAttribute('normal',new THREE.Float32BufferAttribute(Array(6).fill([0,1,0]).flat(),3));
+    const m=new THREE.Mesh(g,sunM);m.visible=false;add(m);return {m,i};});
   const WD=TX.wood;
   const BED={wood:[TX.oak,0xa89078],metal:[null,0x4a4a4e]};
   solid(box(1.5,.4,2.0,WD,0xb09a88,{pos:[1.3,.2,1.15]})).material=GHOST;
@@ -1500,10 +1552,10 @@ const HS=(function(){
   const coffeeLed=add(box(.02,.02,.02,null,0xd03020,{seg:9,em:.2,unique:true,pos:[.366,1.2,5.85]}));
   add(box(.12,.1,.12,null,0x2a2018,{seg:9,pos:[.33,.99,5.88]}));
   solid(box(1.2,.04,.8,WD,0xc0a890,{pos:[2.4,.74,7.4]})).material=GHOST;
-  add(kitMesh('table',new THREE.Box3(new THREE.Vector3(1.8,0,7),new THREE.Vector3(3,.76,7.8)),{wood:[TX.kwood,0xc0a890]},{ts:.6}));
+  const kTable=add(kitMesh('table',new THREE.Box3(new THREE.Vector3(1.8,0,7),new THREE.Vector3(3,.76,7.8)),{wood:[TX.kwood,0xc0a890]},{ts:.6}));
   function chair(x,z,ry){const g=new THREE.Group();g.add(box(.42,.05,.42,WD,0xa08870,{seg:9,pos:[0,.45,0]}));g.add(box(.42,.5,.05,WD,0xa08870,{seg:9,pos:[0,.72,-.2]}));
     for(const a of[-.18,.18])for(const b of[-.18,.18])g.add(box(.04,.45,.04,WD,0x8a7060,{seg:9,pos:[a,.22,b]}));kit(g,'chair',{wood:[TX.oak,0xa08870]},{ry:PI});g.position.set(x,0,z);g.rotation.y=ry;scene.add(g);g.updateMatrixWorld();
-    const bb=new THREE.Box3().setFromObject(g);cols.push({x0:bb.min.x,x1:bb.max.x,z0:bb.min.z,z1:bb.max.z});return g;}
+    const bb=new THREE.Box3().setFromObject(g);cols.push({x0:bb.min.x,x1:bb.max.x,z0:bb.min.z,z1:bb.max.z,m:g});return g;}
   const chairA=chair(2.4,6.62,0);const chairB=chair(2.4,8.18,PI);const chairC=chair(3.28,7.4,-PI/2);
   const mugDefs=[[0xd8d4c8,.045,.1,[2.4,7.08]],[0xa04a32,.045,.1,[2.85,7.4]],[0xe0b840,.036,.075,[2.4,7.72]]];
   const plates=mugDefs.map((d,i)=>{const g=new THREE.Group();g.add(cyl(.1,.085,.015,12,null,0xeeeae0,{pos:[0,0,0]}));const e=new THREE.Group();mkEgg(e,0,0,i===2?0x6a0808:0xe8a820);e.position.y=-.004;g.add(e);
@@ -1678,6 +1730,12 @@ const HS=(function(){
   MT.shL.rotation.set(.08,0,-.04);MT.shR.rotation.set(.08,0,.04);MT.spine.rotation.x=.04;MT.neck.rotation.x=.12;MT.head.rotation.set(.18,0,.38);
   figStand.add(MT.root);figStand.visible=false;figScene.add(figStand);
   S.makeMan=makeMan;
+  // lily as she is in the photos: a short flared dress and two bunches of hair, so even as a shadow you know which one she is
+  function lily(P){const M=(geo,x,y,z,par,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(geo,voidMat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);par.add(m);return m;};
+    M(new THREE.CylinderGeometry(.13,.27,.38,7,1,true),0,-.14,0,P.root,1,1,.8);
+    for(const sd of[-1,1])M(new THREE.SphereGeometry(.05,6,4),sd*.105,.13,-.03,P.head,1,1.5,1);
+    return P;}
+  S.lily=lily;
   const G3=new THREE.Group();G3.visible=false;scene.add(G3);
   const carH=new THREE.Group();carH.position.set(8.3,0,6.4);carH.rotation.y=PI;carH.visible=false;scene.add(carH);
   const carCol={x0:7.4,x1:9.2,z0:4.1,z1:8.65,on:false};cols.push(carCol);
@@ -1740,7 +1798,7 @@ const HS=(function(){
   note("she's already\nhere",[5.563,1.42,1.45],-PI/2,false,3);
   inter(carH,()=>S.step==='sleep'?'Sleep':null,sleep3,2.6);
   const bw=[];
-  const bwall=(lines,w,h,pos,ry,stage,ceil)=>{const m=plane(w,h,bloodText(lines,w,h,stage*97+bw.length*13),0xffffff,{fit:true,seg:9,em:.42,rotY:ceil?null:ry,pos});
+  const bwall=(lines,w,h,pos,ry,stage,ceil)=>{const m=plane(w,h,bloodText(lines,w,h,stage*97+bw.length*13),0xffffff,{fit:true,seg:9,em:.1,rotY:ceil?null:ry,pos});
     if(ceil){m.rotation.x=PI/2;m.rotation.z=ry;}m.visible=false;m.userData.stage=stage;G3.add(m);bw.push(m);return m;};
   // wednesday's walls are written, not rolled: nine of them, three per scrub, and the two that can't make up their mind change while you look away
   const bwFlip=[],flip=(m,lines)=>{const p=m.geometry.parameters;m.userData.t0=m.material.uniforms.map.value;m.userData.t1=bloodText(lines,p.width,p.height,bwFlip.length*31+7);bwFlip.push(m);};
@@ -1754,12 +1812,12 @@ const HS=(function(){
   bwall(["YOU CAN'T"],1.5,.45,[10.0,1.85,9.926],PI,3);
   bwall(['ALMOST THERE  ALMOST THERE'],3.8,.9,[4.8,2.495,5.0],PI/2,3,true);
   for(const hp of[[4.074,1.1,5.65,PI/2],[5.526,1.0,2.15,-PI/2],[4.074,.85,9.7,PI/2],[6.25,1.05,3.074,0],[10.926,.55,6.1,-PI/2],[9.6,1.0,9.926,PI],[.074,1.25,9.6,PI/2],[3.926,1.0,5.8,-PI/2],[1.2,1.3,4.574,0],[5.674,.95,3.6,PI/2],[4.074,1.3,2.0,PI/2],[2.9,1.1,9.926,PI]]){
-    const m=plane(.42,.42,TX.bloodHands,0xffffff,{fit:true,seg:9,em:.3,rotY:hp[3],pos:[hp[0],hp[1],hp[2]]});m.rotation.z=(R0()-.5)*.6;m.visible=false;m.userData.stage=hp[1]>1.2?2:3;G3.add(m);bw.push(m);}
+    const m=plane(.42,.42,TX.bloodHands,0xffffff,{fit:true,seg:9,em:.08,rotY:hp[3],pos:[hp[0],hp[1],hp[2]]});m.rotation.z=(R0()-.5)*.6;m.visible=false;m.userData.stage=hp[1]>1.2?2:3;G3.add(m);bw.push(m);}
   const famG=new THREE.Group();famG.visible=false;scene.add(famG);
   {const W=makeMan();S.famW=W;W.root.scale.set(.9,.96,.88);W.root.position.set(5.95,.95,5.68);W.root.rotation.y=PI/2;
    const hm=new THREE.Mesh(new THREE.SphereGeometry(.12,14,10),voidMat);hm.position.set(0,.02,-.045);hm.scale.set(1.08,1.75,.85);W.head.add(hm);
    W.shL.rotation.z=-.276;W.elL.rotation.z=0;W.head.rotation.x=.06;famG.add(W.root);
-   const C=makeMan();C.root.scale.setScalar(.66);C.head.scale.setScalar(1.25);C.root.position.set(5.95,.653,6.635);C.root.rotation.y=PI/2;
+   const C=lily(makeMan());C.root.scale.setScalar(.66);C.head.scale.setScalar(1.25);C.root.position.set(5.95,.653,6.635);C.root.rotation.y=PI/2;
    C.shR.rotation.z=1.07;C.elR.rotation.z=0;C.head.rotation.x=-.12;famG.add(C.root);S.famC=C;}
   function stepNear(x,z){const b=G(1);const src=new PSrc(b,new THREE.Vector3(x,.3,z),9,1.3,.3);S.behindSrc=src;const t=AU.C.currentTime+.55;tapTo(b,t,300,.8,.14);tapTo(b,t+.45,300,.7,.14);setTimeout(()=>{if(S.behindSrc===src)S.behindSrc=null;},2200);}
   function ensureWhine(){if(!S.whine){const o=O('sine',7400),o2=O('sine',57),g=G(0),g2=G(.6);o.connect(g);o2.connect(g2);g2.connect(g);g.connect(AU.muffle);S.whine=g;}}
@@ -1794,15 +1852,12 @@ const HS=(function(){
   inter(faucet,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);inter(stream,()=>S.step==='bath'?'Turn off the water':null,tapOff,2.2);
   inter(bathDoorIn,()=>S.step==='leavebath'?'Open':null,leaveBath,1.9);
   const bbath=[];
-  {const full=bloodText(['WHO WAS','DRIVING?'],1.24,.8,311),fc=full.image,dc=document.createElement('canvas');dc.width=fc.width;dc.height=fc.height;const dg=dc.getContext('2d');
-   const rt=new THREE.CanvasTexture(dc);rt.magFilter=rt.minFilter=THREE.NearestFilter;rt.generateMipmaps=false;
-   const a=plane(.62,.4,rt,0xffffff,{fit:true,seg:9,em:.4,rotY:PI/2,pos:[X1+.1,1.62,1.6]});a.visible=false;scene.add(a);bbath.push(a);
-   const fd=fc.getContext('2d').getImageData(0,0,fc.width,fc.height).data,FW=fc.width,n2=2,rh=fc.height/n2,bnd=[];
-   for(let i=0;i<n2;i++){let mn=FW,mx=0;for(let y=Math.floor(i*rh);y<Math.floor((i+1)*rh);y++)for(let x=0;x<FW;x++){const k=(y*FW+x)*4;if(fd[k+3]&&fd[k]>120){if(x<mn)mn=x;if(x>mx)mx=x;}}bnd.push([mn,mx]);}
-   a.userData.reveal=p=>{dg.clearRect(0,0,dc.width,dc.height);for(let i=0;i<n2;i++){const f=clamp(p*n2-i,0,1);if(f<=0)break;const y0=Math.floor(i*rh),h=(i===n2-1?dc.height:Math.floor((i+1)*rh))-y0;
-     const xw=f>=1?FW:Math.max(0,bnd[i][0]+(bnd[i][1]-bnd[i][0]+6)*f);if(xw>0)dg.drawImage(fc,0,y0,xw,h,0,y0,xw,h);}rt.needsUpdate=true;};a.userData.reveal(1);
-   for(const hp of[[1.28,1.36,.3],[1.86,1.8,-.4]]){const m=plane(.16,.16,TX.bloodHands,0xffffff,{fit:true,seg:9,em:.35,rotY:PI/2,pos:[X1+.098,hp[1],hp[0]]});m.rotation.z=hp[2];m.visible=false;scene.add(m);bbath.push(m);}
-   const b=plane(.8,.55,bloodText(['LET THEM','GO'],1.2,.82,312),0xffffff,{fit:true,seg:9,em:.4,rotY:-PI/2,pos:[X1+2.276,1.45,1.6]});b.visible=false;scene.add(b);bbath.push(b);}
+  // the self in the mirror writes it stroke by stroke, in the order a hand would
+  {const full=bloodText(['WHO WAS','DRIVING?'],1.24,.8,311,{smear:false});
+   const a=plane(.62,.4,full,0xffffff,{fit:true,seg:9,em:.15,rotY:PI/2,pos:[X1+.1,1.62,1.6]});a.visible=false;scene.add(a);bbath.push(a);
+   a.userData.reveal=full.userData.reveal;
+   for(const hp of[[1.28,1.36,.3],[1.86,1.8,-.4]]){const m=plane(.16,.16,TX.bloodHands,0xffffff,{fit:true,seg:9,em:.1,rotY:PI/2,pos:[X1+.098,hp[1],hp[0]]});m.rotation.z=hp[2];m.visible=false;scene.add(m);bbath.push(m);}
+   const b=plane(.8,.55,bloodText(['LET THEM','GO'],1.2,.82,312),0xffffff,{fit:true,seg:9,em:.15,rotY:-PI/2,pos:[X1+2.276,1.45,1.6]});b.visible=false;scene.add(b);bbath.push(b);}
   const mirRT1=new THREE.WebGLRenderTarget(200,250,{minFilter:THREE.NearestFilter,magFilter:THREE.NearestFilter});const hist=[];
   const mirCam=new THREE.PerspectiveCamera(64,200/250,.05,20);mirCam.layers.enable(1);
   const mg=new THREE.PlaneGeometry(.62,.76);{const uv=mg.attributes.uv;for(let i=0;i<uv.count;i++)uv.setX(i,1-uv.getX(i));}
@@ -1889,7 +1944,7 @@ const HS=(function(){
     P.spine.rotation.set(.34,0,0);P.chest.rotation.set(.2,0,0);P.neck.rotation.set(.35,0,0);P.head.rotation.set(.55,0,.12);
     P.shL.rotation.set(-.6,0,-.04);P.shR.rotation.set(-.75,0,.04);P.elL.rotation.set(-.7,0,0);P.elR.rotation.set(-.9,0,0);}
   function herStandPose(){const P=HER;P.root.position.y=.95;['hipL','hipR','knL','knR','spine','chest','neck','head','shL','shR','elL','elR'].forEach(k=>P[k].rotation.set(0,0,0));}
-  const KID=makeMan();KID.root.scale.setScalar(.66);KID.head.scale.setScalar(1.25);KID.root.position.y=.653;const kidG=new THREE.Group();kidG.add(KID.root);kidG.visible=false;scene.add(kidG);
+  const KID=lily(makeMan());KID.root.scale.setScalar(.66);KID.head.scale.setScalar(1.25);KID.root.position.y=.653;const kidG=new THREE.Group();kidG.add(KID.root);kidG.visible=false;scene.add(kidG);
   function inter(obj,label,action,dist=1.9){const o={label,action,dist};obj.traverse(m=>{m.userData.inter=o;});targets.push(obj);return o;}
   inter(alarm,()=>S.step==='alarm'?'Turn off the alarm':null,()=>{alarmOn=false;SFX.click();if(S.day===4)return startBreakfast();S.step='coffee';setObjective('Make coffee.');if(S.day===1)flash(fW,3.75,1.45,-PI/2,5,.9);if(S.day===1&&!S.loopMon){wait(1.2).then(()=>wife('w_babe','Babe? ...You up?',new THREE.Vector3(1.6,1.5,6.8),{lp:2600,vol:1.3}));wait(5.5).then(herLaugh);wait(7.3).then(()=>wife('w_stop','Stop it! ...Stop it.',new THREE.Vector3(6.9,1,1.2),{range:14,lp:1800,wet:.45,vol:.6}));}});
   inter(alarmFace,()=>S.step==='alarm'?'Turn off the alarm':null,()=>{alarmOn=false;SFX.click();if(S.day===4)return startBreakfast();S.step='coffee';setObjective('Make coffee.');if(S.day===1&&!S.loopMon){wait(1.2).then(()=>wife('w_babe','Babe? ...You up?',new THREE.Vector3(1.6,1.5,6.8),{lp:2600,vol:1.3}));wait(5.5).then(herLaugh);wait(7.3).then(()=>wife('w_stop','Stop it! ...Stop it.',new THREE.Vector3(6.9,1,1.2),{range:14,lp:1800,wet:.45,vol:.6}));}});
@@ -2406,7 +2461,7 @@ const HS=(function(){
     await wait(1.5);
     {const b=AU.voices.wscr2;if(b){const sr=AU.C.createBufferSource();sr.buffer=b;const g=G(2.4);chain(sr,F('bandpass',1500,.7),g,houseAu.phoneIn);sr.start();}}
     await wait(.3);
-    await jumpScare(fW,fW.userData.P,{tilt:.85,hold:1.1});
+    await jumpScare(fW,fW.userData.P,{tilt:.3,hold:1.1});
     await wait(1.2);
     whisper(1.8,.14,2);SFX.thud();await intrude('Clean it up.',1.8,1);
     S.busy=false;S.step='clean';S.scrubbed=0;GLITCH=.04;setObjective('Clean it up.');
@@ -2665,7 +2720,7 @@ const HS=(function(){
   }
   async function corridorEnd(){
     S.corPhase=2;stopWorld();corMan.visible=false;S.flatMute=false;
-    wifeG.rotation.y=PI;kidG.rotation.y=PI;WIFE.head.rotation.y=PI;KID.head.rotation.y=PI;WIFE.neck.scale.y=1.4;
+    wifeG.rotation.y=PI;kidG.rotation.y=PI;WIFE.head.rotation.y=PI;KID.head.rotation.y=PI;
     const t0=gameTime;
     while(gameTime-t0<5){const d=dt4*1.2;wifeG.position.z-=d;kidG.position.z-=d;fx.white=smooth(clamp((gameTime-t0-1)/4,0,1));await wait(.016);}
     S.busy=true;
@@ -2746,7 +2801,7 @@ const HS=(function(){
       }
       if(S.corPhase<2){wifeG.position.z=Math.min(wifeG.position.z,pz-14.5);const t=gameTime;const seen=looking(wifeG.position.x,1.3,wifeG.position.z,.93);
         if(walked<21){if(!seen){WIFE.shR.rotation.set(0,0,2.5);WIFE.elR.rotation.z=.5*Math.sin(t*5);}}
-        else if(!seen){WIFE.shR.rotation.z+=(0-WIFE.shR.rotation.z)*Math.min(1,dt*.8);WIFE.elR.rotation.z*=.95;WIFE.head.rotation.z+=(.7-WIFE.head.rotation.z)*Math.min(1,dt*.35);}
+        else if(!seen){WIFE.shR.rotation.z+=(0-WIFE.shR.rotation.z)*Math.min(1,dt*.8);WIFE.elR.rotation.z*=.95;WIFE.head.rotation.z+=(.25-WIFE.head.rotation.z)*Math.min(1,dt*.35);}
         if(S.corPhase===0&&walked>12){S.corPhase=1;kidG.visible=true;}
         if(kidG.visible){kidG.position.set(X3+.55,0,wifeG.position.z+.15);KID.shL.rotation.set(0,0,-1.0);if(!seen){if(walked>21)KID.shR.rotation.set(-1.45,0,0);else KID.shR.rotation.set(0,0,0);}}
         if(S.corPhase===1&&walked>29&&!S.busy){S.busy=true;corridorEnd();}}
@@ -2783,9 +2838,9 @@ const HS=(function(){
   const flashes=[];
   function mk(kind){const P=makeMan();const g=new THREE.Group();g.add(P.root);
     if(kind==='w'){P.root.scale.set(.9,.96,.88);P.root.position.y=.95;const hm=new THREE.Mesh(new THREE.SphereGeometry(.12,14,10),voidMat);hm.position.set(0,.02,-.045);hm.scale.set(1.08,1.75,.85);P.head.add(hm);}
-    else if(kind==='k'){P.root.scale.setScalar(.64);P.head.scale.setScalar(1.25);P.root.position.y=.63;}
+    else if(kind==='k'){lily(P);P.root.scale.setScalar(.64);P.head.scale.setScalar(1.25);P.root.position.y=.63;}
     else if(kind==='l'){P.root.position.y=.12;P.root.rotation.x=-PI/2;}
-    else{P.root.position.y=1.02;P.neck.scale.y=1.5;P.head.rotation.z=.5;}
+    else{P.root.position.y=1.02;P.head.rotation.z=.12;}
     g.visible=false;scene.add(g);g.userData.P=P;return g;}
   const fW=mk('w'),fK=mk('k'),fM=mk('m'),fL=mk('l');const corMan=mk('m');
   const famSW=mk('w'),famSK=mk('k');
@@ -2822,7 +2877,7 @@ const HS=(function(){
     await tween({x:S.pos.x,z:S.pos.z,eye:S.eye+.05,yaw:yaw0,pitch:-.1},3.2);
     await wait(3.4);
     {const dx=famSW.position.x-S.pos.x,dz=famSW.position.z-S.pos.z;await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:Math.atan2(-dx,-dz),pitch:-.08},2.2);}
-    await wait(1.4);PW.head.rotation.z=1.0;punch(.25);S.forceStat=.1;await wait(.15);S.forceStat=null;
+    await wait(1.4);PW.head.rotation.z=.35;punch(.25);S.forceStat=.1;await wait(.15);S.forceStat=null;
     await wait(1.6);
     await tween({x:S.pos.x,z:S.pos.z,eye:S.eye,yaw:yaw0,pitch:-.1},.9);
     S.monVol=.1;for(const b of[80,110,150,190,240]){S.bpm=b;await wait(.9);}
@@ -3005,8 +3060,9 @@ const HS=(function(){
     }else if(p==='void3'){
       S.lights=[[8.3,.6,10.5,.95,.9,.75,13],[8.3,.6,21,.6,.58,.5,12],[8.67,1.05,7.1,.4,.24,.11,1.4],null];S.amb=[.02,.02,.03];S.fog=[.05,.05,.058];S.near=5;S.far=30;
     }else if(p==='sun4'){
-      S.lights=[[2.9,1.9,.5,.85,.8,.62,6.5],[2.4,2.3,7.4,.9,.82,.62,6],[10.4,1.8,6.5,.85,.8,.66,8],[4.8,2.3,4.5,.55,.5,.42,6]];
-      S.amb=[.24,.22,.19];S.fog=[.12,.11,.095];S.near=4;S.far=16;
+      // thursday's sun: strong and warm by the windows, the hall left darker, so the rooms have a bright side and a dim side
+      S.lights=[[2.9,1.9,.5,1.15,.98,.7,7],[2.4,2.3,7.4,.95,.84,.6,6],[10.4,1.8,6.5,1.2,1.02,.72,9],[4.8,2.3,4.5,.38,.35,.3,5.5]];
+      S.amb=[.16,.145,.12];S.fog=[.12,.11,.095];S.near=4;S.far=16;
       winMat.uniforms.uColor.value.set(0xfff4dc);lampShade.material.uniforms.uEmissive.value=0;floorShade.material.uniforms.uEmissive.value=0;
     }else if(p==='sun4dim'){
       S.lights=[[2.9,1.9,.5,.45,.42,.34,6],[2.4,2.3,7.4,.4,.36,.28,5],[10.4,1.8,6.5,.4,.38,.32,7],[4.8,2.3,2.4,.4,.36,.3,5]];
@@ -3027,6 +3083,7 @@ const HS=(function(){
       alarmFace.material.uniforms.map.value=TX.alarm1148;
       if(houseAu&&!S.muted)houseAu.outside.vol=.32;
     }
+    {const sc={morning:[.36,.4,.46],sun4:[.62,.5,.32],sun4dim:[.3,.25,.16]}[p];sunM.uniforms.uColor.value.setRGB(...(sc||[0,0,0]));S.sunOn=!!sc;}
   }
   S.day=1;setPhase('morning');
   let houseAu=null,alarmOn=false,tickNext=0;
@@ -3196,6 +3253,7 @@ const HS=(function(){
     ruleTick(dt);
     day4Update(dt);
     betrayUpdate(dt);
+    shadowTick();
     if(rainH.visible){for(let i=0;i<RNH;i++){const d=dropsH[i];d.y-=6.5*dt;if(d.y<0){d.y=2.45;d.x=rand(.2,10.8);d.z=rand(.2,9.8);}const j=i*6;rph[j]=d.x;rph[j+1]=d.y;rph[j+2]=d.z;rph[j+3]=d.x;rph[j+4]=d.y+.28;rph[j+5]=d.z;}rgH.attributes.position.needsUpdate=true;}
     if(S.wiperOn){S.w3=(S.w3||0)+dt*1.25*(S.w3d||1);if(S.w3>=1){S.w3=1;S.w3d=-1;SFX.wiper();}if(S.w3<=0){S.w3=0;S.w3d=1;SFX.wiper();}for(const w of w3)w.rotation.z=smooth(S.w3)*1.55;}
     if(S.step==='phone'&&houseAu){S.ringT=(S.ringT||0)-dt;if(S.ringT<=0){S.ringT=3;SFX.ring(houseAu.phoneIn);}}
@@ -3239,7 +3297,7 @@ const HS=(function(){
     }
     if(famG.visible&&!S.blinking){camera.updateMatrixWorld();camera.getWorldDirection(tmpD);tmpV.set(famPivot.position.x,1.0,famPivot.position.z).sub(camera.position).normalize();const on=tmpV.dot(tmpD)>.82;
       ensureWhine();
-      if(on){S.famSeen=(S.famSeen||0)+dt;const k=S.famSeen;S.famW.head.rotation.y=Math.min(PI,k*.45);S.famW.neck.scale.y=1+Math.min(1.1,k*.18);S.famC.head.rotation.z=-Math.min(1.5,k*.3);}AU.master.gain.setTargetAtTime(on?.14:.85,AU.C.currentTime,on?.03:.4);S.whine.gain.setTargetAtTime(on?.016:0,AU.C.currentTime,.04);}
+      if(on){S.famSeen=(S.famSeen||0)+dt;const k=S.famSeen;S.famW.head.rotation.y=Math.min(PI,k*.45);S.famC.head.rotation.z=-Math.min(.45,k*.12);}AU.master.gain.setTargetAtTime(on?.14:.85,AU.C.currentTime,on?.03:.4);S.whine.gain.setTargetAtTime(on?.016:0,AU.C.currentTime,.04);}
     if(S.step==='dup2'&&!S.busy&&!S.ending){
       if(!S.figGone){if(!S.figInView)S.awayT+=dt;else S.awayT=0;if(S.awayT>1.1){S.figGone=true;figLie.visible=false;}}
     }
@@ -3255,6 +3313,21 @@ const HS=(function(){
         if(S.day===2){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.035);g.gain.setValueAtTime(0,t+.036);}else{g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.04);}chain(s,f,g,houseAu.tickBus);s.start(t,Math.random());s.stop(t+.06);}
       [houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,houseAu.phone,houseAu.kid,houseAu.hum,houseAu.water,houseAu.fry,S.msgSrc,S.knockSrc].forEach(p=>p&&p.update(cp,S.yaw));}
   };
+  // contact shadows: everything that stands on the floor gets a dithered blob under it, and so does every figure that stands in the house.
+  // they follow the collision boxes, so a chair the house moves takes its shadow along
+  const SHT=tex(32,32,(g,w,h)=>{const B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];g.clearRect(0,0,w,h);g.fillStyle='#000';
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const k=clamp((1-Math.hypot((x+.5)/w*2-1,(y+.5)/h*2-1))*1.6,0,.6);if(k>(B[(y&3)*4+(x&3)]+.5)/16)g.fillRect(x,y,1,1);}},false);
+  const shM=mat(SHT,0x000000,{unique:true});shM.depthWrite=false;shM.polygonOffset=true;shM.polygonOffsetFactor=-1;shM.polygonOffsetUnits=-4;
+  const shG=new THREE.PlaneGeometry(1,1);shG.rotateX(-PI/2);
+  const shMesh=()=>{const m=new THREE.Mesh(shG,shM);m.visible=false;scene.add(m);return m;};
+  const SHD=cols.filter(c=>c.m&&Math.min(c.x1-c.x0,c.z1-c.z0)>=.22&&(c.x1-c.x0)*(c.z1-c.z0)<=3.5).map(c=>({c,m:shMesh()}));
+  SHD.push({c:{x0:1.8,x1:3,z0:7,z1:7.8,m:kTable},m:shMesh()});
+  const FSH=[[figStand,.55],[fW,.5],[fK,.36],[fM,.55],[corMan,.55],[wifeG,.5],[kidG,.36]].map(([g,s])=>{const m=shMesh();m.scale.set(s,1,s);return {g,m};});
+  const shP=new THREE.Vector3();
+  function shadowTick(){
+    for(const{c,m}of SHD){const on=c.on!==false&&shown(c.m);m.visible=on;if(on){m.position.set((c.x0+c.x1)/2,.017,(c.z0+c.z1)/2);m.scale.set((c.x1-c.x0)*1.12+.14,1,(c.z1-c.z0)*1.12+.14);}}
+    for(const{g,m}of FSH){const on=shown(g);m.visible=on;if(on){g.getWorldPosition(shP);m.position.set(shP.x,.017,shP.z);}}
+    for(const{m,i}of SUN)m.visible=S.sunOn&&!S.lampOff&&CUR[i].t<.5;}
   return S;
 })();
 function resize(){const w=innerWidth,h=innerHeight;renderer.setSize(w,h);renderer.getDrawingBufferSize(VOIDD.uCanvas.value);const lw=Math.round(LOW_H*w/h);rt.setSize(lw,LOW_H);postMat.uniforms.uRes.value.set(lw,LOW_H);SH.uSnap.value.set(lw,LOW_H);camera.aspect=w/h;camera.updateProjectionMatrix();}
