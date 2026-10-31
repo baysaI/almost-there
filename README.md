@@ -7,7 +7,7 @@ Every morning the alarm rings at 7:00. Every morning there are three mugs.
 Five days. One road. You will not get a straight answer, and that is the point.
 
 ▶ **Play in the browser:** https://baysaI.github.io/almost-there/
-⬇ **Windows download:** see [Releases](../../releases). The game asks if you are sure before it opens. Say yes.
+⬇ **Windows download:** see [Releases](../../releases).
 
 > Content warning: grief, loss of family, a car crash, blood, sudden loud jumpscares and flashing lights.
 > Play with headphones, in the dark, alone.
@@ -31,15 +31,17 @@ Touch screens are supported: left side walks, right side looks, `USE` interacts.
 - **Five days and a prologue**, each one worse than the last.
 - **No straight story.** Notes, letters, police reports and voicemails contradict each other. The player builds their own theory.
 - **English and Turkish**: the whole game, including the writing on the walls, is translated (Settings → Language).
-- **Chapters** unlock after you finish the game.
+- **Continue** from the day you left. **Chapters** unlock after you finish the game.
+- **Streamer mode** (Settings): the desktop build never says your name.
 - Hidden things for people who look too closely. Some of them look back.
 
 ## How it's made
 
-The whole game is **one HTML file**: no image files, no models, no build step.
+The whole game is **one HTML file**: no separate image or model files, no build step.
 
 - **three.js r128** with a hand-written PS1 shader: per-vertex lighting, snapped vertices, a 360p render target, ordered dithering, VHS noise and vignette in a post pass.
-- **Every texture is drawn in code** on a `<canvas>` at load time: wood, wallpaper, the photos, the children's drawings, the blood writing (letters are rasterised, then bled, dripped and crusted pixel by pixel).
+- **Most textures are drawn in code** on a `<canvas>` at load time: the photos, the children's drawings, the notes, the blood writing (letters are rasterised, then bled, dripped and crusted pixel by pixel).
+- **Surfaces and furniture** are CC0 photo textures crushed to 128 px and 32 colours, the way PS1 games used photos, and low-poly furniture models, both embedded as base64 in the same file.
 - **Silhouettes** are rendered in a separate full-resolution pass, depth-tested against the low-res scene, so they stay sharp while the world stays crunchy.
 - **A mirror that is one second late**: the reflection is a second camera with the player's movement delayed through a history buffer.
 - **Procedural audio** with the Web Audio API: music box, rain, engine hum, heartbeat, flatlining monitor, footsteps that walk through the house in 3D.
@@ -60,10 +62,10 @@ The desktop build wraps the game in Electron and bundles three.js and the fonts 
 
 ```bash
 npm install
-npm run dist        # → release/AlmostThere-1.0.0-x64-portable.exe and an installer
+npm run dist        # → release/AlmostThere-1.1.0-portable.exe and an installer
 ```
 
-Pushing a tag such as `v1.0.0` builds the Windows executables on GitHub Actions and attaches them to a release automatically.
+Pushing a tag such as `v1.1.0` builds the Windows executables on GitHub Actions and attaches them to a release automatically.
 
 ## Credits
 
