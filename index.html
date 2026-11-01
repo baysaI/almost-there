@@ -1470,11 +1470,11 @@ const HS=(function(){
     for(const p of c.halves)inter(p,c.lbl,c.act,2.4);inter(win,c.lbl,c.act,2.6);CUR.push(c);return c;}
   curtains(mkWin(1,.9,[3.0,1.5,.07],0),1,.9,[3.0,1.5,.07],0);curtains(mkWin(.9,1.0,[.07,1.6,7.6],PI/2),.9,1.0,[.07,1.6,7.6],PI/2);
   curtains(mkWin(1.2,1.1,[10.93,1.5,6.5],-PI/2,livWinMat),1.2,1.1,[10.93,1.5,6.5],-PI/2);
-  // sunlight on the floor: each window throws its four panes onto the boards, only on the mornings that have sun, and never through closed curtains
-  TX.sunPatch=tex(32,32,(g,w,h)=>{const B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];g.clearRect(0,0,w,h);g.fillStyle='#fff';
-    // the panes are solid light, only their edges break up, as light does through old glass
-    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const e=Math.min(x,y,w-1-x,h-1-y,Math.abs(x-15.5)-1,Math.abs(y-15.5)-1);if(e>2.5||e>0&&B[(y&3)*4+(x&3)]<e*5)g.fillRect(x,y,1,1);}},false);
-  const sunM=mat(TX.sunPatch,0xffffff,{em:1.2,side:2,unique:true});sunM.depthWrite=false;sunM.polygonOffset=true;sunM.polygonOffsetFactor=-1;sunM.polygonOffsetUnits=-2;
+  // sunlight on the floor: each window throws its four panes onto the boards, only on the mornings that have sun, and never through closed curtains.
+  // it brightens what it falls on instead of painting over it, so the grain of the boards shows through, and its edges are soft
+  const sunM=new THREE.ShaderMaterial({uniforms:Object.assign({},SH,{uEmissive:{value:0},uColor:{value:new THREE.Color(0)}}),vertexShader:VS,fragmentShader:`uniform vec3 uColor;varying vec2 vUvA;varying float vFog;
+void main(){vec2 q=vUvA;float e=min(min(q.x,1.-q.x),min(q.y,1.-q.y)),m=min(abs(q.x-.5),abs(q.y-.5));gl_FragColor=vec4(uColor*2.2*smoothstep(0.,.14,e)*smoothstep(.012,.04,m)*(1.-vFog),1.);}`,
+    side:THREE.DoubleSide,transparent:true,depthWrite:false,blending:THREE.CustomBlending,blendSrc:THREE.DstColorFactor,blendDst:THREE.OneFactor,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-2});
   const SUN=[[1,.9,[3.0,1.5,.07],0],[.9,1.0,[.07,1.6,7.6],PI/2],[1.2,1.1,[10.93,1.5,6.5],-PI/2]].map(([w,h,c,ry],i)=>{
     const nx=Math.sin(ry),nz=Math.cos(ry),tx=Math.cos(ry),tz=-Math.sin(ry),sk=.35,tanE=1.1,d0=(c[1]-h/2)/tanE,d1=(c[1]+h/2)/tanE;
     const P=(s,d)=>[c[0]+tx*(s*w/2+d*sk)+nx*d,.014,c[2]+tz*(s*w/2+d*sk)+nz*d];
@@ -1733,9 +1733,15 @@ const HS=(function(){
   // lily as she is in the photos: a short flared dress and two bunches of hair, so even as a shadow you know which one she is
   function lily(P){const M=(geo,x,y,z,par,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(geo,voidMat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);par.add(m);return m;};
     M(new THREE.CylinderGeometry(.13,.27,.38,7,1,true),0,-.14,0,P.root,1,1,.8);
-    for(const sd of[-1,1])M(new THREE.SphereGeometry(.05,6,4),sd*.105,.13,-.03,P.head,1,1.5,1);
+    // two bunches tied low behind the ears hang down beside the neck; tied at ear height they read as ears.
+    // hangTails keeps them hanging straight down however the head tilts, or a tilted head throws one out sideways like a horn
+    const g=new THREE.SphereGeometry(.04,7,5);g.translate(0,-.04,0);
+    P.tails=[-1,1].map(sd=>{const m=M(g,sd*.075,.07,-.05,P.head,.85,1.7,.85);m.userData.sd=sd;return m;});
     return P;}
   S.lily=lily;
+  const qHead=new THREE.Quaternion(),qBody=new THREE.Quaternion(),qTail=new THREE.Quaternion(),eTail=new THREE.Euler();
+  function hangTails(){for(const P of MEN)if(P.tails&&shown(P.root)){P.head.getWorldQuaternion(qHead);P.root.getWorldQuaternion(qBody);qHead.invert().multiply(qBody);
+    for(const m of P.tails){qTail.setFromEuler(eTail.set(.15,0,m.userData.sd*.18));m.quaternion.copy(qHead).multiply(qTail);}}}
   const G3=new THREE.Group();G3.visible=false;scene.add(G3);
   const carH=new THREE.Group();carH.position.set(8.3,0,6.4);carH.rotation.y=PI;carH.visible=false;scene.add(carH);
   const carCol={x0:7.4,x1:9.2,z0:4.1,z1:8.65,on:false};cols.push(carCol);
@@ -3253,7 +3259,7 @@ const HS=(function(){
     ruleTick(dt);
     day4Update(dt);
     betrayUpdate(dt);
-    shadowTick();
+    shadowTick();hangTails();
     if(rainH.visible){for(let i=0;i<RNH;i++){const d=dropsH[i];d.y-=6.5*dt;if(d.y<0){d.y=2.45;d.x=rand(.2,10.8);d.z=rand(.2,9.8);}const j=i*6;rph[j]=d.x;rph[j+1]=d.y;rph[j+2]=d.z;rph[j+3]=d.x;rph[j+4]=d.y+.28;rph[j+5]=d.z;}rgH.attributes.position.needsUpdate=true;}
     if(S.wiperOn){S.w3=(S.w3||0)+dt*1.25*(S.w3d||1);if(S.w3>=1){S.w3=1;S.w3d=-1;SFX.wiper();}if(S.w3<=0){S.w3=0;S.w3d=1;SFX.wiper();}for(const w of w3)w.rotation.z=smooth(S.w3)*1.55;}
     if(S.step==='phone'&&houseAu){S.ringT=(S.ringT||0)-dt;if(S.ringT<=0){S.ringT=3;SFX.ring(houseAu.phoneIn);}}
@@ -3313,16 +3319,18 @@ const HS=(function(){
         if(S.day===2){g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.035);g.gain.setValueAtTime(0,t+.036);}else{g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.6,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.04);}chain(s,f,g,houseAu.tickBus);s.start(t,Math.random());s.stop(t+.06);}
       [houseAu.fridge,houseAu.tick,houseAu.tv,houseAu.outside,houseAu.alarm,houseAu.closet,houseAu.breath,houseAu.phone,houseAu.kid,houseAu.hum,houseAu.water,houseAu.fry,S.msgSrc,S.knockSrc].forEach(p=>p&&p.update(cp,S.yaw));}
   };
-  // contact shadows: everything that stands on the floor gets a dithered blob under it, and so does every figure that stands in the house.
-  // they follow the collision boxes, so a chair the house moves takes its shadow along
-  const SHT=tex(32,32,(g,w,h)=>{const B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];g.clearRect(0,0,w,h);g.fillStyle='#000';
-    for(let y=0;y<h;y++)for(let x=0;x<w;x++){const k=clamp((1-Math.hypot((x+.5)/w*2-1,(y+.5)/h*2-1))*1.6,0,.6);if(k>(B[(y&3)*4+(x&3)]+.5)/16)g.fillRect(x,y,1,1);}},false);
-  const shM=mat(SHT,0x000000,{unique:true});shM.depthWrite=false;shM.polygonOffset=true;shM.polygonOffsetFactor=-1;shM.polygonOffsetUnits=-4;
+  // contact shadows: everything that stands on the floor darkens the boards under it, and so does every figure that stands in the house.
+  // they follow the collision boxes, so a chair the house moves takes its shadow along. the darkening is soft; the post pass dithers it like the rest of the picture
+  const shFS=`uniform float uK,uRound;varying vec2 vUvA;varying float vFog;
+void main(){vec2 q=abs(vUvA-.5)*2.;float d=mix(length(max(q-.45,0.))/.55,length(q),uRound);gl_FragColor=vec4(0.,0.,0.,uK*(1.-smoothstep(0.,1.,d))*(1.-vFog));}`;
+  const shMat=(k,round)=>new THREE.ShaderMaterial({uniforms:Object.assign({},SH,{uEmissive:{value:0},uK:{value:k},uRound:{value:round}}),vertexShader:VS,fragmentShader:shFS,
+    transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-4});
+  const shM=shMat(.68,0),shFig=shMat(.5,1);
   const shG=new THREE.PlaneGeometry(1,1);shG.rotateX(-PI/2);
-  const shMesh=()=>{const m=new THREE.Mesh(shG,shM);m.visible=false;scene.add(m);return m;};
+  const shMesh=(m0=shM)=>{const m=new THREE.Mesh(shG,m0);m.visible=false;scene.add(m);return m;};
   const SHD=cols.filter(c=>c.m&&Math.min(c.x1-c.x0,c.z1-c.z0)>=.22&&(c.x1-c.x0)*(c.z1-c.z0)<=3.5).map(c=>({c,m:shMesh()}));
   SHD.push({c:{x0:1.8,x1:3,z0:7,z1:7.8,m:kTable},m:shMesh()});
-  const FSH=[[figStand,.55],[fW,.5],[fK,.36],[fM,.55],[corMan,.55],[wifeG,.5],[kidG,.36]].map(([g,s])=>{const m=shMesh();m.scale.set(s,1,s);return {g,m};});
+  const FSH=[[figStand,.55],[fW,.5],[fK,.36],[fM,.55],[corMan,.55],[wifeG,.5],[kidG,.36]].map(([g,s])=>{const m=shMesh(shFig);m.scale.set(s,1,s);return {g,m};});
   const shP=new THREE.Vector3();
   function shadowTick(){
     for(const{c,m}of SHD){const on=c.on!==false&&shown(c.m);m.visible=on;if(on){m.position.set((c.x0+c.x1)/2,.017,(c.z0+c.z1)/2);m.scale.set((c.x1-c.x0)*1.12+.14,1,(c.z1-c.z0)*1.12+.14);}}
