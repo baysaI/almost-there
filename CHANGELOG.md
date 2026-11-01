@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0
+## 2.0.0
 
 - **Continue.** The title screen offers to continue from the day you left. It still says you left them.
 - **Brightness check** on first launch: turn it up until you can barely see the third mug.

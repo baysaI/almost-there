@@ -62,10 +62,10 @@ The desktop build wraps the game in Electron and bundles three.js and the fonts 
 
 ```bash
 npm install
-npm run dist        # → release/AlmostThere-1.1.0-portable.exe and an installer
+npm run dist        # → release/AlmostThere-2.0.0-portable.exe and an installer
 ```
 
-Pushing a tag such as `v1.1.0` builds the Windows executables on GitHub Actions and attaches them to a release automatically.
+Pushing a tag such as `v2.0.0` builds the Windows executables on GitHub Actions and attaches them to a release automatically.
 
 ## Credits
 
